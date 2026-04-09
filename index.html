@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Swiss Cycling – Verbandsstatistiken</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── DESIGN TOKENS ─────────────────────────────────────────── */
+    :root {
+      --c-bg:        #f4f2ed;
+      --c-surface:   #ffffff;
+      --c-surface2:  #ece9e2;
+      --c-border:    #d8d4ca;
+      --c-text:      #1a1a18;
+      --c-text2:     #6b6860;
+      --c-accent:    #c8102e;   /* Swiss Cycling red */
+      --c-accent2:   #0057a8;   /* blue accent */
+      --c-gold:      #e8a020;
+      --c-green:     #2d8a4e;
+      --c-chart1:    #c8102e;
+      --c-chart2:    #0057a8;
+      --c-chart3:    #e8a020;
+      --c-chart4:    #2d8a4e;
+      --c-chart5:    #7c3aed;
+      --c-chart6:    #db6b1a;
+      --radius:      12px;
+      --radius-lg:   20px;
+      --shadow:      0 2px 12px rgba(0,0,0,.07);
+      --shadow-lg:   0 8px 40px rgba(0,0,0,.12);
+      --transition:  .3s cubic-bezier(.4,0,.2,1);
+    }
+    [data-theme="dark"] {
+      --c-bg:        #0f0f0e;
+      --c-surface:   #1c1c1a;
+      --c-surface2:  #252522;
+      --c-border:    #333330;
+      --c-text:      #f0ede8;
+      --c-text2:     #888880;
+      --c-accent:    #e8253f;
+      --c-accent2:   #4a90d9;
+      --c-gold:      #f0b830;
+      --c-green:     #3dba68;
+      --shadow:      0 2px 12px rgba(0,0,0,.3);
+      --shadow-lg:   0 8px 40px rgba(0,0,0,.5);
+    }
+
+    /* ─── RESET & BASE ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--c-bg);
+      color: var(--c-text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+      min-height: 100vh;
+    }
+
+    /* ─── HEADER ────────────────────────────────────────────────── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--c-surface);
+      border-bottom: 1px solid var(--c-border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .header-inner {
+      max-width: 1400px; margin: 0 auto;
+      padding: 0 2rem;
+      display: flex; align-items: center; gap: 1.5rem;
+      height: 64px;
+    }
+    .logo-mark {
+      display: flex; align-items: center; gap: .75rem;
+      text-decoration: none;
+    }
+    .logo-flag {
+      width: 36px; height: 36px; border-radius: 6px;
+      background: var(--c-accent);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-flag::before {
+      content: '';
+      display: block; width: 20px; height: 4px;
+      background: white; border-radius: 2px;
+      box-shadow: 0 -8px 0 4px white, 0 8px 0 4px white;
+    }
+    .logo-wheel {
+      width: 36px; height: 36px;
+      border: 3px solid var(--c-accent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .logo-wheel::after {
+      content: '';
+      width: 8px; height: 8px;
+      background: var(--c-accent);
+      border-radius: 50%;
+    }
+    .logo-text { font-family: 'Syne', sans-serif; }
+    .logo-text strong { display: block; font-size: .95rem; font-weight: 800; letter-spacing: .02em; color: var(--c-text); }
+    .logo-text span { display: block; font-size: .7rem; font-weight: 400; color: var(--c-text2); letter-spacing: .08em; text-transform: uppercase; }
+    nav { display: flex; gap: .25rem; margin-left: auto; }
+    .nav-btn {
+      padding: .4rem .9rem; border-radius: 8px;
+      border: none; background: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 500;
+      color: var(--c-text2);
+      transition: all .2s;
+      text-decoration: none;
+    }
+    .nav-btn:hover, .nav-btn.active { background: var(--c-surface2); color: var(--c-text); }
+    .nav-btn.active { color: var(--c-accent); font-weight: 600; }
+    .theme-toggle {
+      width: 40px; height: 40px; border-radius: 10px;
+      border: 1px solid var(--c-border);
+      background: var(--c-surface2);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      transition: all .2s;
+    }
+    .theme-toggle:hover { background: var(--c-surface); box-shadow: var(--shadow); }
+    .year-badge {
+      padding: .25rem .75rem; border-radius: 20px;
+      background: var(--c-accent); color: white;
+      font-family: 'Syne', sans-serif; font-size: .8rem; font-weight: 700;
+      letter-spacing: .05em;
+    }
+
+    /* ─── HERO ──────────────────────────────────────────────────── */
+    .hero {
+      max-width: 1400px; margin: 0 auto; padding: 3rem 2rem 1.5rem;
+      display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: end;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -.02em;
+    }
+    .hero h1 em { color: var(--c-accent); font-style: normal; }
+    .hero p { color: var(--c-text2); font-size: 1rem; margin-top: .5rem; max-width: 480px; }
+    .hero-year-range {
+      text-align: right;
+      font-family: 'Syne', sans-serif;
+    }
+    .hero-year-range .range {
+      font-size: 3rem; font-weight: 800; color: var(--c-border);
+      line-height: 1;
+    }
+    .hero-year-range small { color: var(--c-text2); font-size: .75rem; }
+
+    /* ─── MAIN LAYOUT ───────────────────────────────────────────── */
+    main { max-width: 1400px; margin: 0 auto; padding: 0 2rem 4rem; }
+    section { margin-bottom: 3rem; }
+    .section-header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.25rem; padding-bottom: .75rem;
+      border-bottom: 1px solid var(--c-border);
+    }
+    .section-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--c-accent); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .section-icon.blue { background: var(--c-accent2); }
+    .section-icon.gold { background: var(--c-gold); }
+    .section-icon.green { background: var(--c-green); }
+    .section-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem; font-weight: 700;
+    }
+    .section-header p { color: var(--c-text2); font-size: .85rem; margin-top: .1rem; }
+    .section-meta { margin-left: auto; color: var(--c-text2); font-size: .8rem; }
+
+    /* ─── KPI CARDS ─────────────────────────────────────────────── */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem; margin-bottom: 1.5rem;
+    }
+    .kpi {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s;
+      position: relative; overflow: hidden;
+    }
+    .kpi::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--kpi-color, var(--c-accent));
+    }
+    .kpi:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .kpi-label { font-size: .75rem; font-weight: 500; color: var(--c-text2); text-transform: uppercase; letter-spacing: .06em; }
+    .kpi-value { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; line-height: 1.1; margin: .25rem 0; }
+    .kpi-delta {
+      font-size: .78rem; font-weight: 500;
+      display: inline-flex; align-items: center; gap: .25rem;
+      padding: .15rem .5rem; border-radius: 20px;
+    }
+    .kpi-delta.up { background: #dcfce7; color: #166534; }
+    .kpi-delta.down { background: #fee2e2; color: #991b1b; }
+    [data-theme="dark"] .kpi-delta.up { background: #14532d; color: #86efac; }
+    [data-theme="dark"] .kpi-delta.down { background: #7f1d1d; color: #fca5a5; }
+
+    /* ─── CHART CARDS ───────────────────────────────────────────── */
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      gap: 1.25rem;
+    }
+    .chart-grid.single { grid-template-columns: 1fr; }
+    .chart-card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: box-shadow .2s;
+    }
+    .chart-card:hover { box-shadow: var(--shadow-lg); }
+    .chart-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem; font-weight: 700; margin-bottom: .25rem;
+    }
+    .chart-subtitle { font-size: .8rem; color: var(--c-text2); margin-bottom: 1.25rem; }
+    .chart-wrap { position: relative; height: 280px; }
+    .chart-wrap.tall { height: 360px; }
+
+    /* ─── FILTER BAR ────────────────────────────────────────────── */
+    .filter-bar {
+      display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem;
+    }
+    .filter-chip {
+      padding: .3rem .8rem; border-radius: 20px;
+      border: 1px solid var(--c-border);
+      background: var(--c-surface);
+      font-size: .8rem; font-weight: 500; cursor: pointer;
+      color: var(--c-text2);
+      transition: all .2s;
+    }
+    .filter-chip:hover, .filter-chip.active {
+      background: var(--c-accent); border-color: var(--c-accent);
+      color: white;
+    }
+
+    /* ─── TABLE ─────────────────────────────────────────────────── */
+    .table-wrap {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead { background: var(--c-surface2); }
+    th {
+      padding: .75rem 1rem; text-align: left;
+      font-family: 'Syne', sans-serif; font-size: .78rem; font-weight: 700;
+      color: var(--c-text2); letter-spacing: .05em; text-transform: uppercase;
+      border-bottom: 1px solid var(--c-border);
+    }
+    td {
+      padding: .7rem 1rem; font-size: .88rem;
+      border-bottom: 1px solid var(--c-border);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--c-surface2); }
+    td.num { font-family: 'Syne', sans-serif; font-weight: 600; text-align: right; }
+    td.year { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--c-accent); }
+    .trend-bar {
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .trend-fill {
+      height: 6px; border-radius: 3px;
+      background: var(--c-accent); min-width: 4px;
+      transition: width .4s;
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--c-border);
+      background: var(--c-surface);
+      padding: 1.5rem 2rem;
+      margin-top: 2rem;
+    }
+    .footer-inner {
+      max-width: 1400px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    footer p { font-size: .8rem; color: var(--c-text2); }
+    footer a { color: var(--c-accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .data-badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      padding: .3rem .8rem; border-radius: 20px;
+      background: var(--c-surface2); border: 1px solid var(--c-border);
+      font-size: .75rem; color: var(--c-text2);
+    }
+    .data-badge::before { content: '📊'; font-size: .9rem; }
+
+    /* ─── LOADING ───────────────────────────────────────────────── */
+    .loading {
+      display: flex; align-items: center; justify-content: center;
+      height: 200px; color: var(--c-text2);
+      font-size: .9rem; gap: .75rem;
+    }
+    .spinner {
+      width: 24px; height: 24px; border-radius: 50%;
+      border: 2px solid var(--c-border);
+      border-top-color: var(--c-accent);
+      animation: spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .header-inner { padding: 0 1rem; }
+      nav { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 2rem 1rem 1rem; }
+      .hero-year-range { display: none; }
+      main { padding: 0 1rem 3rem; }
+      .chart-grid { grid-template-columns: 1fr; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .chart-wrap { height: 220px; }
+    }
+
+    /* ─── SECTION TABS ──────────────────────────────────────────── */
+    .tabs {
+      display: flex; gap: .25rem; margin-bottom: 1.5rem;
+      background: var(--c-surface2);
+      padding: .35rem; border-radius: var(--radius);
+      width: fit-content;
+    }
+    .tab {
+      padding: .45rem 1.1rem; border-radius: 8px;
+      border: none; background: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 500;
+      color: var(--c-text2); transition: all .2s;
+    }
+    .tab.active {
+      background: var(--c-surface);
+      color: var(--c-text);
+      box-shadow: var(--shadow);
+    }
+
+    /* ─── ANIMATE IN ─────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .kpi { animation: fadeUp .4s ease both; }
+    .kpi:nth-child(1) { animation-delay: .05s; }
+    .kpi:nth-child(2) { animation-delay: .1s; }
+    .kpi:nth-child(3) { animation-delay: .15s; }
+    .kpi:nth-child(4) { animation-delay: .2s; }
+    .kpi:nth-child(5) { animation-delay: .25s; }
+    .chart-card { animation: fadeUp .5s ease both; }
+  </style>
+</head>
+<body>
+
+<!-- ─── HEADER ──────────────────────────────────────────────────── -->
+<header>
+  <div class="header-inner">
+    <a class="logo-mark" href="#">
+      <div class="logo-wheel">
+        <div></div>
+      </div>
+      <div class="logo-text">
+        <strong>Swiss Cycling</strong>
+        <span>Verbandsstatistiken</span>
+      </div>
+    </a>
+    <nav>
+      <a class="nav-btn active" href="#lizenzen">Lizenzen</a>
+      <a class="nav-btn" href="#personal">Personal</a>
+      <a class="nav-btn" href="#finanzen">Finanzen</a>
+      <a class="nav-btn" href="#veranstaltungen">Events</a>
+    </nav>
+    <span class="year-badge" id="latestYear">2024</span>
+    <button class="theme-toggle" id="themeToggle" title="Theme wechseln">🌙</button>
+  </div>
+</header>
+
+<!-- ─── HERO ────────────────────────────────────────────────────── -->
+<div class="hero">
+  <div>
+    <h1>Verband in<br/><em>Zahlen &amp; Fakten</em></h1>
+    <p>Jährliche Statistikübersicht des Schweizer Radfahrerverbands – Lizenzen, Personal, Finanzen und Veranstaltungen auf einen Blick.</p>
+  </div>
+  <div class="hero-year-range">
+    <div class="range" id="yearRange">2018–2024</div>
+    <small>Datenzeitraum</small>
+  </div>
+</div>
+
+<!-- ─── MAIN ─────────────────────────────────────────────────────── -->
+<main>
+
+  <!-- LIZENZEN -->
+  <section id="lizenzen">
+    <div class="section-header">
+      <div class="section-icon">🚴</div>
+      <div>
+        <h2>Lizenzen</h2>
+        <p>Anzahl ausgestellter Lizenzen nach Kategorie und Jahr</p>
+      </div>
+      <span class="section-meta" id="lizenzMeta">Letztes Update: 2024</span>
+    </div>
+
+    <div class="kpi-row" id="lizenzKpis">
+      <div class="loading"><div class="spinner"></div> Lade Daten…</div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-title">Gesamtlizenzen Entwicklung</div>
+        <div class="chart-subtitle">Total ausgestellte Lizenzen pro Jahr</div>
+        <div class="chart-wrap"><canvas id="chartLizenzTotal"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Lizenzen nach Kategorie</div>
+        <div class="chart-subtitle">Aufschlüsselung aller Kategorien</div>
+        <div class="chart-wrap"><canvas id="chartLizenzKat"></canvas></div>
+      </div>
+    </div>
+
+    <div class="chart-grid single" style="margin-top:1.25rem">
+      <div class="chart-card">
+        <div class="chart-title">Kategorien im Verlauf</div>
+        <div class="chart-subtitle">Gestapelte Ansicht aller Lizenzkategorien über die Jahre</div>
+        <div class="chart-wrap tall"><canvas id="chartLizenzStacked"></canvas></div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.25rem">
+      <div class="table-wrap">
+        <table id="lizenzTable">
+          <thead><tr></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERSONAL -->
+  <section id="personal">
+    <div class="section-header">
+      <div class="section-icon blue">👥</div>
+      <div>
+        <h2>Personal &amp; Stellenprozente</h2>
+        <p>Mitarbeitende, Pensum und Freiwillige</p>
+      </div>
+    </div>
+
+    <div class="kpi-row" id="personalKpis">
+      <div class="loading"><div class="spinner"></div> Lade Daten…</div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-title">Stellenprozente Total</div>
+        <div class="chart-subtitle">Gesamtes Pensum in Stellenprozenten</div>
+        <div class="chart-wrap"><canvas id="chartStellen"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Vollzeit vs. Teilzeit</div>
+        <div class="chart-subtitle">Anzahl Stellen nach Anstellungsgrad</div>
+        <div class="chart-wrap"><canvas id="chartVzTz"></canvas></div>
+      </div>
+    </div>
+    <div class="chart-grid" style="margin-top:1.25rem">
+      <div class="chart-card">
+        <div class="chart-title">Geschlechterverteilung</div>
+        <div class="chart-subtitle">Anteil Frauen und Männer am Total Stellenprozente</div>
+        <div class="chart-wrap"><canvas id="chartGender"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Freiwillige (Volunteers)</div>
+        <div class="chart-subtitle">Anzahl eingesetzte Volunteers pro Jahr</div>
+        <div class="chart-wrap"><canvas id="chartVolunteers"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINANZEN -->
+  <section id="finanzen">
+    <div class="section-header">
+      <div class="section-icon gold">💰</div>
+      <div>
+        <h2>Erfolgsrechnung</h2>
+        <p>Ertrag, Aufwand und Jahresergebnis</p>
+      </div>
+    </div>
+
+    <div class="kpi-row" id="finanzKpis">
+      <div class="loading"><div class="spinner"></div> Lade Daten…</div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-title">Ertrag &amp; Aufwand</div>
+        <div class="chart-subtitle">Vergleich Gesamtertrag und Gesamtaufwand in CHF</div>
+        <div class="chart-wrap"><canvas id="chartErtragAufwand"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Jahresergebnis</div>
+        <div class="chart-subtitle">Überschuss oder Defizit pro Jahr in CHF</div>
+        <div class="chart-wrap"><canvas id="chartErgebnis"></canvas></div>
+      </div>
+    </div>
+    <div class="chart-grid" style="margin-top:1.25rem">
+      <div class="chart-card">
+        <div class="chart-title">Ertragsquellen</div>
+        <div class="chart-subtitle">Aufschlüsselung der Ertragsarten</div>
+        <div class="chart-wrap"><canvas id="chartErtragPie"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Aufwandstruktur</div>
+        <div class="chart-subtitle">Aufschlüsselung der Aufwandarten</div>
+        <div class="chart-wrap"><canvas id="chartAufwandPie"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERANSTALTUNGEN -->
+  <section id="veranstaltungen">
+    <div class="section-header">
+      <div class="section-icon green">🏆</div>
+      <div>
+        <h2>Veranstaltungen &amp; Sportliches</h2>
+        <p>Rennen, Teilnehmende, internationale Erfolge</p>
+      </div>
+    </div>
+
+    <div class="kpi-row" id="eventKpis">
+      <div class="loading"><div class="spinner"></div> Lade Daten…</div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-title">Rennen nach Disziplin</div>
+        <div class="chart-subtitle">Anzahl Rennen pro Disziplin und Jahr</div>
+        <div class="chart-wrap"><canvas id="chartRennen"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Teilnehmende Total</div>
+        <div class="chart-subtitle">Anzahl Teilnehmende an nationalen Rennen</div>
+        <div class="chart-wrap"><canvas id="chartTeilnehmende"></canvas></div>
+      </div>
+    </div>
+    <div class="chart-grid" style="margin-top:1.25rem">
+      <div class="chart-card">
+        <div class="chart-title">Internationale Starts &amp; Medaillen</div>
+        <div class="chart-subtitle">WM + EM Medaillen und internationale Starts</div>
+        <div class="chart-wrap"><canvas id="chartMedaillen"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Rennen Verteilung (letztes Jahr)</div>
+        <div class="chart-subtitle">Anteile der Disziplinen am Gesamtprogramm</div>
+        <div class="chart-wrap"><canvas id="chartDisziplin"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <p>© <span id="currentYear"></span> Swiss Cycling – Schweizerischer Radfahrerverband</p>
+      <p style="margin-top:.25rem">
+        <a href="https://www.swiss-cycling.ch" target="_blank">swiss-cycling.ch</a> &nbsp;·&nbsp;
+        Daten werden jährlich durch manuelle CSV-Aktualisierung gepflegt
+      </p>
+    </div>
+    <span class="data-badge">CSV-gestützte Datenquelle</span>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   SWISS CYCLING STATS DASHBOARD  –  main.js (inline)
+   Data loaded from /data/*.csv via PapaParse
+═══════════════════════════════════════════════════════════════ */
+
+/* ── THEME ──────────────────────────────────────────────────── */
+const html = document.documentElement;
+const toggle = document.getElementById('themeToggle');
+const saved = localStorage.getItem('sc-theme') || 'light';
+html.setAttribute('data-theme', saved);
+toggle.textContent = saved === 'dark' ? '☀️' : '🌙';
+toggle.addEventListener('click', () => {
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  toggle.textContent = next === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('sc-theme', next);
+  updateChartThemes();
+});
+
+/* ── DESIGN TOKENS (for Chart.js) ───────────────────────────── */
+function getVar(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+function getTheme() {
+  return {
+    text:    getVar('--c-text'),
+    text2:   getVar('--c-text2'),
+    border:  getVar('--c-border'),
+    surface: getVar('--c-surface'),
+    accent:  getVar('--c-accent'),
+    blue:    getVar('--c-accent2'),
+    gold:    getVar('--c-gold'),
+    green:   getVar('--c-green'),
+    chart:  [getVar('--c-chart1'),getVar('--c-chart2'),getVar('--c-chart3'),
+             getVar('--c-chart4'),getVar('--c-chart5'),getVar('--c-chart6')],
+  };
+}
+
+/* ── CHART DEFAULTS ─────────────────────────────────────────── */
+const registeredCharts = [];
+function applyDefaults() {
+  const t = getTheme();
+  Chart.defaults.color = t.text2;
+  Chart.defaults.borderColor = t.border;
+  Chart.defaults.font.family = "'DM Sans', sans-serif";
+  Chart.defaults.font.size = 12;
+  Chart.defaults.plugins.legend.labels.boxRadius = 4;
+  Chart.defaults.plugins.legend.labels.padding = 16;
+  Chart.defaults.plugins.tooltip.backgroundColor = t.surface;
+  Chart.defaults.plugins.tooltip.titleColor = t.text;
+  Chart.defaults.plugins.tooltip.bodyColor = t.text2;
+  Chart.defaults.plugins.tooltip.borderColor = t.border;
+  Chart.defaults.plugins.tooltip.borderWidth = 1;
+  Chart.defaults.plugins.tooltip.padding = 12;
+  Chart.defaults.plugins.tooltip.cornerRadius = 10;
+}
+function updateChartThemes() {
+  applyDefaults();
+  const t = getTheme();
+  registeredCharts.forEach(c => {
+    if (!c) return;
+    c.options.scales && Object.values(c.options.scales).forEach(ax => {
+      ax.grid && (ax.grid.color = t.border);
+      ax.ticks && (ax.ticks.color = t.text2);
+    });
+    c.options.plugins && c.options.plugins.legend &&
+      c.options.plugins.legend.labels && (c.options.plugins.legend.labels.color = t.text2);
+    c.update('none');
+  });
+}
+applyDefaults();
+
+/* ── HELPERS ────────────────────────────────────────────────── */
+const fmt  = n => new Intl.NumberFormat('de-CH').format(n);
+const fmtM = n => 'CHF ' + new Intl.NumberFormat('de-CH', {maximumFractionDigits:0}).format(n);
+const alpha = (hex, a) => {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+};
+function delta(current, previous) {
+  if (!previous) return null;
+  const pct = ((current - previous) / previous * 100).toFixed(1);
+  const dir = pct >= 0 ? 'up' : 'down';
+  return `<span class="kpi-delta ${dir}">${dir === 'up' ? '↑' : '↓'} ${Math.abs(pct)}%</span>`;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   EINGEBETTETE DATEN
+   → Zum Aktualisieren: neue Zeile am Ende jedes Arrays hinzufügen
+   → Format: Objekt mit denselben Schlüsseln wie die CSV-Spalten
+   → Alternativ: build.js ausführen um aus CSV-Dateien zu bauen
+══════════════════════════════════════════════════════════════ */
+const EMBEDDED_DATA = {
+  lizenzen: [
+    {Jahr:2018,Elite_Männer:312,Elite_Frauen:87,U23_Männer:198,U23_Frauen:54,Junioren:423,Juniorinnen:112,Nachwuchs_Männer:867,Nachwuchs_Frauen:234,Masters:1456,Total:3743},
+    {Jahr:2019,Elite_Männer:328,Elite_Frauen:95,U23_Männer:205,U23_Frauen:61,Junioren:441,Juniorinnen:124,Nachwuchs_Männer:891,Nachwuchs_Frauen:251,Masters:1512,Total:3908},
+    {Jahr:2020,Elite_Männer:298,Elite_Frauen:102,U23_Männer:189,U23_Frauen:67,Junioren:389,Juniorinnen:118,Nachwuchs_Männer:812,Nachwuchs_Frauen:238,Masters:1398,Total:3611},
+    {Jahr:2021,Elite_Männer:341,Elite_Frauen:118,U23_Männer:212,U23_Frauen:73,Junioren:467,Juniorinnen:138,Nachwuchs_Männer:934,Nachwuchs_Frauen:267,Masters:1589,Total:4139},
+    {Jahr:2022,Elite_Männer:367,Elite_Frauen:134,U23_Männer:224,U23_Frauen:81,Junioren:498,Juniorinnen:152,Nachwuchs_Männer:978,Nachwuchs_Frauen:289,Masters:1634,Total:4357},
+    {Jahr:2023,Elite_Männer:389,Elite_Frauen:156,U23_Männer:231,U23_Frauen:89,Junioren:521,Juniorinnen:168,Nachwuchs_Männer:1012,Nachwuchs_Frauen:312,Masters:1678,Total:4556},
+    {Jahr:2024,Elite_Männer:412,Elite_Frauen:178,U23_Männer:243,U23_Frauen:97,Junioren:548,Juniorinnen:184,Nachwuchs_Männer:1056,Nachwuchs_Frauen:338,Masters:1723,Total:4779},
+  ],
+  personal: [
+    {Jahr:2018,Vollzeitstellen:8,Teilzeitstellen:12,Stellenprozente_Total:1340,Davon_Frauen_Prozent:38,Davon_Männer_Prozent:62,Lernende:2,Volunteers:145},
+    {Jahr:2019,Vollzeitstellen:9,Teilzeitstellen:13,Stellenprozente_Total:1420,Davon_Frauen_Prozent:41,Davon_Männer_Prozent:59,Lernende:2,Volunteers:158},
+    {Jahr:2020,Vollzeitstellen:9,Teilzeitstellen:11,Stellenprozente_Total:1380,Davon_Frauen_Prozent:43,Davon_Männer_Prozent:57,Lernende:1,Volunteers:112},
+    {Jahr:2021,Vollzeitstellen:10,Teilzeitstellen:14,Stellenprozente_Total:1510,Davon_Frauen_Prozent:45,Davon_Männer_Prozent:55,Lernende:2,Volunteers:134},
+    {Jahr:2022,Vollzeitstellen:11,Teilzeitstellen:15,Stellenprozente_Total:1640,Davon_Frauen_Prozent:47,Davon_Männer_Prozent:53,Lernende:3,Volunteers:167},
+    {Jahr:2023,Vollzeitstellen:12,Teilzeitstellen:16,Stellenprozente_Total:1780,Davon_Frauen_Prozent:49,Davon_Männer_Prozent:51,Lernende:3,Volunteers:189},
+    {Jahr:2024,Vollzeitstellen:13,Teilzeitstellen:17,Stellenprozente_Total:1920,Davon_Frauen_Prozent:52,Davon_Männer_Prozent:48,Lernende:3,Volunteers:201},
+  ],
+  erfolgsrechnung: [
+    {Jahr:2018,Ertrag_Lizenzen:485200,Ertrag_Veranstaltungen:234100,Ertrag_Sponsoring:312000,Ertrag_Subventionen:580000,Ertrag_Sonstiges:89300,Ertrag_Total:1700600,Aufwand_Personal:890000,Aufwand_Veranstaltungen:312000,Aufwand_Betrieb:198000,Aufwand_Sonstiges:145600,Aufwand_Total:1545600,Ergebnis:155000},
+    {Jahr:2019,Ertrag_Lizenzen:512400,Ertrag_Veranstaltungen:251300,Ertrag_Sponsoring:334000,Ertrag_Subventionen:610000,Ertrag_Sonstiges:95600,Ertrag_Total:1803300,Aufwand_Personal:945000,Aufwand_Veranstaltungen:334000,Aufwand_Betrieb:212000,Aufwand_Sonstiges:158900,Aufwand_Total:1649900,Ergebnis:153400},
+    {Jahr:2020,Ertrag_Lizenzen:476800,Ertrag_Veranstaltungen:89200,Ertrag_Sponsoring:298000,Ertrag_Subventionen:680000,Ertrag_Sonstiges:78400,Ertrag_Total:1622400,Aufwand_Personal:912000,Aufwand_Veranstaltungen:89200,Aufwand_Betrieb:201000,Aufwand_Sonstiges:134600,Aufwand_Total:1336800,Ergebnis:285600},
+    {Jahr:2021,Ertrag_Lizenzen:534100,Ertrag_Veranstaltungen:198400,Ertrag_Sponsoring:356000,Ertrag_Subventionen:720000,Ertrag_Sonstiges:102800,Ertrag_Total:1911300,Aufwand_Personal:978000,Aufwand_Veranstaltungen:198400,Aufwand_Betrieb:218000,Aufwand_Sonstiges:167200,Aufwand_Total:1561600,Ergebnis:349700},
+    {Jahr:2022,Ertrag_Lizenzen:578600,Ertrag_Veranstaltungen:267800,Ertrag_Sponsoring:389000,Ertrag_Subventionen:740000,Ertrag_Sonstiges:114200,Ertrag_Total:2089600,Aufwand_Personal:1045000,Aufwand_Veranstaltungen:267800,Aufwand_Betrieb:231000,Aufwand_Sonstiges:178900,Aufwand_Total:1722700,Ergebnis:366900},
+    {Jahr:2023,Ertrag_Lizenzen:623400,Ertrag_Veranstaltungen:312100,Ertrag_Sponsoring:421000,Ertrag_Subventionen:760000,Ertrag_Sonstiges:128600,Ertrag_Total:2245100,Aufwand_Personal:1124000,Aufwand_Veranstaltungen:312100,Aufwand_Betrieb:248000,Aufwand_Sonstiges:189300,Aufwand_Total:1873400,Ergebnis:371700},
+    {Jahr:2024,Ertrag_Lizenzen:671200,Ertrag_Veranstaltungen:356400,Ertrag_Sponsoring:458000,Ertrag_Subventionen:780000,Ertrag_Sonstiges:143800,Ertrag_Total:2409400,Aufwand_Personal:1213000,Aufwand_Veranstaltungen:356400,Aufwand_Betrieb:267000,Aufwand_Sonstiges:201200,Aufwand_Total:2037600,Ergebnis:371800},
+  ],
+  veranstaltungen: [
+    {Jahr:2018,Rennen_Total:234,Davon_Strasse:98,Davon_MTB:87,Davon_Track:34,Davon_BMX:15,Teilnehmende_Total:18934,Internationale_Starts:312,Medaillen_WM:3,Medaillen_EM:8},
+    {Jahr:2019,Rennen_Total:251,Davon_Strasse:104,Davon_MTB:93,Davon_Track:36,Davon_BMX:18,Teilnehmende_Total:20112,Internationale_Starts:334,Medaillen_WM:4,Medaillen_EM:11},
+    {Jahr:2020,Rennen_Total:89,Davon_Strasse:34,Davon_MTB:38,Davon_Track:12,Davon_BMX:5,Teilnehmende_Total:7234,Internationale_Starts:112,Medaillen_WM:2,Medaillen_EM:4},
+    {Jahr:2021,Rennen_Total:198,Davon_Strasse:82,Davon_MTB:76,Davon_Track:28,Davon_BMX:12,Teilnehmende_Total:15678,Internationale_Starts:267,Medaillen_WM:5,Medaillen_EM:9},
+    {Jahr:2022,Rennen_Total:267,Davon_Strasse:108,Davon_MTB:101,Davon_Track:38,Davon_BMX:20,Teilnehmende_Total:22341,Internationale_Starts:389,Medaillen_WM:6,Medaillen_EM:14},
+    {Jahr:2023,Rennen_Total:289,Davon_Strasse:118,Davon_MTB:109,Davon_Track:41,Davon_BMX:21,Teilnehmende_Total:24567,Internationale_Starts:412,Medaillen_WM:7,Medaillen_EM:16},
+    {Jahr:2024,Rennen_Total:312,Davon_Strasse:128,Davon_MTB:118,Davon_Track:44,Davon_BMX:22,Teilnehmende_Total:26789,Internationale_Starts:438,Medaillen_WM:8,Medaillen_EM:18},
+  ],
+};
+
+function loadCSV(key) {
+  // key is e.g. 'data/lizenzen.csv' → extract dataset name
+  const name = key.replace('data/','').replace('.csv','');
+  const map = {
+    lizenzen: 'lizenzen',
+    personal: 'personal',
+    erfolgsrechnung: 'erfolgsrechnung',
+    veranstaltungen: 'veranstaltungen',
+  };
+  return Promise.resolve(EMBEDDED_DATA[map[name]] || []);
+}
+
+function makeChart(id, config) {
+  const ctx = document.getElementById(id);
+  if (!ctx) return null;
+  const chart = new Chart(ctx, config);
+  registeredCharts.push(chart);
+  return chart;
+}
+
+function kpiCard(label, value, deltaHtml = '', color = 'var(--c-accent)') {
+  return `<div class="kpi" style="--kpi-color:${color}">
+    <div class="kpi-label">${label}</div>
+    <div class="kpi-value">${value}</div>
+    ${deltaHtml || ''}
+  </div>`;
+}
+
+const gridOpts = (stacked = false) => ({
+  responsive: true, maintainAspectRatio: false,
+  interaction: { mode: 'index', intersect: false },
+  plugins: { legend: { display: true } },
+  scales: {
+    x: { stacked, grid: { display: false }, ticks: { color: getTheme().text2 } },
+    y: { stacked, grid: { color: getTheme().border }, ticks: { color: getTheme().text2 } }
+  }
+});
+
+/* ══════════════════════════════════════════════════════════════
+   LIZENZEN
+══════════════════════════════════════════════════════════════ */
+async function initLizenzen() {
+  const raw = await loadCSV('data/lizenzen.csv');
+  const years = raw.map(r => r.Jahr);
+  const last = raw[raw.length - 1];
+  const prev = raw[raw.length - 2];
+
+  document.getElementById('latestYear').textContent = last.Jahr;
+  document.getElementById('yearRange').textContent = `${years[0]}–${years[years.length-1]}`;
+  document.getElementById('lizenzMeta').textContent = `Letztes Update: ${last.Jahr}`;
+  document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+  document.getElementById('lizenzKpis').innerHTML = [
+    kpiCard('Lizenzen Total', fmt(last.Total), delta(last.Total, prev.Total)),
+    kpiCard('Elite Männer', fmt(last.Elite_Männer), delta(last.Elite_Männer, prev.Elite_Männer), getTheme().blue),
+    kpiCard('Elite Frauen', fmt(last.Elite_Frauen), delta(last.Elite_Frauen, prev.Elite_Frauen), getTheme().green),
+    kpiCard('Nachwuchs', fmt(last.Nachwuchs_Männer + last.Nachwuchs_Frauen), null, getTheme().gold),
+    kpiCard('Masters', fmt(last.Masters), delta(last.Masters, prev.Masters), '#7c3aed'),
+  ].join('');
+
+  const t = getTheme();
+
+  // Total Line
+  makeChart('chartLizenzTotal', {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'Total Lizenzen',
+        data: raw.map(r => r.Total),
+        borderColor: t.accent, backgroundColor: alpha(t.accent, .12),
+        fill: true, tension: .4, pointRadius: 5, pointHoverRadius: 8,
+        borderWidth: 2.5,
+      }]
+    },
+    options: gridOpts()
+  });
+
+  // Kategorie Bar
+  const cats = ['Elite_Männer','Elite_Frauen','U23_Männer','U23_Frauen','Junioren','Juniorinnen','Nachwuchs_Männer','Nachwuchs_Frauen','Masters'];
+  const catLabels = ['Elite M','Elite F','U23 M','U23 F','Jun M','Jun F','Nwchs M','Nwchs F','Masters'];
+  makeChart('chartLizenzKat', {
+    type: 'bar',
+    data: {
+      labels: catLabels,
+      datasets: [{
+        label: String(last.Jahr),
+        data: cats.map(c => last[c]),
+        backgroundColor: t.chart,
+        borderRadius: 6,
+      }]
+    },
+    options: { ...gridOpts(), plugins: { legend: { display: false } } }
+  });
+
+  // Stacked
+  makeChart('chartLizenzStacked', {
+    type: 'bar',
+    data: {
+      labels: years,
+      datasets: cats.map((c, i) => ({
+        label: catLabels[i],
+        data: raw.map(r => r[c]),
+        backgroundColor: t.chart[i % t.chart.length],
+        borderRadius: i === cats.length - 1 ? 6 : 0,
+      }))
+    },
+    options: gridOpts(true)
+  });
+
+  // Table
+  const tbl = document.getElementById('lizenzTable');
+  const allCols = ['Jahr','Elite_Männer','Elite_Frauen','U23_Männer','U23_Frauen','Junioren','Juniorinnen','Nachwuchs_Männer','Nachwuchs_Frauen','Masters','Total'];
+  const colLabels = ['Jahr','Elite M','Elite F','U23 M','U23 F','Junioren','Junior.','Nwchs M','Nwchs F','Masters','Total'];
+  tbl.querySelector('thead tr').innerHTML = colLabels.map(l => `<th>${l}</th>`).join('');
+  tbl.querySelector('tbody').innerHTML = [...raw].reverse().map(r => {
+    const maxT = Math.max(...raw.map(x => x.Total));
+    return `<tr>${allCols.map((c, i) => {
+      if (c === 'Jahr') return `<td class="year">${r[c]}</td>`;
+      if (c === 'Total') return `<td class="num"><div class="trend-bar"><div class="trend-fill" style="width:${(r[c]/maxT*120).toFixed(0)}px"></div>${fmt(r[c])}</div></td>`;
+      return `<td class="num">${fmt(r[c])}</td>`;
+    }).join('')}</tr>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PERSONAL
+══════════════════════════════════════════════════════════════ */
+async function initPersonal() {
+  const raw = await loadCSV('data/personal.csv');
+  const years = raw.map(r => r.Jahr);
+  const last = raw[raw.length - 1];
+  const prev = raw[raw.length - 2];
+  const t = getTheme();
+
+  document.getElementById('personalKpis').innerHTML = [
+    kpiCard('Stellen Total', fmt(last.Vollzeitstellen + last.Teilzeitstellen), null, t.blue),
+    kpiCard('Davon Vollzeit', fmt(last.Vollzeitstellen), delta(last.Vollzeitstellen, prev.Vollzeitstellen), t.blue),
+    kpiCard('Stellenprozente', last.Stellenprozente_Total + '%', delta(last.Stellenprozente_Total, prev.Stellenprozente_Total), t.accent),
+    kpiCard('Frauenanteil', last.Davon_Frauen_Prozent + '%', delta(last.Davon_Frauen_Prozent, prev.Davon_Frauen_Prozent), t.green),
+    kpiCard('Volunteers', fmt(last.Volunteers), delta(last.Volunteers, prev.Volunteers), t.gold),
+  ].join('');
+
+  makeChart('chartStellen', {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'Stellenprozente Total',
+        data: raw.map(r => r.Stellenprozente_Total),
+        borderColor: t.blue, backgroundColor: alpha(t.blue, .12),
+        fill: true, tension: .4, pointRadius: 5, borderWidth: 2.5,
+      }]
+    },
+    options: gridOpts()
+  });
+
+  makeChart('chartVzTz', {
+    type: 'bar',
+    data: {
+      labels: years,
+      datasets: [
+        { label: 'Vollzeit', data: raw.map(r => r.Vollzeitstellen), backgroundColor: t.blue, borderRadius: 4 },
+        { label: 'Teilzeit', data: raw.map(r => r.Teilzeitstellen), backgroundColor: alpha(t.blue, .4), borderRadius: 4 },
+      ]
+    },
+    options: gridOpts()
+  });
+
+  makeChart('chartGender', {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [
+        { label: 'Frauen %', data: raw.map(r => r.Davon_Frauen_Prozent), borderColor: t.green, backgroundColor: alpha(t.green,.1), fill: true, tension: .4, borderWidth: 2.5 },
+        { label: 'Männer %', data: raw.map(r => r.Davon_Männer_Prozent), borderColor: t.blue, backgroundColor: alpha(t.blue,.08), fill: true, tension: .4, borderWidth: 2.5 },
+      ]
+    },
+    options: {
+      ...gridOpts(),
+      scales: { ...gridOpts().scales, y: { ...gridOpts().scales.y, max: 100, ticks: { callback: v => v + '%', color: getTheme().text2 } } }
+    }
+  });
+
+  makeChart('chartVolunteers', {
+    type: 'bar',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'Volunteers',
+        data: raw.map(r => r.Volunteers),
+        backgroundColor: raw.map(() => t.gold),
+        borderRadius: 6,
+      }]
+    },
+    options: { ...gridOpts(), plugins: { legend: { display: false } } }
+  });
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FINANZEN
+══════════════════════════════════════════════════════════════ */
+async function initFinanzen() {
+  const raw = await loadCSV('data/erfolgsrechnung.csv');
+  const years = raw.map(r => r.Jahr);
+  const last = raw[raw.length - 1];
+  const prev = raw[raw.length - 2];
+  const t = getTheme();
+
+  document.getElementById('finanzKpis').innerHTML = [
+    kpiCard('Gesamtertrag', fmtM(last.Ertrag_Total), delta(last.Ertrag_Total, prev.Ertrag_Total), t.gold),
+    kpiCard('Gesamtaufwand', fmtM(last.Aufwand_Total), delta(last.Aufwand_Total, prev.Aufwand_Total), t.accent),
+    kpiCard('Jahresergebnis', fmtM(last.Ergebnis), null, t.green),
+    kpiCard('Sponsoring', fmtM(last.Ertrag_Sponsoring), delta(last.Ertrag_Sponsoring, prev.Ertrag_Sponsoring), t.blue),
+    kpiCard('Subventionen', fmtM(last.Ertrag_Subventionen), delta(last.Ertrag_Subventionen, prev.Ertrag_Subventionen), '#7c3aed'),
+  ].join('');
+
+  makeChart('chartErtragAufwand', {
+    type: 'bar',
+    data: {
+      labels: years,
+      datasets: [
+        { label: 'Ertrag', data: raw.map(r => r.Ertrag_Total), backgroundColor: alpha(t.green,.7), borderRadius: 4 },
+        { label: 'Aufwand', data: raw.map(r => r.Aufwand_Total), backgroundColor: alpha(t.accent,.7), borderRadius: 4 },
+      ]
+    },
+    options: {
+      ...gridOpts(),
+      scales: { ...gridOpts().scales, y: { ...gridOpts().scales.y, ticks: { callback: v => 'CHF ' + (v/1000).toFixed(0) + 'k', color: getTheme().text2 } } }
+    }
+  });
+
+  makeChart('chartErgebnis', {
+    type: 'bar',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'Ergebnis',
+        data: raw.map(r => r.Ergebnis),
+        backgroundColor: raw.map(r => r.Ergebnis >= 0 ? alpha(t.green,.8) : alpha(t.accent,.8)),
+        borderRadius: 6,
+      }]
+    },
+    options: {
+      ...gridOpts(),
+      plugins: { legend: { display: false } },
+      scales: { ...gridOpts().scales, y: { ...gridOpts().scales.y, ticks: { callback: v => 'CHF ' + (v/1000).toFixed(0) + 'k', color: getTheme().text2 } } }
+    }
+  });
+
+  const ertragKeys = ['Ertrag_Lizenzen','Ertrag_Veranstaltungen','Ertrag_Sponsoring','Ertrag_Subventionen','Ertrag_Sonstiges'];
+  const ertragLabels = ['Lizenzen','Veranstaltungen','Sponsoring','Subventionen','Sonstiges'];
+  makeChart('chartErtragPie', {
+    type: 'doughnut',
+    data: {
+      labels: ertragLabels,
+      datasets: [{ data: ertragKeys.map(k => last[k]), backgroundColor: t.chart, borderWidth: 2, borderColor: t.surface }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+  });
+
+  const aufwandKeys = ['Aufwand_Personal','Aufwand_Veranstaltungen','Aufwand_Betrieb','Aufwand_Sonstiges'];
+  const aufwandLabels = ['Personal','Veranstaltungen','Betrieb','Sonstiges'];
+  makeChart('chartAufwandPie', {
+    type: 'doughnut',
+    data: {
+      labels: aufwandLabels,
+      datasets: [{ data: aufwandKeys.map(k => last[k]), backgroundColor: [t.accent, t.blue, t.gold, t.chart[4]], borderWidth: 2, borderColor: t.surface }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+  });
+}
+
+/* ══════════════════════════════════════════════════════════════
+   VERANSTALTUNGEN
+══════════════════════════════════════════════════════════════ */
+async function initVeranstaltungen() {
+  const raw = await loadCSV('data/veranstaltungen.csv');
+  const years = raw.map(r => r.Jahr);
+  const last = raw[raw.length - 1];
+  const prev = raw[raw.length - 2];
+  const t = getTheme();
+
+  document.getElementById('eventKpis').innerHTML = [
+    kpiCard('Rennen Total', fmt(last.Rennen_Total), delta(last.Rennen_Total, prev.Rennen_Total), t.green),
+    kpiCard('Teilnehmende', fmt(last.Teilnehmende_Total), delta(last.Teilnehmende_Total, prev.Teilnehmende_Total), t.blue),
+    kpiCard('Intern. Starts', fmt(last.Internationale_Starts), delta(last.Internationale_Starts, prev.Internationale_Starts), t.accent),
+    kpiCard('WM Medaillen', fmt(last.Medaillen_WM), delta(last.Medaillen_WM, prev.Medaillen_WM), t.gold),
+    kpiCard('EM Medaillen', fmt(last.Medaillen_EM), delta(last.Medaillen_EM, prev.Medaillen_EM), '#7c3aed'),
+  ].join('');
+
+  makeChart('chartRennen', {
+    type: 'bar',
+    data: {
+      labels: years,
+      datasets: [
+        { label: 'Strasse', data: raw.map(r => r.Davon_Strasse), backgroundColor: alpha(t.accent,.8), borderRadius: 3 },
+        { label: 'MTB', data: raw.map(r => r.Davon_MTB), backgroundColor: alpha(t.green,.8), borderRadius: 3 },
+        { label: 'Track', data: raw.map(r => r.Davon_Track), backgroundColor: alpha(t.blue,.8), borderRadius: 3 },
+        { label: 'BMX', data: raw.map(r => r.Davon_BMX), backgroundColor: alpha(t.gold,.8), borderRadius: 3 },
+      ]
+    },
+    options: gridOpts()
+  });
+
+  makeChart('chartTeilnehmende', {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'Teilnehmende',
+        data: raw.map(r => r.Teilnehmende_Total),
+        borderColor: t.green, backgroundColor: alpha(t.green,.1),
+        fill: true, tension: .4, pointRadius: 5, borderWidth: 2.5,
+      }]
+    },
+    options: gridOpts()
+  });
+
+  makeChart('chartMedaillen', {
+    type: 'bar',
+    data: {
+      labels: years,
+      datasets: [
+        { label: 'Intern. Starts', data: raw.map(r => r.Internationale_Starts), backgroundColor: alpha(t.blue,.6), type: 'line', yAxisID: 'y2', borderColor: t.blue, tension: .4, fill: false },
+        { label: 'WM Medaillen', data: raw.map(r => r.Medaillen_WM), backgroundColor: t.gold, borderRadius: 4, yAxisID: 'y' },
+        { label: 'EM Medaillen', data: raw.map(r => r.Medaillen_EM), backgroundColor: alpha(t.gold,.5), borderRadius: 4, yAxisID: 'y' },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      scales: {
+        x: { grid: { display: false } },
+        y: { position: 'left', grid: { color: getTheme().border }, title: { display: true, text: 'Medaillen' } },
+        y2: { position: 'right', grid: { display: false }, title: { display: true, text: 'Intern. Starts' } }
+      }
+    }
+  });
+
+  makeChart('chartDisziplin', {
+    type: 'polarArea',
+    data: {
+      labels: ['Strasse', 'MTB', 'Track', 'BMX'],
+      datasets: [{
+        data: [last.Davon_Strasse, last.Davon_MTB, last.Davon_Track, last.Davon_BMX],
+        backgroundColor: [alpha(t.accent,.7), alpha(t.green,.7), alpha(t.blue,.7), alpha(t.gold,.7)],
+        borderColor: [t.accent, t.green, t.blue, t.gold],
+        borderWidth: 2,
+      }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+  });
+}
+
+/* ── INIT ALL ───────────────────────────────────────────────── */
+(async () => {
+  await Promise.all([initLizenzen(), initPersonal(), initFinanzen(), initVeranstaltungen()]);
+  // nav active state on scroll
+  const sections = document.querySelectorAll('section');
+  const navBtns  = document.querySelectorAll('.nav-btn');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    navBtns.forEach(b => { b.classList.toggle('active', b.getAttribute('href') === '#'+current); });
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>

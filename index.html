@@ -26,6 +26,8 @@
       --c-chart4:    #2d8a4e;
       --c-chart5:    #7c3aed;
       --c-chart6:    #db6b1a;
+      --c-chart7:    #0891b2;
+      --c-chart8:    #65a30d;
       --radius:      12px;
       --radius-lg:   20px;
       --shadow:      0 2px 12px rgba(0,0,0,.07);
@@ -43,6 +45,8 @@
       --c-accent2:   #4a90d9;
       --c-gold:      #f0b830;
       --c-green:     #3dba68;
+      --c-chart7:    #06b6d4;
+      --c-chart8:    #84cc16;
       --shadow:      0 2px 12px rgba(0,0,0,.3);
       --shadow-lg:   0 8px 40px rgba(0,0,0,.5);
     }
@@ -236,6 +240,7 @@
     .chart-subtitle { font-size: .8rem; color: var(--c-text2); margin-bottom: 1.25rem; }
     .chart-wrap { position: relative; height: 280px; }
     .chart-wrap.tall { height: 360px; }
+    .chart-wrap.pie  { height: 340px; }
 
     /* ─── FILTER BAR ────────────────────────────────────────────── */
     .filter-bar {
@@ -308,6 +313,48 @@
       font-size: .75rem; color: var(--c-text2);
     }
     .data-badge::before { content: '📊'; font-size: .9rem; }
+
+    /* ─── TEAM CARDS ────────────────────────────────────────────── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: .75rem;
+      margin-bottom: 1rem;
+    }
+    .team-dept-label {
+      font-size: .65rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--c-text2);
+      margin: 1.25rem 0 .4rem;
+    }
+    .team-dept-label:first-child { margin-top: 0; }
+    .team-card {
+      background: var(--c-surface2);
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius);
+      padding: .75rem 1rem;
+    }
+    .team-card-name {
+      font-weight: 600; font-size: .9rem;
+      color: var(--c-text); line-height: 1.3;
+    }
+    .team-card-role {
+      font-size: .78rem; color: var(--c-text2);
+      margin-top: .2rem; line-height: 1.4;
+    }
+    .team-card-badge {
+      display: inline-block; margin-top: .4rem;
+      font-size: .65rem; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; padding: .15rem .5rem;
+      border-radius: 20px; background: var(--c-accent);
+      color: #fff;
+    }
+    .team-disc-tag {
+      display: inline-block; margin-top: .4rem;
+      font-size: .65rem; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; padding: .15rem .5rem;
+      border-radius: 20px; background: var(--c-surface2);
+      border: 1px solid var(--c-border); color: var(--c-text2);
+    }
 
     /* ─── LOADING ───────────────────────────────────────────────── */
     .loading {
@@ -384,9 +431,9 @@
     </a>
     <nav>
       <a class="nav-btn active" href="#lizenzen">Lizenzen</a>
-      <a class="nav-btn" href="#personal">Personal</a>
       <a class="nav-btn" href="#finanzen">Finanzen</a>
       <a class="nav-btn" href="#veranstaltungen">Events</a>
+      <a class="nav-btn" href="#personal">Personal</a>
     </nav>
     <span class="year-badge" id="latestYear">2024</span>
     <button class="theme-toggle" id="themeToggle" title="Theme wechseln">🌙</button>
@@ -430,16 +477,16 @@
         <div class="chart-wrap"><canvas id="chartLizenzTotal"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Lizenzen nach Kategorie</div>
-        <div class="chart-subtitle">Aufschlüsselung aller Kategorien</div>
+        <div class="chart-title">Lizenzen nach Disziplin (letztes Jahr)</div>
+        <div class="chart-subtitle">Wettkampflizenzen M+F nach Disziplin</div>
         <div class="chart-wrap"><canvas id="chartLizenzKat"></canvas></div>
       </div>
     </div>
 
     <div class="chart-grid single" style="margin-top:1.25rem">
       <div class="chart-card">
-        <div class="chart-title">Kategorien im Verlauf</div>
-        <div class="chart-subtitle">Gestapelte Ansicht aller Lizenzkategorien über die Jahre</div>
+        <div class="chart-title">Disziplinen im Verlauf</div>
+        <div class="chart-subtitle">Gestapelte Ansicht der Wettkampflizenzen nach Disziplin über die Jahre</div>
         <div class="chart-wrap tall"><canvas id="chartLizenzStacked"></canvas></div>
       </div>
     </div>
@@ -452,44 +499,17 @@
         </table>
       </div>
     </div>
-  </section>
 
-  <!-- PERSONAL -->
-  <section id="personal">
-    <div class="section-header">
-      <div class="section-icon blue">👥</div>
-      <div>
-        <h2>Personal &amp; Stellenprozente</h2>
-        <p>Mitarbeitende, Pensum und Freiwillige</p>
-      </div>
-    </div>
-
-    <div class="kpi-row" id="personalKpis">
-      <div class="loading"><div class="spinner"></div> Lade Daten…</div>
-    </div>
-
-    <div class="chart-grid">
-      <div class="chart-card">
-        <div class="chart-title">Stellenprozente Total</div>
-        <div class="chart-subtitle">Gesamtes Pensum in Stellenprozenten</div>
-        <div class="chart-wrap"><canvas id="chartStellen"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Vollzeit vs. Teilzeit</div>
-        <div class="chart-subtitle">Anzahl Stellen nach Anstellungsgrad</div>
-        <div class="chart-wrap"><canvas id="chartVzTz"></canvas></div>
-      </div>
-    </div>
     <div class="chart-grid" style="margin-top:1.25rem">
       <div class="chart-card">
-        <div class="chart-title">Geschlechterverteilung</div>
-        <div class="chart-subtitle">Anteil Frauen und Männer am Total Stellenprozente</div>
-        <div class="chart-wrap"><canvas id="chartGender"></canvas></div>
+        <div class="chart-title">Verbandsmitglieder</div>
+        <div class="chart-subtitle">Aktive Mitglieder (mit Lizenz) und passive Clubmitglieder</div>
+        <div class="kpi-row" id="mitgliedKpis" style="padding:1rem 0"></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Freiwillige (Volunteers)</div>
-        <div class="chart-subtitle">Anzahl eingesetzte Volunteers pro Jahr</div>
-        <div class="chart-wrap"><canvas id="chartVolunteers"></canvas></div>
+        <div class="chart-title">Mitgliederentwicklung</div>
+        <div class="chart-subtitle">Aktive vs. passive Mitglieder im Verlauf</div>
+        <div class="chart-wrap"><canvas id="chartMitglieder"></canvas></div>
       </div>
     </div>
   </section>
@@ -524,12 +544,12 @@
       <div class="chart-card">
         <div class="chart-title">Ertragsquellen</div>
         <div class="chart-subtitle">Aufschlüsselung der Ertragsarten</div>
-        <div class="chart-wrap"><canvas id="chartErtragPie"></canvas></div>
+        <div class="chart-wrap pie"><canvas id="chartErtragPie"></canvas></div>
       </div>
       <div class="chart-card">
         <div class="chart-title">Aufwandstruktur</div>
         <div class="chart-subtitle">Aufschlüsselung der Aufwandarten</div>
-        <div class="chart-wrap"><canvas id="chartAufwandPie"></canvas></div>
+        <div class="chart-wrap pie"><canvas id="chartAufwandPie"></canvas></div>
       </div>
     </div>
   </section>
@@ -555,21 +575,78 @@
         <div class="chart-wrap"><canvas id="chartRennen"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Teilnehmende Total</div>
-        <div class="chart-subtitle">Anzahl Teilnehmende an nationalen Rennen</div>
-        <div class="chart-wrap"><canvas id="chartTeilnehmende"></canvas></div>
+        <div class="chart-title">Veranstaltungen nach Stufe</div>
+        <div class="chart-subtitle">National, International und Regional/Training im Verlauf</div>
+        <div class="chart-wrap"><canvas id="chartEventLevel"></canvas></div>
       </div>
     </div>
     <div class="chart-grid" style="margin-top:1.25rem">
       <div class="chart-card">
-        <div class="chart-title">Internationale Starts &amp; Medaillen</div>
-        <div class="chart-subtitle">WM + EM Medaillen und internationale Starts</div>
-        <div class="chart-wrap"><canvas id="chartMedaillen"></canvas></div>
+        <div class="chart-title">Alle Disziplinen im Verlauf</div>
+        <div class="chart-subtitle">Gestapelte Ansicht aller Disziplinen</div>
+        <div class="chart-wrap tall"><canvas id="chartEventStacked"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Rennen Verteilung (letztes Jahr)</div>
-        <div class="chart-subtitle">Anteile der Disziplinen am Gesamtprogramm</div>
+        <div class="chart-title">Disziplinen-Anteil im Verlauf</div>
+        <div class="chart-subtitle">Prozentualer Anteil jeder Disziplin am Jahrestotal</div>
         <div class="chart-wrap"><canvas id="chartDisziplin"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERSONAL -->
+  <section id="personal">
+    <div class="section-header">
+      <div class="section-icon blue">👥</div>
+      <div>
+        <h2>Personal Swiss Cycling</h2>
+        <p>Geschäftsstelle, Nationaltrainer und Vorstand</p>
+      </div>
+      <span class="section-meta" id="personalMeta">Stand: –</span>
+    </div>
+
+    <div class="kpi-row" id="personalKpis">
+      <div class="loading"><div class="spinner"></div> Lade Daten…</div>
+    </div>
+
+    <!-- Yearly headcount chart -->
+    <div class="chart-grid" style="margin-top:1.25rem">
+      <div class="chart-card">
+        <div class="chart-title">Personalentwicklung</div>
+        <div class="chart-subtitle">Anzahl Personen Geschäftsstelle, Trainer, Vorstand pro Jahr</div>
+        <div class="chart-wrap"><canvas id="chartPersonalHistory"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Zusammensetzung (aktuell)</div>
+        <div class="chart-subtitle">Anteil der Bereiche am Total</div>
+        <div class="chart-wrap"><canvas id="chartPersonalPie"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Vorstand -->
+    <div style="margin-top:1.25rem">
+      <div class="chart-card">
+        <div class="chart-title">Vorstand</div>
+        <div class="chart-subtitle">Gewählte Vorstandsmitglieder</div>
+        <div id="vorstandGrid" style="margin-top:1rem"></div>
+      </div>
+    </div>
+
+    <!-- Nationaltrainer -->
+    <div style="margin-top:1.25rem">
+      <div class="chart-card">
+        <div class="chart-title">Nationaltrainerinnen &amp; Nationaltrainer</div>
+        <div class="chart-subtitle">Technische Leitung nach Disziplin</div>
+        <div id="trainerGrid" style="margin-top:1rem"></div>
+      </div>
+    </div>
+
+    <!-- Geschäftsstelle -->
+    <div style="margin-top:1.25rem">
+      <div class="chart-card">
+        <div class="chart-title">Geschäftsstelle</div>
+        <div class="chart-subtitle">Mitarbeitende nach Abteilung</div>
+        <div id="gsGrid" style="margin-top:1rem"></div>
       </div>
     </div>
   </section>
@@ -580,13 +657,16 @@
 <footer>
   <div class="footer-inner">
     <div>
-      <p>© <span id="currentYear"></span> Swiss Cycling – Schweizerischer Radfahrerverband</p>
+      <p>Statistik-Dashboard Schweizer Radsport &nbsp;·&nbsp; <span id="currentYear"></span></p>
       <p style="margin-top:.25rem">
-        <a href="https://www.swiss-cycling.ch" target="_blank">swiss-cycling.ch</a> &nbsp;·&nbsp;
-        Daten werden jährlich durch manuelle CSV-Aktualisierung gepflegt
+        Datenquelle: <a href="https://www.swiss-cycling.ch" target="_blank">swiss-cycling.ch</a> &nbsp;·&nbsp;
+        Daten werden jährlich aktualisiert
+      </p>
+      <p style="margin-top:.5rem; font-size:.72rem; color:var(--c-text2)">
+        Dieses Projekt ist ein unabhängiges Community-Projekt und steht in keiner Verbindung mit Swiss Cycling oder dem Schweizerischen Radfahrerverband.
       </p>
     </div>
-    <span class="data-badge">CSV-gestützte Datenquelle</span>
+    <span class="data-badge">Community-Projekt</span>
   </div>
 </footer>
 
@@ -623,7 +703,8 @@ function getTheme() {
     gold:    getVar('--c-gold'),
     green:   getVar('--c-green'),
     chart:  [getVar('--c-chart1'),getVar('--c-chart2'),getVar('--c-chart3'),
-             getVar('--c-chart4'),getVar('--c-chart5'),getVar('--c-chart6')],
+             getVar('--c-chart4'),getVar('--c-chart5'),getVar('--c-chart6'),
+             getVar('--c-chart7'),getVar('--c-chart8')],
   };
 }
 
@@ -644,6 +725,14 @@ function applyDefaults() {
   Chart.defaults.plugins.tooltip.borderWidth = 1;
   Chart.defaults.plugins.tooltip.padding = 12;
   Chart.defaults.plugins.tooltip.cornerRadius = 10;
+  Chart.defaults.plugins.tooltip.footerColor = t.text2;
+  Chart.defaults.plugins.tooltip.footerFont = { weight: '600', size: 12 };
+  Chart.defaults.plugins.tooltip.footerMarginTop = 6;
+  Chart.defaults.plugins.tooltip.callbacks.footer = (items) => {
+    if (!items || items.length < 2) return;
+    const sum = items.reduce((acc, i) => acc + (Number(i.raw) || 0), 0);
+    return 'Total: ' + new Intl.NumberFormat('de-CH').format(Math.round(sum));
+  };
 }
 function updateChartThemes() {
   applyDefaults();
@@ -663,7 +752,12 @@ applyDefaults();
 
 /* ── HELPERS ────────────────────────────────────────────────── */
 const fmt  = n => new Intl.NumberFormat('de-CH').format(n);
-const fmtM = n => 'CHF ' + new Intl.NumberFormat('de-CH', {maximumFractionDigits:0}).format(n);
+const fmtM  = n => 'CHF ' + new Intl.NumberFormat('de-CH', {maximumFractionDigits:0}).format(n);
+const fmtCHF = n => {
+  if (Math.abs(n) >= 1e6) return 'CHF ' + (n/1e6).toLocaleString('de-CH', {minimumFractionDigits:1, maximumFractionDigits:1}) + ' M';
+  if (Math.abs(n) >= 1e3) return 'CHF ' + (n/1e3).toLocaleString('de-CH', {minimumFractionDigits:0, maximumFractionDigits:0}) + ' K';
+  return 'CHF ' + n;
+};
 const alpha = (hex, a) => {
   const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
   return `rgba(${r},${g},${b},${a})`;
@@ -682,41 +776,43 @@ function delta(current, previous) {
    → Alternativ: build.js ausführen um aus CSV-Dateien zu bauen
 ══════════════════════════════════════════════════════════════ */
 const EMBEDDED_DATA = {
+  /* Wettkampflizenzen nach Disziplin (Quelle: Swiss Cycling Jahresberichte)
+     Strasse/MTB/BMX = M+F je Disziplin; Sonstige = Radquer+Bahn+Trial+Kunstrad+Radball+Para
+     Total = alle Wettkampflizenzen + Funktionäre */
   lizenzen: [
-    {Jahr:2018,Elite_Männer:312,Elite_Frauen:87,U23_Männer:198,U23_Frauen:54,Junioren:423,Juniorinnen:112,Nachwuchs_Männer:867,Nachwuchs_Frauen:234,Masters:1456,Total:3743},
-    {Jahr:2019,Elite_Männer:328,Elite_Frauen:95,U23_Männer:205,U23_Frauen:61,Junioren:441,Juniorinnen:124,Nachwuchs_Männer:891,Nachwuchs_Frauen:251,Masters:1512,Total:3908},
-    {Jahr:2020,Elite_Männer:298,Elite_Frauen:102,U23_Männer:189,U23_Frauen:67,Junioren:389,Juniorinnen:118,Nachwuchs_Männer:812,Nachwuchs_Frauen:238,Masters:1398,Total:3611},
-    {Jahr:2021,Elite_Männer:341,Elite_Frauen:118,U23_Männer:212,U23_Frauen:73,Junioren:467,Juniorinnen:138,Nachwuchs_Männer:934,Nachwuchs_Frauen:267,Masters:1589,Total:4139},
-    {Jahr:2022,Elite_Männer:367,Elite_Frauen:134,U23_Männer:224,U23_Frauen:81,Junioren:498,Juniorinnen:152,Nachwuchs_Männer:978,Nachwuchs_Frauen:289,Masters:1634,Total:4357},
-    {Jahr:2023,Elite_Männer:389,Elite_Frauen:156,U23_Männer:231,U23_Frauen:89,Junioren:521,Juniorinnen:168,Nachwuchs_Männer:1012,Nachwuchs_Frauen:312,Masters:1678,Total:4556},
-    {Jahr:2024,Elite_Männer:412,Elite_Frauen:178,U23_Männer:243,U23_Frauen:97,Junioren:548,Juniorinnen:184,Nachwuchs_Männer:1056,Nachwuchs_Frauen:338,Masters:1723,Total:4779},
+    {Jahr:2021, Strasse_M:423, Strasse_F:82,  MTB_M:575, MTB_F:171, BMX_M:343, BMX_F:50,  Sonstige_M:754, Sonstige_F:297, Funktionaere:338, Total:3033},
+    {Jahr:2022, Strasse_M:373, Strasse_F:74,  MTB_M:504, MTB_F:161, BMX_M:368, BMX_F:59,  Sonstige_M:479, Sonstige_F:224, Funktionaere:350, Total:2592},
+    {Jahr:2023, Strasse_M:395, Strasse_F:94,  MTB_M:545, MTB_F:159, BMX_M:369, BMX_F:62,  Sonstige_M:490, Sonstige_F:234, Funktionaere:357, Total:2705},
+    {Jahr:2024, Strasse_M:414, Strasse_F:94,  MTB_M:521, MTB_F:146, BMX_M:357, BMX_F:59,  Sonstige_M:485, Sonstige_F:246, Funktionaere:350, Total:2672},
+    {Jahr:2025, Strasse_M:438, Strasse_F:113, MTB_M:757, MTB_F:238, BMX_M:324, BMX_F:61,  Sonstige_M:490, Sonstige_F:257, Funktionaere:343, Total:3021},
   ],
-  personal: [
-    {Jahr:2018,Vollzeitstellen:8,Teilzeitstellen:12,Stellenprozente_Total:1340,Davon_Frauen_Prozent:38,Davon_Männer_Prozent:62,Lernende:2,Volunteers:145},
-    {Jahr:2019,Vollzeitstellen:9,Teilzeitstellen:13,Stellenprozente_Total:1420,Davon_Frauen_Prozent:41,Davon_Männer_Prozent:59,Lernende:2,Volunteers:158},
-    {Jahr:2020,Vollzeitstellen:9,Teilzeitstellen:11,Stellenprozente_Total:1380,Davon_Frauen_Prozent:43,Davon_Männer_Prozent:57,Lernende:1,Volunteers:112},
-    {Jahr:2021,Vollzeitstellen:10,Teilzeitstellen:14,Stellenprozente_Total:1510,Davon_Frauen_Prozent:45,Davon_Männer_Prozent:55,Lernende:2,Volunteers:134},
-    {Jahr:2022,Vollzeitstellen:11,Teilzeitstellen:15,Stellenprozente_Total:1640,Davon_Frauen_Prozent:47,Davon_Männer_Prozent:53,Lernende:3,Volunteers:167},
-    {Jahr:2023,Vollzeitstellen:12,Teilzeitstellen:16,Stellenprozente_Total:1780,Davon_Frauen_Prozent:49,Davon_Männer_Prozent:51,Lernende:3,Volunteers:189},
-    {Jahr:2024,Vollzeitstellen:13,Teilzeitstellen:17,Stellenprozente_Total:1920,Davon_Frauen_Prozent:52,Davon_Männer_Prozent:48,Lernende:3,Volunteers:201},
+  /* Verbandsmitglieder (Aktive Lizenznehmer + passive Club-Mitglieder) */
+  mitglieder: [
+    {Jahr:2021, Aktive:12401, Passiv:10439, Total:22840},
+    {Jahr:2022, Aktive:13210, Passiv:9605,  Total:22815},
+    {Jahr:2023, Aktive:13346, Passiv:9880,  Total:23226},
+    {Jahr:2024, Aktive:13711, Passiv:10029, Total:23740},
+    {Jahr:2025, Aktive:13477, Passiv:10547, Total:24024},
   ],
+  /* Erfolgsrechnung (Quelle: Swiss Cycling Jahresberichte; Beträge in CHF)
+     Ertrag_Sponsoring  = Werbeerträge/Sponsoring
+     Ertrag_Subventionen= Beiträge öffentlicher Bereich + J+S-Beiträge
+     Ertrag_Sonstiges   = Mitgliederbeiträge + Projekte + übrige Erträge
+     Aufwand_Veranstaltungen = Restgrösse (Total − Personal − Betrieb − Abschreibungen) */
   erfolgsrechnung: [
-    {Jahr:2018,Ertrag_Lizenzen:485200,Ertrag_Veranstaltungen:234100,Ertrag_Sponsoring:312000,Ertrag_Subventionen:580000,Ertrag_Sonstiges:89300,Ertrag_Total:1700600,Aufwand_Personal:890000,Aufwand_Veranstaltungen:312000,Aufwand_Betrieb:198000,Aufwand_Sonstiges:145600,Aufwand_Total:1545600,Ergebnis:155000},
-    {Jahr:2019,Ertrag_Lizenzen:512400,Ertrag_Veranstaltungen:251300,Ertrag_Sponsoring:334000,Ertrag_Subventionen:610000,Ertrag_Sonstiges:95600,Ertrag_Total:1803300,Aufwand_Personal:945000,Aufwand_Veranstaltungen:334000,Aufwand_Betrieb:212000,Aufwand_Sonstiges:158900,Aufwand_Total:1649900,Ergebnis:153400},
-    {Jahr:2020,Ertrag_Lizenzen:476800,Ertrag_Veranstaltungen:89200,Ertrag_Sponsoring:298000,Ertrag_Subventionen:680000,Ertrag_Sonstiges:78400,Ertrag_Total:1622400,Aufwand_Personal:912000,Aufwand_Veranstaltungen:89200,Aufwand_Betrieb:201000,Aufwand_Sonstiges:134600,Aufwand_Total:1336800,Ergebnis:285600},
-    {Jahr:2021,Ertrag_Lizenzen:534100,Ertrag_Veranstaltungen:198400,Ertrag_Sponsoring:356000,Ertrag_Subventionen:720000,Ertrag_Sonstiges:102800,Ertrag_Total:1911300,Aufwand_Personal:978000,Aufwand_Veranstaltungen:198400,Aufwand_Betrieb:218000,Aufwand_Sonstiges:167200,Aufwand_Total:1561600,Ergebnis:349700},
-    {Jahr:2022,Ertrag_Lizenzen:578600,Ertrag_Veranstaltungen:267800,Ertrag_Sponsoring:389000,Ertrag_Subventionen:740000,Ertrag_Sonstiges:114200,Ertrag_Total:2089600,Aufwand_Personal:1045000,Aufwand_Veranstaltungen:267800,Aufwand_Betrieb:231000,Aufwand_Sonstiges:178900,Aufwand_Total:1722700,Ergebnis:366900},
-    {Jahr:2023,Ertrag_Lizenzen:623400,Ertrag_Veranstaltungen:312100,Ertrag_Sponsoring:421000,Ertrag_Subventionen:760000,Ertrag_Sonstiges:128600,Ertrag_Total:2245100,Aufwand_Personal:1124000,Aufwand_Veranstaltungen:312100,Aufwand_Betrieb:248000,Aufwand_Sonstiges:189300,Aufwand_Total:1873400,Ergebnis:371700},
-    {Jahr:2024,Ertrag_Lizenzen:671200,Ertrag_Veranstaltungen:356400,Ertrag_Sponsoring:458000,Ertrag_Subventionen:780000,Ertrag_Sonstiges:143800,Ertrag_Total:2409400,Aufwand_Personal:1213000,Aufwand_Veranstaltungen:356400,Aufwand_Betrieb:267000,Aufwand_Sonstiges:201200,Aufwand_Total:2037600,Ergebnis:371800},
+    {Jahr:2020,Ertrag_Lizenzen:352554,  Ertrag_Veranstaltungen:803592,  Ertrag_Sponsoring:1088459, Ertrag_Subventionen:9976645,  Ertrag_Sonstiges:1914308,  Ertrag_Total:14135558, Aufwand_Personal:3141937, Aufwand_Veranstaltungen:10061060, Aufwand_Betrieb:861711,  Aufwand_Sonstiges:69531,  Aufwand_Total:14134239, Ergebnis:1319},
+    {Jahr:2021,Ertrag_Lizenzen:392685,  Ertrag_Veranstaltungen:622313,  Ertrag_Sponsoring:1459517, Ertrag_Subventionen:8669460,  Ertrag_Sonstiges:1816629,  Ertrag_Total:12960604, Aufwand_Personal:3302948, Aufwand_Veranstaltungen:8564746,  Aufwand_Betrieb:994650,  Aufwand_Sonstiges:97272,  Aufwand_Total:12959616, Ergebnis:988},
+    {Jahr:2022,Ertrag_Lizenzen:408115,  Ertrag_Veranstaltungen:675850,  Ertrag_Sponsoring:1340828, Ertrag_Subventionen:5413429,  Ertrag_Sonstiges:2472584,  Ertrag_Total:10310806, Aufwand_Personal:4469003, Aufwand_Veranstaltungen:4853893,  Aufwand_Betrieb:842274,  Aufwand_Sonstiges:139376, Aufwand_Total:10304546, Ergebnis:6260},
+    {Jahr:2023,Ertrag_Lizenzen:445239,  Ertrag_Veranstaltungen:905374,  Ertrag_Sponsoring:1751561, Ertrag_Subventionen:5287152,  Ertrag_Sonstiges:2140322,  Ertrag_Total:10529648, Aufwand_Personal:4737306, Aufwand_Veranstaltungen:4758585,  Aufwand_Betrieb:856995,  Aufwand_Sonstiges:139477, Aufwand_Total:10492363, Ergebnis:37285},
+    {Jahr:2024,Ertrag_Lizenzen:406031,  Ertrag_Veranstaltungen:1429858, Ertrag_Sponsoring:1994618, Ertrag_Subventionen:6154426,  Ertrag_Sonstiges:2263322,  Ertrag_Total:12248255, Aufwand_Personal:5198716, Aufwand_Veranstaltungen:5720227,  Aufwand_Betrieb:1136711, Aufwand_Sonstiges:137404, Aufwand_Total:12193058, Ergebnis:55197},
+    {Jahr:2025,Ertrag_Lizenzen:423921,  Ertrag_Veranstaltungen:928083,  Ertrag_Sponsoring:2880194, Ertrag_Subventionen:7100437,  Ertrag_Sonstiges:2198502,  Ertrag_Total:13531137, Aufwand_Personal:5005284, Aufwand_Veranstaltungen:7257838,  Aufwand_Betrieb:917243,  Aufwand_Sonstiges:152229, Aufwand_Total:13332594, Ergebnis:198543},
   ],
   veranstaltungen: [
-    {Jahr:2018,Rennen_Total:234,Davon_Strasse:98,Davon_MTB:87,Davon_Track:34,Davon_BMX:15,Teilnehmende_Total:18934,Internationale_Starts:312,Medaillen_WM:3,Medaillen_EM:8},
-    {Jahr:2019,Rennen_Total:251,Davon_Strasse:104,Davon_MTB:93,Davon_Track:36,Davon_BMX:18,Teilnehmende_Total:20112,Internationale_Starts:334,Medaillen_WM:4,Medaillen_EM:11},
-    {Jahr:2020,Rennen_Total:89,Davon_Strasse:34,Davon_MTB:38,Davon_Track:12,Davon_BMX:5,Teilnehmende_Total:7234,Internationale_Starts:112,Medaillen_WM:2,Medaillen_EM:4},
-    {Jahr:2021,Rennen_Total:198,Davon_Strasse:82,Davon_MTB:76,Davon_Track:28,Davon_BMX:12,Teilnehmende_Total:15678,Internationale_Starts:267,Medaillen_WM:5,Medaillen_EM:9},
-    {Jahr:2022,Rennen_Total:267,Davon_Strasse:108,Davon_MTB:101,Davon_Track:38,Davon_BMX:20,Teilnehmende_Total:22341,Internationale_Starts:389,Medaillen_WM:6,Medaillen_EM:14},
-    {Jahr:2023,Rennen_Total:289,Davon_Strasse:118,Davon_MTB:109,Davon_Track:41,Davon_BMX:21,Teilnehmende_Total:24567,Internationale_Starts:412,Medaillen_WM:7,Medaillen_EM:16},
-    {Jahr:2024,Rennen_Total:312,Davon_Strasse:128,Davon_MTB:118,Davon_Track:44,Davon_BMX:22,Teilnehmende_Total:26789,Internationale_Starts:438,Medaillen_WM:8,Medaillen_EM:18},
+    {Jahr:2021, Total:315, Strasse:137, MTB:80, Bahn:37, BMX:7, Radquer:33, Trial:7, Para:10, Sonstige:4, National:132, International:31, Regional_Training:149},
+    {Jahr:2022, Total:406, Strasse:189, MTB:101, Bahn:50, BMX:16, Radquer:36, Trial:7, Para:2, Sonstige:5, National:164, International:38, Regional_Training:200},
+    {Jahr:2023, Total:408, Strasse:195, MTB:100, Bahn:47, BMX:16, Radquer:36, Trial:11, Para:1, Sonstige:2, National:146, International:48, Regional_Training:212},
+    {Jahr:2024, Total:402, Strasse:191, MTB:99, Bahn:49, BMX:14, Radquer:34, Trial:6, Para:2, Sonstige:7, National:131, International:55, Regional_Training:214},
+    {Jahr:2025, Total:394, Strasse:182, MTB:96, Bahn:42, BMX:21, Radquer:33, Trial:8, Para:1, Sonstige:11, National:121, International:43, Regional_Training:228},
   ],
 };
 
@@ -725,7 +821,7 @@ function loadCSV(key) {
   const name = key.replace('data/','').replace('.csv','');
   const map = {
     lizenzen: 'lizenzen',
-    personal: 'personal',
+    mitglieder: 'mitglieder',
     erfolgsrechnung: 'erfolgsrechnung',
     veranstaltungen: 'veranstaltungen',
   };
@@ -772,12 +868,18 @@ async function initLizenzen() {
   document.getElementById('lizenzMeta').textContent = `Letztes Update: ${last.Jahr}`;
   document.getElementById('currentYear').textContent = new Date().getFullYear();
 
+  const lastM = last.Strasse_M + last.MTB_M + last.BMX_M + last.Sonstige_M;
+  const lastF = last.Strasse_F + last.MTB_F + last.BMX_F + last.Sonstige_F;
+  const prevM = prev.Strasse_M + prev.MTB_M + prev.BMX_M + prev.Sonstige_M;
+  const prevF = prev.Strasse_F + prev.MTB_F + prev.BMX_F + prev.Sonstige_F;
+  const frauenPct = (lastF / (lastM + lastF) * 100).toFixed(1);
+
   document.getElementById('lizenzKpis').innerHTML = [
     kpiCard('Lizenzen Total', fmt(last.Total), delta(last.Total, prev.Total)),
-    kpiCard('Elite Männer', fmt(last.Elite_Männer), delta(last.Elite_Männer, prev.Elite_Männer), getTheme().blue),
-    kpiCard('Elite Frauen', fmt(last.Elite_Frauen), delta(last.Elite_Frauen, prev.Elite_Frauen), getTheme().green),
-    kpiCard('Nachwuchs', fmt(last.Nachwuchs_Männer + last.Nachwuchs_Frauen), null, getTheme().gold),
-    kpiCard('Masters', fmt(last.Masters), delta(last.Masters, prev.Masters), '#7c3aed'),
+    kpiCard('Männer (Wettkampf)', fmt(lastM), delta(lastM, prevM), getTheme().blue),
+    kpiCard('Frauen (Wettkampf)', fmt(lastF), delta(lastF, prevF), getTheme().green),
+    kpiCard('Frauenanteil', frauenPct + '%', null, getTheme().gold),
+    kpiCard('Funktionäre', fmt(last.Funktionaere), delta(last.Funktionaere, prev.Funktionaere), '#7c3aed'),
   ].join('');
 
   const t = getTheme();
@@ -798,33 +900,43 @@ async function initLizenzen() {
     options: gridOpts()
   });
 
-  // Kategorie Bar
-  const cats = ['Elite_Männer','Elite_Frauen','U23_Männer','U23_Frauen','Junioren','Juniorinnen','Nachwuchs_Männer','Nachwuchs_Frauen','Masters'];
-  const catLabels = ['Elite M','Elite F','U23 M','U23 F','Jun M','Jun F','Nwchs M','Nwchs F','Masters'];
+  // Disziplin Bar (latest year, M+F combined per discipline)
+  const diszLabels = ['Strasse', 'MTB', 'BMX', 'Sonstige'];
+  const diszTotals = [
+    last.Strasse_M + last.Strasse_F,
+    last.MTB_M    + last.MTB_F,
+    last.BMX_M    + last.BMX_F,
+    last.Sonstige_M + last.Sonstige_F,
+  ];
   makeChart('chartLizenzKat', {
     type: 'bar',
     data: {
-      labels: catLabels,
-      datasets: [{
-        label: String(last.Jahr),
-        data: cats.map(c => last[c]),
-        backgroundColor: t.chart,
-        borderRadius: 6,
-      }]
+      labels: diszLabels,
+      datasets: [
+        { label: 'Männer', data: [last.Strasse_M, last.MTB_M, last.BMX_M, last.Sonstige_M], backgroundColor: alpha(t.blue, .8), borderRadius: 4 },
+        { label: 'Frauen', data: [last.Strasse_F, last.MTB_F, last.BMX_F, last.Sonstige_F], backgroundColor: alpha(t.green, .8), borderRadius: 4 },
+      ]
     },
-    options: { ...gridOpts(), plugins: { legend: { display: false } } }
+    options: gridOpts()
   });
 
-  // Stacked
+  // Stacked by discipline over years
+  const diszKeys = [
+    { mKey: 'Strasse_M',  fKey: 'Strasse_F',  label: 'Strasse',  color: t.chart[0] },
+    { mKey: 'MTB_M',      fKey: 'MTB_F',      label: 'MTB',      color: t.chart[1] },
+    { mKey: 'BMX_M',      fKey: 'BMX_F',      label: 'BMX',      color: t.chart[2] },
+    { mKey: 'Sonstige_M', fKey: 'Sonstige_F', label: 'Sonstige', color: t.chart[3] },
+    { mKey: 'Funktionaere', fKey: null,        label: 'Funktionäre', color: t.chart[4] },
+  ];
   makeChart('chartLizenzStacked', {
     type: 'bar',
     data: {
       labels: years,
-      datasets: cats.map((c, i) => ({
-        label: catLabels[i],
-        data: raw.map(r => r[c]),
-        backgroundColor: t.chart[i % t.chart.length],
-        borderRadius: i === cats.length - 1 ? 6 : 0,
+      datasets: diszKeys.map((d, i) => ({
+        label: d.label,
+        data: raw.map(r => d.fKey ? r[d.mKey] + r[d.fKey] : r[d.mKey]),
+        backgroundColor: d.color,
+        borderRadius: i === diszKeys.length - 1 ? 6 : 0,
       }))
     },
     options: gridOpts(true)
@@ -832,8 +944,8 @@ async function initLizenzen() {
 
   // Table
   const tbl = document.getElementById('lizenzTable');
-  const allCols = ['Jahr','Elite_Männer','Elite_Frauen','U23_Männer','U23_Frauen','Junioren','Juniorinnen','Nachwuchs_Männer','Nachwuchs_Frauen','Masters','Total'];
-  const colLabels = ['Jahr','Elite M','Elite F','U23 M','U23 F','Junioren','Junior.','Nwchs M','Nwchs F','Masters','Total'];
+  const allCols = ['Jahr','Strasse_M','Strasse_F','MTB_M','MTB_F','BMX_M','BMX_F','Sonstige_M','Sonstige_F','Funktionaere','Total'];
+  const colLabels = ['Jahr','Strasse M','Strasse F','MTB M','MTB F','BMX M','BMX F','Sonst. M','Sonst. F','Funkt.','Total'];
   tbl.querySelector('thead tr').innerHTML = colLabels.map(l => `<th>${l}</th>`).join('');
   tbl.querySelector('tbody').innerHTML = [...raw].reverse().map(r => {
     const maxT = Math.max(...raw.map(x => x.Total));
@@ -843,81 +955,34 @@ async function initLizenzen() {
       return `<td class="num">${fmt(r[c])}</td>`;
     }).join('')}</tr>`;
   }).join('');
+
+  // Mitglieder KPIs + chart
+  const mraw = await loadCSV('data/mitglieder.csv');
+  if (mraw && mraw.length) {
+    const mlast = mraw[mraw.length - 1];
+    const mprev = mraw[mraw.length - 2];
+    document.getElementById('mitgliedKpis').innerHTML = [
+      kpiCard('Mitglieder Total', fmt(mlast.Total), delta(mlast.Total, mprev.Total)),
+      kpiCard('Aktive Mitglieder', fmt(mlast.Aktive), delta(mlast.Aktive, mprev.Aktive), t.blue),
+      kpiCard('Passive Mitglieder', fmt(mlast.Passiv), delta(mlast.Passiv, mprev.Passiv), t.chart[4]),
+    ].join('');
+    makeChart('chartMitglieder', {
+      type: 'bar',
+      data: {
+        labels: mraw.map(r => r.Jahr),
+        datasets: [
+          { label: 'Aktive Mitglieder', data: mraw.map(r => r.Aktive), backgroundColor: alpha(t.blue, .8), borderRadius: 4 },
+          { label: 'Passive Mitglieder', data: mraw.map(r => r.Passiv), backgroundColor: alpha(t.chart[4], .6), borderRadius: 4 },
+        ]
+      },
+      options: gridOpts(true)
+    });
+  }
 }
 
 /* ══════════════════════════════════════════════════════════════
    PERSONAL
 ══════════════════════════════════════════════════════════════ */
-async function initPersonal() {
-  const raw = await loadCSV('data/personal.csv');
-  const years = raw.map(r => r.Jahr);
-  const last = raw[raw.length - 1];
-  const prev = raw[raw.length - 2];
-  const t = getTheme();
-
-  document.getElementById('personalKpis').innerHTML = [
-    kpiCard('Stellen Total', fmt(last.Vollzeitstellen + last.Teilzeitstellen), null, t.blue),
-    kpiCard('Davon Vollzeit', fmt(last.Vollzeitstellen), delta(last.Vollzeitstellen, prev.Vollzeitstellen), t.blue),
-    kpiCard('Stellenprozente', last.Stellenprozente_Total + '%', delta(last.Stellenprozente_Total, prev.Stellenprozente_Total), t.accent),
-    kpiCard('Frauenanteil', last.Davon_Frauen_Prozent + '%', delta(last.Davon_Frauen_Prozent, prev.Davon_Frauen_Prozent), t.green),
-    kpiCard('Volunteers', fmt(last.Volunteers), delta(last.Volunteers, prev.Volunteers), t.gold),
-  ].join('');
-
-  makeChart('chartStellen', {
-    type: 'line',
-    data: {
-      labels: years,
-      datasets: [{
-        label: 'Stellenprozente Total',
-        data: raw.map(r => r.Stellenprozente_Total),
-        borderColor: t.blue, backgroundColor: alpha(t.blue, .12),
-        fill: true, tension: .4, pointRadius: 5, borderWidth: 2.5,
-      }]
-    },
-    options: gridOpts()
-  });
-
-  makeChart('chartVzTz', {
-    type: 'bar',
-    data: {
-      labels: years,
-      datasets: [
-        { label: 'Vollzeit', data: raw.map(r => r.Vollzeitstellen), backgroundColor: t.blue, borderRadius: 4 },
-        { label: 'Teilzeit', data: raw.map(r => r.Teilzeitstellen), backgroundColor: alpha(t.blue, .4), borderRadius: 4 },
-      ]
-    },
-    options: gridOpts()
-  });
-
-  makeChart('chartGender', {
-    type: 'line',
-    data: {
-      labels: years,
-      datasets: [
-        { label: 'Frauen %', data: raw.map(r => r.Davon_Frauen_Prozent), borderColor: t.green, backgroundColor: alpha(t.green,.1), fill: true, tension: .4, borderWidth: 2.5 },
-        { label: 'Männer %', data: raw.map(r => r.Davon_Männer_Prozent), borderColor: t.blue, backgroundColor: alpha(t.blue,.08), fill: true, tension: .4, borderWidth: 2.5 },
-      ]
-    },
-    options: {
-      ...gridOpts(),
-      scales: { ...gridOpts().scales, y: { ...gridOpts().scales.y, max: 100, ticks: { callback: v => v + '%', color: getTheme().text2 } } }
-    }
-  });
-
-  makeChart('chartVolunteers', {
-    type: 'bar',
-    data: {
-      labels: years,
-      datasets: [{
-        label: 'Volunteers',
-        data: raw.map(r => r.Volunteers),
-        backgroundColor: raw.map(() => t.gold),
-        borderRadius: 6,
-      }]
-    },
-    options: { ...gridOpts(), plugins: { legend: { display: false } } }
-  });
-}
 
 /* ══════════════════════════════════════════════════════════════
    FINANZEN
@@ -930,11 +995,11 @@ async function initFinanzen() {
   const t = getTheme();
 
   document.getElementById('finanzKpis').innerHTML = [
-    kpiCard('Gesamtertrag', fmtM(last.Ertrag_Total), delta(last.Ertrag_Total, prev.Ertrag_Total), t.gold),
-    kpiCard('Gesamtaufwand', fmtM(last.Aufwand_Total), delta(last.Aufwand_Total, prev.Aufwand_Total), t.accent),
-    kpiCard('Jahresergebnis', fmtM(last.Ergebnis), null, t.green),
-    kpiCard('Sponsoring', fmtM(last.Ertrag_Sponsoring), delta(last.Ertrag_Sponsoring, prev.Ertrag_Sponsoring), t.blue),
-    kpiCard('Subventionen', fmtM(last.Ertrag_Subventionen), delta(last.Ertrag_Subventionen, prev.Ertrag_Subventionen), '#7c3aed'),
+    kpiCard('Gesamtertrag', fmtCHF(last.Ertrag_Total), delta(last.Ertrag_Total, prev.Ertrag_Total), t.gold),
+    kpiCard('Gesamtaufwand', fmtCHF(last.Aufwand_Total), delta(last.Aufwand_Total, prev.Aufwand_Total), t.accent),
+    kpiCard('Jahresergebnis', fmtCHF(last.Ergebnis), null, t.green),
+    kpiCard('Werbung/Sponsoring', fmtCHF(last.Ertrag_Sponsoring), delta(last.Ertrag_Sponsoring, prev.Ertrag_Sponsoring), t.blue),
+    kpiCard('Öffentl. Beiträge', fmtCHF(last.Ertrag_Subventionen), delta(last.Ertrag_Subventionen, prev.Ertrag_Subventionen), '#7c3aed'),
   ].join('');
 
   makeChart('chartErtragAufwand', {
@@ -948,7 +1013,8 @@ async function initFinanzen() {
     },
     options: {
       ...gridOpts(),
-      scales: { ...gridOpts().scales, y: { ...gridOpts().scales.y, ticks: { callback: v => 'CHF ' + (v/1000).toFixed(0) + 'k', color: getTheme().text2 } } }
+      plugins: { ...gridOpts().plugins, tooltip: { callbacks: { footer: () => undefined } } },
+      scales: { ...gridOpts().scales, y: { ...gridOpts().scales.y, ticks: { callback: v => 'CHF ' + (v/1000000).toFixed(1) + 'M', color: getTheme().text2 } } }
     }
   });
 
@@ -966,19 +1032,45 @@ async function initFinanzen() {
     options: {
       ...gridOpts(),
       plugins: { legend: { display: false } },
-      scales: { ...gridOpts().scales, y: { ...gridOpts().scales.y, ticks: { callback: v => 'CHF ' + (v/1000).toFixed(0) + 'k', color: getTheme().text2 } } }
+      scales: { ...gridOpts().scales, y: { ...gridOpts().scales.y, ticks: { callback: v => (v/1000).toFixed(0) + ' K', color: getTheme().text2 } } }
+    }
+  });
+
+  const pieOpts = (colors) => ({
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          font: { size: 11 },
+          padding: 10,
+          boxWidth: 12,
+          color: getTheme().text2,
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => {
+            const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+            const pct   = (ctx.parsed / total * 100).toFixed(1);
+            const chf   = 'CHF ' + new Intl.NumberFormat('de-CH', { maximumFractionDigits: 0 }).format(ctx.parsed);
+            return ` ${ctx.label}: ${chf} (${pct}%)`;
+          }
+        }
+      }
     }
   });
 
   const ertragKeys = ['Ertrag_Lizenzen','Ertrag_Veranstaltungen','Ertrag_Sponsoring','Ertrag_Subventionen','Ertrag_Sonstiges'];
-  const ertragLabels = ['Lizenzen','Veranstaltungen','Sponsoring','Subventionen','Sonstiges'];
+  const ertragLabels = ['Lizenzen','Veranstaltungen','Sponsoring','Öffentl. Beiträge','Übrige'];
   makeChart('chartErtragPie', {
     type: 'doughnut',
     data: {
       labels: ertragLabels,
       datasets: [{ data: ertragKeys.map(k => last[k]), backgroundColor: t.chart, borderWidth: 2, borderColor: t.surface }]
     },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+    options: pieOpts(t.chart)
   });
 
   const aufwandKeys = ['Aufwand_Personal','Aufwand_Veranstaltungen','Aufwand_Betrieb','Aufwand_Sonstiges'];
@@ -989,95 +1081,309 @@ async function initFinanzen() {
       labels: aufwandLabels,
       datasets: [{ data: aufwandKeys.map(k => last[k]), backgroundColor: [t.accent, t.blue, t.gold, t.chart[4]], borderWidth: 2, borderColor: t.surface }]
     },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+    options: pieOpts([t.accent, t.blue, t.gold, t.chart[4]])
   });
 }
 
 /* ══════════════════════════════════════════════════════════════
-   VERANSTALTUNGEN
+   VERANSTALTUNGEN  (Quelle: swiss-cycling.ch Kalender)
 ══════════════════════════════════════════════════════════════ */
 async function initVeranstaltungen() {
   const raw = await loadCSV('data/veranstaltungen.csv');
   const years = raw.map(r => r.Jahr);
-  const last = raw[raw.length - 1];
-  const prev = raw[raw.length - 2];
+  const last  = raw[raw.length - 1];
+  const prev  = raw[raw.length - 2];
   const t = getTheme();
 
   document.getElementById('eventKpis').innerHTML = [
-    kpiCard('Rennen Total', fmt(last.Rennen_Total), delta(last.Rennen_Total, prev.Rennen_Total), t.green),
-    kpiCard('Teilnehmende', fmt(last.Teilnehmende_Total), delta(last.Teilnehmende_Total, prev.Teilnehmende_Total), t.blue),
-    kpiCard('Intern. Starts', fmt(last.Internationale_Starts), delta(last.Internationale_Starts, prev.Internationale_Starts), t.accent),
-    kpiCard('WM Medaillen', fmt(last.Medaillen_WM), delta(last.Medaillen_WM, prev.Medaillen_WM), t.gold),
-    kpiCard('EM Medaillen', fmt(last.Medaillen_EM), delta(last.Medaillen_EM, prev.Medaillen_EM), '#7c3aed'),
+    kpiCard('Events Total',   fmt(last.Total),        delta(last.Total,         prev.Total),         t.green),
+    kpiCard('Strasse',        fmt(last.Strasse),       delta(last.Strasse,       prev.Strasse),       t.chart[0]),
+    kpiCard('MTB',            fmt(last.MTB),           delta(last.MTB,           prev.MTB),           t.chart[1]),
+    kpiCard('Bahn',           fmt(last.Bahn),          delta(last.Bahn,          prev.Bahn),          t.chart[2]),
+    kpiCard('International',  fmt(last.International), delta(last.International, prev.International), t.gold),
   ].join('');
 
+  // Total + all disciplines grouped bar
   makeChart('chartRennen', {
     type: 'bar',
     data: {
       labels: years,
       datasets: [
-        { label: 'Strasse', data: raw.map(r => r.Davon_Strasse), backgroundColor: alpha(t.accent,.8), borderRadius: 3 },
-        { label: 'MTB', data: raw.map(r => r.Davon_MTB), backgroundColor: alpha(t.green,.8), borderRadius: 3 },
-        { label: 'Track', data: raw.map(r => r.Davon_Track), backgroundColor: alpha(t.blue,.8), borderRadius: 3 },
-        { label: 'BMX', data: raw.map(r => r.Davon_BMX), backgroundColor: alpha(t.gold,.8), borderRadius: 3 },
+        { label: 'Strasse',  data: raw.map(r => r.Strasse),  backgroundColor: alpha(t.chart[0], .8), borderRadius: 3 },
+        { label: 'MTB',      data: raw.map(r => r.MTB),      backgroundColor: alpha(t.chart[1], .8), borderRadius: 3 },
+        { label: 'Bahn',     data: raw.map(r => r.Bahn),     backgroundColor: alpha(t.chart[2], .8), borderRadius: 3 },
+        { label: 'BMX',      data: raw.map(r => r.BMX),      backgroundColor: alpha(t.chart[3], .8), borderRadius: 3 },
+        { label: 'Radquer',  data: raw.map(r => r.Radquer),  backgroundColor: alpha(t.chart[4], .8), borderRadius: 3 },
+        { label: 'Trial',    data: raw.map(r => r.Trial),    backgroundColor: alpha(t.chart[5], .8), borderRadius: 3 },
+        { label: 'Para',     data: raw.map(r => r.Para),     backgroundColor: alpha(t.chart[6], .8), borderRadius: 3 },
+        { label: 'Sonstige', data: raw.map(r => r.Sonstige), backgroundColor: alpha(t.chart[7], .8), borderRadius: 3 },
       ]
     },
     options: gridOpts()
   });
 
-  makeChart('chartTeilnehmende', {
+  // Level line chart (National / International / Regional)
+  makeChart('chartEventLevel', {
     type: 'line',
     data: {
       labels: years,
-      datasets: [{
-        label: 'Teilnehmende',
-        data: raw.map(r => r.Teilnehmende_Total),
-        borderColor: t.green, backgroundColor: alpha(t.green,.1),
-        fill: true, tension: .4, pointRadius: 5, borderWidth: 2.5,
-      }]
+      datasets: [
+        { label: 'National',          data: raw.map(r => r.National),          borderColor: t.green,    backgroundColor: alpha(t.green,.08),  fill: true, tension: .4, pointRadius: 5, borderWidth: 2.5 },
+        { label: 'Regional/Training', data: raw.map(r => r.Regional_Training), borderColor: t.blue,     backgroundColor: alpha(t.blue,.06),   fill: true, tension: .4, pointRadius: 5, borderWidth: 2.5 },
+        { label: 'International',     data: raw.map(r => r.International),     borderColor: t.gold,     backgroundColor: alpha(t.gold,.1),    fill: true, tension: .4, pointRadius: 5, borderWidth: 2.5 },
+      ]
     },
     options: gridOpts()
   });
 
-  makeChart('chartMedaillen', {
+  // Stacked by discipline
+  const diszipline = [
+    { key: 'Strasse',  color: t.chart[0] },
+    { key: 'MTB',      color: t.chart[1] },
+    { key: 'Bahn',     color: t.chart[2] },
+    { key: 'BMX',      color: t.chart[3] },
+    { key: 'Radquer',  color: t.chart[4] },
+    { key: 'Trial',    color: t.chart[5] },
+    { key: 'Para',     color: t.chart[6] },
+    { key: 'Sonstige', color: t.chart[7] },
+  ];
+  makeChart('chartEventStacked', {
     type: 'bar',
     data: {
       labels: years,
+      datasets: diszipline.map((d, i) => ({
+        label: d.key,
+        data: raw.map(r => r[d.key]),
+        backgroundColor: d.color,
+        borderRadius: i === diszipline.length - 1 ? 6 : 0,
+      }))
+    },
+    options: gridOpts(true)
+  });
+
+  // Polar area – last year discipline share
+  const diszPct = (key) => raw.map(r => (r[key] / r.Total * 100).toFixed(1));
+  makeChart('chartDisziplin', {
+    type: 'line',
+    data: {
+      labels: years,
       datasets: [
-        { label: 'Intern. Starts', data: raw.map(r => r.Internationale_Starts), backgroundColor: alpha(t.blue,.6), type: 'line', yAxisID: 'y2', borderColor: t.blue, tension: .4, fill: false },
-        { label: 'WM Medaillen', data: raw.map(r => r.Medaillen_WM), backgroundColor: t.gold, borderRadius: 4, yAxisID: 'y' },
-        { label: 'EM Medaillen', data: raw.map(r => r.Medaillen_EM), backgroundColor: alpha(t.gold,.5), borderRadius: 4, yAxisID: 'y' },
+        { label: 'Strasse',  data: diszPct('Strasse'),  borderColor: t.chart[0], backgroundColor: alpha(t.chart[0],.08), fill: true, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: 'MTB',      data: diszPct('MTB'),      borderColor: t.chart[1], backgroundColor: alpha(t.chart[1],.08), fill: true, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: 'Bahn',     data: diszPct('Bahn'),     borderColor: t.chart[2], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: 'BMX',      data: diszPct('BMX'),      borderColor: t.chart[3], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: 'Radquer',  data: diszPct('Radquer'),  borderColor: t.chart[4], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: 'Trial',    data: diszPct('Trial'),    borderColor: t.chart[5], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: 'Para',     data: diszPct('Para'),     borderColor: t.chart[6], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: 'Sonstige', data: diszPct('Sonstige'), borderColor: t.chart[7], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
       ]
     },
     options: {
-      responsive: true, maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
+      ...gridOpts(),
       scales: {
-        x: { grid: { display: false } },
-        y: { position: 'left', grid: { color: getTheme().border }, title: { display: true, text: 'Medaillen' } },
-        y2: { position: 'right', grid: { display: false }, title: { display: true, text: 'Intern. Starts' } }
+        ...gridOpts().scales,
+        y: {
+          ...gridOpts().scales.y,
+          max: 60,
+          ticks: { callback: v => v + '%', color: getTheme().text2 }
+        }
+      },
+      plugins: {
+        legend: { display: true },
+        tooltip: { callbacks: {
+          label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}%`,
+          footer: (items) => items.length < 2 ? undefined : 'Total: ' + items.reduce((a, i) => a + Number(i.raw), 0).toFixed(1) + '%'
+        } }
       }
     }
   });
+}
 
-  makeChart('chartDisziplin', {
-    type: 'polarArea',
+/* ══════════════════════════════════════════════════════════════
+   PERSONAL DATA  (auto-generated by scripts/fetch_team.py)
+   Update annually: VS Code task "Fetch Personal Data (annual)"
+══════════════════════════════════════════════════════════════ */
+/* AUTO-GENERATED by scripts/fetch_team.py – do not edit manually */
+const PERSONAL_DATA = {
+  "fetched_at": "2026-04-10",
+  "yearly_stats": [
+    {"jahr": 2026, "geschaeftsstelle": 41, "trainer": 17, "vorstand": 9}
+  ],
+  "geschaeftsstelle": [
+    {"name":"Thomas Peter","rolle":"Geschäftsführer","abteilung":"Geschäftsleitung"},
+    {"name":"Susanne Gries","rolle":"Leiterin Dienste","abteilung":"Geschäftsleitung"},
+    {"name":"Tabea Ulmer","rolle":"Ausbildungsverantwortliche J+S","abteilung":"Geschäftsleitung"},
+    {"name":"Patrick Müller","rolle":"Chef Leistungssport","abteilung":"Geschäftsleitung"},
+    {"name":"Tina Haueter","rolle":"Assistentin Geschäftsleitung","abteilung":"Geschäftsleitung"},
+    {"name":"Alessandra Ratano","rolle":"Rechnungswesen & Personal","abteilung":"Administration"},
+    {"name":"Stefania Ratano","rolle":"Lizenzen & Mitglieder","abteilung":"Administration"},
+    {"name":"Kirsten Culmone","rolle":"Rechnungswesen und Administration","abteilung":"Administration"},
+    {"name":"Beat Müller","rolle":"Cheftrainer MTB","abteilung":"Leistungssport"},
+    {"name":"Edi Telser","rolle":"Cheftrainer Strasse","abteilung":"Leistungssport"},
+    {"name":"David Graf","rolle":"Cheftrainer BMX","abteilung":"Leistungssport"},
+    {"name":"Stefanie Zurbuchen","rolle":"Disziplinenverantwortliche MTB & BMX","abteilung":"Leistungssport"},
+    {"name":"Nik Iseli","rolle":"Disziplinenverantwortlicher Bahn","abteilung":"Leistungssport"},
+    {"name":"Tino Eicher","rolle":"Disziplinenverantwortlicher Strasse","abteilung":"Leistungssport"},
+    {"name":"Lea Trüssel","rolle":"Backoffice Leistungssport","abteilung":"Leistungssport"},
+    {"name":"Patrik Noack","rolle":"Leiter Medical Team","abteilung":"Leistungssport"},
+    {"name":"Simon Vitzthum","rolle":"Leiter Service Course","abteilung":"Service Course"},
+    {"name":"Simon Meier","rolle":"Mechaniker","abteilung":"Service Course"},
+    {"name":"André Steck","rolle":"Logistiker","abteilung":"Service Course"},
+    {"name":"Nicolas Jeantet","rolle":"Mechaniker","abteilung":"Service Course"},
+    {"name":"Marianne Froidevaux","rolle":"Mitarbeiterin J+S","abteilung":"Ausbildung"},
+    {"name":"Mara Widmer","rolle":"Mitarbeiterin Ausbildung","abteilung":"Ausbildung"},
+    {"name":"Fabio Ruch","rolle":"Projektleiter Lernmedien","abteilung":"Ausbildung"},
+    {"name":"Ugo Ballerini","rolle":"J+S-Ausbildungsverantwortlicher BMX","abteilung":"Ausbildung"},
+    {"name":"Romina Ledergerber","rolle":"J+S-Ausbildungsverantwortliche Spezialdizip.","abteilung":"Ausbildung"},
+    {"name":"Myriam Hofstetter","rolle":"Ausbildungsverantwortliche Swiss Cycling Guide","abteilung":"Ausbildung"},
+    {"name":"Selina Lerch","rolle":"Mitarbeiterin Swiss Cycling Guide","abteilung":"Ausbildung"},
+    {"name":"Hans Harnisch","rolle":"Nachwuchsverantwortlicher","abteilung":"Nachwuchs"},
+    {"name":"Matthias Schlüssel","rolle":"Mitarbeiter Sportwissenschaft","abteilung":"Nachwuchs"},
+    {"name":"Oliver Johr","rolle":"Projektverantwortlicher Cycle On Zürich","abteilung":"Nachwuchs"},
+    {"name":"Paloma del Mar Kilchenmann","rolle":"Co-Leiterin Politik und Mobilität","abteilung":"Politik & Mobilität"},
+    {"name":"Sabrina Jaquet","rolle":"Projektleiterin Breitensport","abteilung":"Breitensport"},
+    {"name":"Tim Kesseli","rolle":"Marketing","abteilung":"Marketing"},
+    {"name":"Léonie Mürner","rolle":"Marketing","abteilung":"Marketing"},
+    {"name":"Fabienne Bringold","rolle":"Marketing","abteilung":"Marketing"},
+    {"name":"Micha Jegge","rolle":"Leiter Kommunikation","abteilung":"Kommunikation"},
+    {"name":"Estelle Pécaut","rolle":"Mitarbeiterin Kommunikation","abteilung":"Kommunikation"},
+    {"name":"Jan Weisstanner","rolle":"Mitarbeiter Kommunikation","abteilung":"Kommunikation"},
+    {"name":"Michelle Andres","rolle":"Mitarbeiterin Kommunikation","abteilung":"Kommunikation"},
+    {"name":"Anna Bürki","rolle":"Kommunikation & Multimedia","abteilung":"Kommunikation"},
+    {"name":"Urs Breitenmoser","rolle":"Head of Brand Design","abteilung":"Kommunikation"}
+  ],
+  "trainer": [
+    {"name":"Michael Schär","rolle":"Nationaltrainer Elite Männer","disziplin":"Strasse"},
+    {"name":"Edi Telser","rolle":"Nationaltrainer Elite & U23 Frauen","disziplin":"Strasse"},
+    {"name":"Tristan Marguet","rolle":"Nationaltrainer U23 Männer","disziplin":"Strasse"},
+    {"name":"Léna Mettraux","rolle":"Nationaltrainerin U19 Frauen","disziplin":"Strasse"},
+    {"name":"Julien Bossens","rolle":"Nationaltrainer U19 Männer","disziplin":"Strasse"},
+    {"name":"Morgan Kneisky","rolle":"Nationaltrainer & Sprint","disziplin":"Bahn"},
+    {"name":"Tristan Marguet","rolle":"Nationaltrainer","disziplin":"Bahn"},
+    {"name":"Julien Bossens","rolle":"Nationaltrainer","disziplin":"Bahn"},
+    {"name":"Beat Müller","rolle":"Nationaltrainer Elite Männer","disziplin":"MTB"},
+    {"name":"Kathrin Stirnemann","rolle":"Nationaltrainerin Frauen","disziplin":"MTB"},
+    {"name":"Linda Indergand","rolle":"Assistenztrainerin Frauen","disziplin":"MTB"},
+    {"name":"Martin Gujan","rolle":"Nationaltrainer U23 & U19 Männer","disziplin":"MTB"},
+    {"name":"David Graf","rolle":"Nationaltrainer Elite & U23","disziplin":"BMX"},
+    {"name":"Joachim Dovat","rolle":"Nationaltrainer U19 & U17","disziplin":"BMX"},
+    {"name":"Andreas Kugler","rolle":"Nationaltrainer","disziplin":"Radquer"},
+    {"name":"Carina Black","rolle":"Nationaltrainerin","disziplin":"Gravity"},
+    {"name":"Pascal Benaglia","rolle":"Nationaltrainer Elite & Junioren","disziplin":"Trial"}
+  ],
+  "vorstand": [
+    {"name":"Luana Bergamin","funktion":"Präsidentin"},
+    {"name":"Andrew Thomas","funktion":"Vize-Präsident"},
+    {"name":"Beat Nydegger","funktion":"Finanzchef"},
+    {"name":"Nicole Brändli","funktion":"Vorstandsmitglied"},
+    {"name":"Ariane Previtali","funktion":"Vorstandsmitglied"},
+    {"name":"Marisa Reich","funktion":"Vorstandsmitglied"},
+    {"name":"Luise Rohland","funktion":"Vorstandsmitglied"},
+    {"name":"Alex Rufibach","funktion":"Vorstandsmitglied"},
+    {"name":"Vincent Volet","funktion":"Vorstandsmitglied"}
+  ]
+};
+
+/* ══════════════════════════════════════════════════════════════
+   TEAM
+══════════════════════════════════════════════════════════════ */
+function initPersonal() {
+  const d = PERSONAL_DATA;
+  document.getElementById('personalMeta').textContent = `Stand: ${d.fetched_at}`;
+
+  const t = getTheme();
+  const gs = d.geschaeftsstelle.length;
+  const tr = d.trainer.length;
+  const vs = d.vorstand.length;
+  const lastStat = d.yearly_stats[d.yearly_stats.length - 1];
+  const prevStat = d.yearly_stats[d.yearly_stats.length - 2] || null;
+
+  // KPIs
+  document.getElementById('personalKpis').innerHTML = [
+    kpiCard('Geschäftsstelle', fmt(gs), prevStat ? delta(gs, prevStat.geschaeftsstelle) : null, t.blue),
+    kpiCard('Nationaltrainer', fmt(tr), prevStat ? delta(tr, prevStat.trainer) : null, t.green),
+    kpiCard('Vorstand', fmt(vs), prevStat ? delta(vs, prevStat.vorstand) : null, t.gold),
+    kpiCard('Total', fmt(gs + tr + vs), null),
+  ].join('');
+
+  // Yearly headcount stacked bar
+  const stats = d.yearly_stats;
+  makeChart('chartPersonalHistory', {
+    type: 'bar',
     data: {
-      labels: ['Strasse', 'MTB', 'Track', 'BMX'],
-      datasets: [{
-        data: [last.Davon_Strasse, last.Davon_MTB, last.Davon_Track, last.Davon_BMX],
-        backgroundColor: [alpha(t.accent,.7), alpha(t.green,.7), alpha(t.blue,.7), alpha(t.gold,.7)],
-        borderColor: [t.accent, t.green, t.blue, t.gold],
-        borderWidth: 2,
-      }]
+      labels: stats.map(s => s.jahr),
+      datasets: [
+        { label: 'Geschäftsstelle', data: stats.map(s => s.geschaeftsstelle), backgroundColor: alpha(t.blue, .85), borderRadius: 4 },
+        { label: 'Nationaltrainer',  data: stats.map(s => s.trainer),          backgroundColor: alpha(t.green, .85), borderRadius: 4 },
+        { label: 'Vorstand',         data: stats.map(s => s.vorstand),          backgroundColor: alpha(t.gold, .85), borderRadius: 4 },
+      ]
+    },
+    options: gridOpts(true)
+  });
+
+  // Pie chart current year
+  makeChart('chartPersonalPie', {
+    type: 'doughnut',
+    data: {
+      labels: ['Geschäftsstelle', 'Nationaltrainer', 'Vorstand'],
+      datasets: [{ data: [gs, tr, vs], backgroundColor: [t.blue, t.green, t.gold], borderWidth: 2, borderColor: t.surface }]
     },
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
   });
+
+  // Vorstand grid
+  const officerColors = {'Präsidentin': t.accent, 'Vize-Präsident': t.blue, 'Finanzchef': t.gold};
+  document.getElementById('vorstandGrid').innerHTML =
+    '<div class="team-grid">' +
+    d.vorstand.map(p => `
+      <div class="team-card">
+        <div class="team-card-name">${p.name}</div>
+        <div class="team-card-role">${p.funktion}</div>
+        ${['Präsidentin','Vize-Präsident','Finanzchef'].includes(p.funktion)
+          ? `<span class="team-card-badge" style="background:${officerColors[p.funktion] || t.accent}">${p.funktion}</span>`
+          : ''}
+      </div>`).join('') +
+    '</div>';
+
+  // Trainer grid grouped by Disziplin
+  const trainerByDisz = {};
+  d.trainer.forEach(p => {
+    (trainerByDisz[p.disziplin] = trainerByDisz[p.disziplin] || []).push(p);
+  });
+  document.getElementById('trainerGrid').innerHTML =
+    Object.entries(trainerByDisz).map(([disz, people]) =>
+      `<div class="team-dept-label">${disz}</div>
+       <div class="team-grid">` +
+      people.map(p => `
+        <div class="team-card">
+          <div class="team-card-name">${p.name}</div>
+          <div class="team-card-role">${p.rolle}</div>
+        </div>`).join('') +
+      '</div>'
+    ).join('');
+
+  // Geschäftsstelle grid grouped by Abteilung
+  const gsByAbt = {};
+  d.geschaeftsstelle.forEach(p => {
+    (gsByAbt[p.abteilung] = gsByAbt[p.abteilung] || []).push(p);
+  });
+  document.getElementById('gsGrid').innerHTML =
+    Object.entries(gsByAbt).map(([abt, people]) =>
+      `<div class="team-dept-label">${abt}</div>
+       <div class="team-grid">` +
+      people.map(p => `
+        <div class="team-card">
+          <div class="team-card-name">${p.name}</div>
+          <div class="team-card-role">${p.rolle}</div>
+        </div>`).join('') +
+      '</div>'
+    ).join('');
 }
 
 /* ── INIT ALL ───────────────────────────────────────────────── */
 (async () => {
-  await Promise.all([initLizenzen(), initPersonal(), initFinanzen(), initVeranstaltungen()]);
+  await Promise.all([initLizenzen(), initFinanzen(), initVeranstaltungen()]);
+  initPersonal();
   // nav active state on scroll
   const sections = document.querySelectorAll('section');
   const navBtns  = document.querySelectorAll('.nav-btn');

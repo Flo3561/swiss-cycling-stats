@@ -1,0 +1,62 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Serve: Swiss Cycling Stats",
+      "type": "shell",
+      "command": "${env:USERPROFILE}/.local/bin/uv",
+      "args": ["run", "python", "-m", "http.server", "8080", "--directory", "${workspaceFolder}"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": { "regexp": "^$" },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^Serving HTTP",
+          "endsPattern": "^$"
+        }
+      },
+      "group": { "kind": "build", "isDefault": true }
+    },
+    {
+      "label": "Fetch Personal Data (annual)",
+      "type": "shell",
+      "command": "${env:USERPROFILE}/.local/bin/uv",
+      "args": [
+        "run",
+        "--with", "requests",
+        "--with", "beautifulsoup4",
+        "python",
+        "${workspaceFolder}/scripts/fetch_team.py"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Fetch Events Data (annual)",
+      "type": "shell",
+      "command": "${env:USERPROFILE}/.local/bin/uv",
+      "args": [
+        "run",
+        "--with", "requests",
+        "--with", "beautifulsoup4",
+        "python",
+        "${workspaceFolder}/scripts/fetch_events.py"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datenschutz – Swiss Cycling Statistiken</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --c-bg:      #f4f2ed;
+      --c-surface: #ffffff;
+      --c-border:  #d8d4ca;
+      --c-text:    #1a1a18;
+      --c-text2:   #6b6860;
+      --c-accent:  #c8102e;
+      --c-accent2: #0057a8;
+      --radius:    12px;
+      --shadow:    0 2px 12px rgba(0,0,0,.07);
+    }
+    [data-theme="dark"] {
+      --c-bg:      #0f0f0e;
+      --c-surface: #1c1c1a;
+      --c-border:  #333330;
+      --c-text:    #f0ede8;
+      --c-text2:   #888880;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--c-bg);
+      color: var(--c-text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ─── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--c-surface);
+      border-bottom: 1px solid var(--c-border);
+      box-shadow: var(--shadow);
+    }
+    .header-inner {
+      max-width: 860px; margin: 0 auto;
+      padding: 0 2rem;
+      display: flex; align-items: center; gap: 1.5rem;
+      height: 60px;
+    }
+    .logo-mark {
+      display: flex; align-items: center; gap: .75rem;
+      text-decoration: none;
+    }
+    .logo-flag {
+      width: 32px; height: 32px; border-radius: 6px;
+      background: var(--c-accent);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-flag::before {
+      content: '';
+      display: block; width: 18px; height: 3.5px;
+      background: white; border-radius: 2px;
+      box-shadow: 0 -7px 0 3.5px white, 0 7px 0 3.5px white;
+    }
+    .logo-text strong { font-family: 'Syne', sans-serif; font-size: .9rem; font-weight: 800; color: var(--c-text); }
+    .logo-text span { display: block; font-size: .65rem; color: var(--c-text2); letter-spacing: .08em; text-transform: uppercase; }
+    .back-link {
+      margin-left: auto;
+      font-size: .85rem; color: var(--c-text2);
+      text-decoration: none;
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .back-link:hover { color: var(--c-accent); }
+    .back-link::before { content: '←'; }
+    .theme-toggle {
+      width: 36px; height: 36px; border-radius: 8px;
+      border: 1px solid var(--c-border);
+      background: none; cursor: pointer;
+      font-size: 1rem;
+    }
+    .theme-toggle:hover { background: var(--c-surface); }
+
+    /* ─── CONTENT ── */
+    main {
+      max-width: 860px; margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+    .page-kicker {
+      font-size: .75rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--c-accent);
+      margin-bottom: .5rem;
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -.02em;
+      margin-bottom: 2rem;
+    }
+    .content-block {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius);
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .content-block h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: .75rem;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid var(--c-border);
+      color: var(--c-text);
+    }
+    .content-block p { font-size: .9rem; color: var(--c-text2); margin-bottom: .6rem; }
+    .content-block p:last-child { margin-bottom: 0; }
+    .content-block a { color: var(--c-accent); text-decoration: none; }
+    .content-block a:hover { text-decoration: underline; }
+    .content-block strong { color: var(--c-text); font-weight: 600; }
+    .content-block ul {
+      margin: .5rem 0 .6rem 1.2rem;
+      font-size: .9rem; color: var(--c-text2);
+    }
+    .content-block ul li { margin-bottom: .25rem; }
+    .badge-row { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: .75rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: .35rem;
+      padding: .25rem .7rem; border-radius: 20px;
+      background: #dcfce7; color: #166534;
+      font-size: .75rem; font-weight: 600;
+    }
+    [data-theme="dark"] .badge { background: #14532d; color: #86efac; }
+
+    /* ─── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--c-border);
+      background: var(--c-surface);
+      padding: 1.25rem 2rem;
+    }
+    .footer-inner {
+      max-width: 860px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    footer p { font-size: .78rem; color: var(--c-text2); }
+    footer a { color: var(--c-accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo-mark" href="index.html">
+      <div class="logo-flag"></div>
+      <div class="logo-text">
+        <strong>Swiss Cycling</strong>
+        <span>Statistiken</span>
+      </div>
+    </a>
+    <a class="back-link" href="index.html">Zurück zum Dashboard</a>
+    <button class="theme-toggle" id="themeBtn" title="Dark/Light Mode">🌙</button>
+  </div>
+</header>
+
+<main>
+  <p class="page-kicker">Rechtliches</p>
+  <h1>Datenschutzerklärung</h1>
+
+  <div class="content-block">
+    <h2>Grundsätze</h2>
+    <p>
+      Der Schutz Ihrer persönlichen Daten ist uns wichtig. Diese Website
+      <strong>erhebt keine personenbezogenen Daten</strong>, verfolgt Besucher
+      nicht und setzt keine Tracking- oder Analyse-Technologien ein.
+    </p>
+    <div class="badge-row">
+      <span class="badge">✓ Kein Tracking</span>
+      <span class="badge">✓ Keine Cookies</span>
+      <span class="badge">✓ Keine Werbung</span>
+      <span class="badge">✓ Open Source</span>
+    </div>
+  </div>
+
+  <div class="content-block">
+    <h2>Hosting – GitHub Pages</h2>
+    <p>
+      Diese Website wird über <strong>GitHub Pages</strong> (GitHub Inc., 88 Colin P Kelly Jr St,
+      San Francisco, CA 94107, USA) gehostet. Beim Aufruf der Website können technische
+      Zugriffsdaten wie IP-Adresse, Browser-Typ, Betriebssystem, Referrer-URL sowie
+      Datum und Uhrzeit des Zugriffs in Serverprotokollen gespeichert werden.
+    </p>
+    <p>
+      Wir haben auf diese Datenverarbeitung keinen Einfluss. Weitere Informationen finden Sie in der
+      <a href="https://docs.github.com/de/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener">Datenschutzerklärung von GitHub</a>.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>Lokaler Speicher (localStorage)</h2>
+    <p>
+      Diese Website speichert ausschliesslich die von Ihnen gewählte
+      Farbgebung (Hell- oder Dunkelmodus) im lokalen Speicher (<code>localStorage</code>)
+      Ihres Browsers. Diese Information:
+    </p>
+    <ul>
+      <li>verlässt Ihr Gerät nicht</li>
+      <li>wird nicht an Server übertragen</li>
+      <li>enthält keine personenbezogenen Daten</li>
+      <li>kann jederzeit durch Löschen der Browser-Daten entfernt werden</li>
+    </ul>
+  </div>
+
+  <div class="content-block">
+    <h2>Externe Ressourcen</h2>
+    <p>
+      Beim Laden dieser Website werden Ressourcen von folgenden Drittanbietern
+      abgerufen. Dabei wird Ihre IP-Adresse technisch bedingt an diese übermittelt:
+    </p>
+    <ul>
+      <li>
+        <strong>Google Fonts</strong> (fonts.googleapis.com) –
+        Schriftarten (Syne, DM Sans).
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutz Google</a>
+      </li>
+      <li>
+        <strong>Cloudflare CDN</strong> (cdnjs.cloudflare.com) –
+        Chart.js Visualisierungsbibliothek.
+        <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Datenschutz Cloudflare</a>
+      </li>
+    </ul>
+    <p>
+      Diese Drittanbieter haben eigene Datenschutzrichtlinien. Falls Sie diese
+      Übertragungen vermeiden möchten, können Sie die Seite mit deaktiviertem
+      JavaScript aufrufen – die Daten werden dann im eingebetteten Modus angezeigt.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>Datenquellen</h2>
+    <p>
+      Alle statistischen Inhalte stammen aus öffentlich zugänglichen
+      Jahresberichten von Swiss Cycling. Es werden ausschliesslich aggregierte,
+      anonymisierte Verbandsdaten verwendet – keine personenbezogenen Daten.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>Ihre Rechte</h2>
+    <p>
+      Da diese Website keine personenbezogenen Daten aktiv erhebt oder speichert,
+      sind die üblichen Betroffenenrechte (Auskunft, Berichtigung, Löschung)
+      vorliegend weitgehend nicht anwendbar.
+    </p>
+    <p>
+      Bei Fragen zum Datenschutz können Sie sich jederzeit an uns wenden:
+      <a href="mailto:github.reenter319@passinbox.com">github.reenter319@passinbox.com</a>
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>Impressum</h2>
+    <p>Weitere rechtliche Angaben finden Sie im <a href="impressum.html">Impressum</a>.</p>
+    <p style="margin-top:.75rem; font-size:.8rem;">Stand: April 2026</p>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p>Swiss Cycling Statistiken &nbsp;·&nbsp; Open source &amp; open data</p>
+    <p><a href="impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="datenschutz.html">Datenschutz</a></p>
+  </div>
+</footer>
+
+<script>
+  const themeBtn = document.getElementById('themeBtn');
+  const html = document.documentElement;
+  const saved = localStorage.getItem('theme') || 'light';
+  html.setAttribute('data-theme', saved);
+  themeBtn.textContent = saved === 'dark' ? '☀️' : '🌙';
+  themeBtn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    themeBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+  });
+</script>
+</body>
+</html>

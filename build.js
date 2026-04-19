@@ -4,6 +4,7 @@
  * ─────────────────────────────
  * Liest alle CSV-Dateien aus /data/ und schreibt die Daten
  * direkt als JavaScript-Objekte in die index.html.
+ * Injiziert ausserdem Git-Commit-Info in den Footer.
  *
  * Ausführen: node build.js
  * Voraussetzung: Node.js (kein npm install nötig)
@@ -11,6 +12,7 @@
 
 const fs   = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 // ── CSV Parser (ohne externe Abhängigkeiten) ─────────────────
 function parseCSV(content) {
@@ -33,6 +35,7 @@ const datasets = {};
 
 const files = {
   lizenzen:        'lizenzen.csv',
+  mitglieder:      'mitglieder.csv',
   personal:        'personal.csv',
   erfolgsrechnung: 'erfolgsrechnung.csv',
   veranstaltungen: 'veranstaltungen.csv',
@@ -74,8 +77,9 @@ function loadCSV(key) {
   // key is e.g. 'data/lizenzen.csv' → extract dataset name
   const name = key.replace('data/','').replace('.csv','');
   const map = {
-    lizenzen: 'lizenzen',
-    personal: 'personal',
+    lizenzen:        'lizenzen',
+    mitglieder:      'mitglieder',
+    personal:        'personal',
     erfolgsrechnung: 'erfolgsrechnung',
     veranstaltungen: 'veranstaltungen',
   };
@@ -99,6 +103,38 @@ if (startIdx === -1 || endIdx < endMarker.length) {
 }
 
 html = html.slice(0, startIdx) + newBlock + html.slice(endIdx);
+
+// ── Git-Commit-Info in Footer injizieren ─────────────────────
+const BUILD_MARKER = '<!-- BUILD_INFO_PLACEHOLDER -->';
+const buildMarkerIdx = html.indexOf(BUILD_MARKER);
+
+if (buildMarkerIdx !== -1) {
+  let hash = 'unknown';
+  let dateStr = '';
+  try {
+    hash    = execSync('git rev-parse --short HEAD', { encoding: 'utf-8' }).trim();
+    const iso = execSync('git log -1 --format=%ci', { encoding: 'utf-8' }).trim();
+    const d = new Date(iso);
+    const pad = n => String(n).padStart(2, '0');
+    dateStr = `${pad(d.getDate())}.${pad(d.getMonth()+1)}.${d.getFullYear()}, `
+            + `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  } catch (_) {
+    dateStr = new Date().toLocaleDateString('de-CH');
+  }
+  const repoUrl = 'https://github.com/Flo3561/swisscycling_statistics';
+  const buildHtml =
+    `Updated ${dateStr} &nbsp;·&nbsp;\n        `
+    + `<a class="commit-hash" href="${repoUrl}/commit/${hash}" target="_blank" rel="noopener">${hash}</a>`;
+  // Replace both the placeholder comment and the hardcoded fallback text that follows
+  const fallbackEnd = html.indexOf('</a>\n      </div>', buildMarkerIdx) + '</a>\n      </div>'.length;
+  html = html.slice(0, buildMarkerIdx)
+       + buildHtml + '\n      </div>'
+       + html.slice(fallbackEnd);
+  console.log(`✓  Footer: ${dateStr} · ${hash}`);
+} else {
+  console.warn('⚠️  BUILD_INFO_PLACEHOLDER im Footer nicht gefunden.');
+}
+
 fs.writeFileSync(htmlPath, html, 'utf-8');
 
 console.log('\n✅  index.html erfolgreich aktualisiert!');

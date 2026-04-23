@@ -170,6 +170,11 @@
     .cb-toggle:hover { background: var(--c-surface); box-shadow: var(--shadow); color: var(--c-text); }
     .cb-toggle.active { background: #0072B2; border-color: #0072B2; color: #fff; }
     .cb-toggle .cb-icon { font-size: .9rem; }
+    .lang-select { display: flex; border: 1px solid var(--c-border); border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+    .lang-btn { padding: .25rem .55rem; border: none; background: none; cursor: pointer; font-size: .78rem; font-weight: 700; color: var(--c-text2); font-family: 'Syne', sans-serif; letter-spacing: .04em; transition: all .15s; }
+    .lang-btn + .lang-btn { border-left: 1px solid var(--c-border); }
+    .lang-btn:hover { background: var(--c-surface); color: var(--c-text); }
+    .lang-btn.active { background: var(--c-accent); color: #fff; }
     .year-badge {
       padding: .25rem .75rem; border-radius: 20px;
       background: var(--c-accent); color: white;
@@ -515,14 +520,19 @@
       </div>
     </a>
     <nav>
-      <a class="nav-btn active" href="#lizenzen">Lizenzen</a>
-      <a class="nav-btn" href="#finanzen">Finanzen</a>
-      <a class="nav-btn" href="#veranstaltungen">Events</a>
-      <a class="nav-btn" href="#personal">Personal</a>
+      <a class="nav-btn active" href="#lizenzen" data-i18n="nav.lizenzen">Lizenzen</a>
+      <a class="nav-btn" href="#finanzen" data-i18n="nav.finanzen">Finanzen</a>
+      <a class="nav-btn" href="#veranstaltungen" data-i18n="nav.events">Events</a>
+      <a class="nav-btn" href="#personal" data-i18n="nav.personal">Personal</a>
     </nav>
+    <div class="lang-select" id="langSelect">
+      <button class="lang-btn active" data-lang="de">DE</button>
+      <button class="lang-btn" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
     <span class="year-badge" id="latestYear">2024</span>
     <button class="cb-toggle" id="cbToggle" title="Farbenblind-Modus ein/aus">
-      <span class="cb-icon">◑</span><span class="cb-label">Farbenblind</span>
+      <span class="cb-icon">◑</span><span class="cb-label" data-i18n="cb.label">Farbenblind</span>
     </button>
     <button class="theme-toggle" id="themeToggle" title="Theme wechseln">🌙</button>
   </div>
@@ -531,12 +541,12 @@
 <!-- ─── HERO ────────────────────────────────────────────────────── -->
 <div class="hero">
   <div>
-    <h1>Verband in<br/><em>Zahlen &amp; Fakten</em></h1>
-    <p>Jährliche Statistikübersicht des Schweizer Radfahrerverbands – Lizenzen, Personal, Finanzen und Veranstaltungen auf einen Blick.</p>
+    <h1 data-i18n-html="hero.title">Verband in<br/><em>Zahlen &amp; Fakten</em></h1>
+    <p data-i18n="hero.sub">Jährliche Statistikübersicht des Schweizer Radfahrerverbands – Lizenzen, Personal, Finanzen und Veranstaltungen auf einen Blick.</p>
   </div>
   <div class="hero-year-range">
     <div class="range" id="yearRange">2018–2024</div>
-    <small>Datenzeitraum</small>
+    <small data-i18n="hero.period">Datenzeitraum</small>
   </div>
 </div>
 
@@ -548,8 +558,8 @@
     <div class="section-header">
       <div class="section-icon">🚴</div>
       <div>
-        <h2>Lizenzen</h2>
-        <p>Anzahl ausgestellter Lizenzen nach Disziplin, Kategorie und Jahr (2015–2025)</p>
+        <h2 data-i18n="lic.h2">Lizenzen</h2>
+        <p data-i18n="lic.sub">Anzahl ausgestellter Lizenzen nach Disziplin, Kategorie und Jahr (2015–2025)</p>
       </div>
       <span class="section-meta" id="lizenzMeta">Letztes Update: 2024</span>
     </div>
@@ -560,21 +570,21 @@
 
     <div class="chart-grid">
       <div class="chart-card">
-        <div class="chart-title">Gesamtlizenzen Entwicklung</div>
-        <div class="chart-subtitle">Total ausgestellte Lizenzen pro Jahr</div>
+        <div class="chart-title" data-i18n="lic.chart1.title">Gesamtlizenzen Entwicklung</div>
+        <div class="chart-subtitle" data-i18n="lic.chart1.sub">Total ausgestellte Lizenzen pro Jahr</div>
         <div class="chart-wrap"><canvas id="chartLizenzTotal"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Lizenzen nach Disziplin (letztes Jahr)</div>
-        <div class="chart-subtitle">Wettkampflizenzen M+F nach Disziplin</div>
+        <div class="chart-title" data-i18n="lic.chart2.title">Lizenzen nach Disziplin (letztes Jahr)</div>
+        <div class="chart-subtitle" data-i18n="lic.chart2.sub">Wettkampflizenzen M+F nach Disziplin</div>
         <div class="chart-wrap"><canvas id="chartLizenzKat"></canvas></div>
       </div>
     </div>
 
     <div class="chart-grid single" style="margin-top:1.25rem">
       <div class="chart-card">
-        <div class="chart-title">Disziplinen im Verlauf</div>
-        <div class="chart-subtitle">Gestapelte Ansicht der Wettkampflizenzen nach Disziplin über die Jahre</div>
+        <div class="chart-title" data-i18n="lic.chart3.title">Disziplinen im Verlauf</div>
+        <div class="chart-subtitle" data-i18n="lic.chart3.sub">Gestapelte Ansicht der Wettkampflizenzen nach Disziplin über die Jahre</div>
         <div class="chart-wrap tall"><canvas id="chartLizenzStacked"></canvas></div>
       </div>
     </div>
@@ -590,14 +600,14 @@
 
     <div class="chart-grid single" style="margin-top:1.25rem">
       <div class="chart-card">
-        <div class="chart-title">Kategorien nach Disziplin</div>
-        <div class="chart-subtitle">Lizenzkategorien 2015–2025 – Disziplin und Geschlecht wählen</div>
+        <div class="chart-title" data-i18n="lic.chart4.title">Kategorien nach Disziplin</div>
+        <div class="chart-subtitle" data-i18n="lic.chart4.sub">Lizenzkategorien 2015–2025 – Disziplin und Geschlecht wählen</div>
         <div class="kat-controls">
           <div class="disc-tabs" id="discTabs"></div>
           <div class="gender-toggle" id="genderToggle">
-            <button class="gt-btn active" data-gender="M">Männer</button>
-            <button class="gt-btn" data-gender="F">Frauen</button>
-            <button class="gt-btn" data-gender="MF">Total</button>
+            <button class="gt-btn active" data-gender="M" data-i18n="gender.m">Männer</button>
+            <button class="gt-btn" data-gender="F" data-i18n="gender.f">Frauen</button>
+            <button class="gt-btn" data-gender="MF" data-i18n="gender.mf">Total</button>
           </div>
         </div>
         <div class="chart-wrap tall"><canvas id="chartKatDetail"></canvas></div>
@@ -606,13 +616,13 @@
 
     <div class="chart-grid" style="margin-top:1.25rem">
       <div class="chart-card">
-        <div class="chart-title">Verbandsmitglieder</div>
-        <div class="chart-subtitle">Aktive Mitglieder (mit Lizenz) und passive Clubmitglieder</div>
+        <div class="chart-title" data-i18n="lic.members.title">Verbandsmitglieder</div>
+        <div class="chart-subtitle" data-i18n="lic.members.sub">Aktive Mitglieder (mit Lizenz) und passive Clubmitglieder</div>
         <div class="kpi-row" id="mitgliedKpis" style="padding:1rem 0"></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Mitgliederentwicklung</div>
-        <div class="chart-subtitle">Aktive vs. passive Mitglieder im Verlauf</div>
+        <div class="chart-title" data-i18n="lic.members2.title">Mitgliederentwicklung</div>
+        <div class="chart-subtitle" data-i18n="lic.members2.sub">Aktive vs. passive Mitglieder im Verlauf</div>
         <div class="chart-wrap"><canvas id="chartMitglieder"></canvas></div>
       </div>
     </div>
@@ -623,8 +633,8 @@
     <div class="section-header">
       <div class="section-icon gold">💰</div>
       <div>
-        <h2>Erfolgsrechnung</h2>
-        <p>Ertrag, Aufwand und Jahresergebnis</p>
+        <h2 data-i18n="fin.h2">Erfolgsrechnung</h2>
+        <p data-i18n="fin.sub">Ertrag, Aufwand und Jahresergebnis</p>
       </div>
     </div>
 
@@ -634,25 +644,25 @@
 
     <div class="chart-grid">
       <div class="chart-card">
-        <div class="chart-title">Ertrag &amp; Aufwand</div>
-        <div class="chart-subtitle">Vergleich Gesamtertrag und Gesamtaufwand in CHF</div>
+        <div class="chart-title" data-i18n="fin.chart1.title">Ertrag &amp; Aufwand</div>
+        <div class="chart-subtitle" data-i18n="fin.chart1.sub">Vergleich Gesamtertrag und Gesamtaufwand in CHF</div>
         <div class="chart-wrap"><canvas id="chartErtragAufwand"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Jahresergebnis</div>
-        <div class="chart-subtitle">Überschuss oder Defizit pro Jahr in CHF</div>
+        <div class="chart-title" data-i18n="fin.chart2.title">Jahresergebnis</div>
+        <div class="chart-subtitle" data-i18n="fin.chart2.sub">Überschuss oder Defizit pro Jahr in CHF</div>
         <div class="chart-wrap"><canvas id="chartErgebnis"></canvas></div>
       </div>
     </div>
     <div class="chart-grid" style="margin-top:1.25rem">
       <div class="chart-card">
-        <div class="chart-title">Ertragsquellen</div>
-        <div class="chart-subtitle">Aufschlüsselung der Ertragsarten</div>
+        <div class="chart-title" data-i18n="fin.chart3.title">Ertragsquellen</div>
+        <div class="chart-subtitle" data-i18n="fin.chart3.sub">Aufschlüsselung der Ertragsarten</div>
         <div class="chart-wrap pie"><canvas id="chartErtragPie"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Aufwandstruktur</div>
-        <div class="chart-subtitle">Aufschlüsselung der Aufwandarten</div>
+        <div class="chart-title" data-i18n="fin.chart4.title">Aufwandstruktur</div>
+        <div class="chart-subtitle" data-i18n="fin.chart4.sub">Aufschlüsselung der Aufwandarten</div>
         <div class="chart-wrap pie"><canvas id="chartAufwandPie"></canvas></div>
       </div>
     </div>
@@ -663,8 +673,8 @@
     <div class="section-header">
       <div class="section-icon green">🏆</div>
       <div>
-        <h2>Veranstaltungen &amp; Sportliches</h2>
-        <p>Rennen, Teilnehmende, internationale Erfolge</p>
+        <h2 data-i18n="ev.h2">Veranstaltungen &amp; Sportliches</h2>
+        <p data-i18n="ev.sub">Rennen, Teilnehmende, internationale Erfolge</p>
       </div>
     </div>
 
@@ -674,25 +684,25 @@
 
     <div class="chart-grid">
       <div class="chart-card">
-        <div class="chart-title">Rennen nach Disziplin</div>
-        <div class="chart-subtitle">Anzahl Rennen pro Disziplin und Jahr</div>
+        <div class="chart-title" data-i18n="ev.chart1.title">Rennen nach Disziplin</div>
+        <div class="chart-subtitle" data-i18n="ev.chart1.sub">Anzahl Rennen pro Disziplin und Jahr</div>
         <div class="chart-wrap"><canvas id="chartRennen"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Veranstaltungen nach Stufe</div>
-        <div class="chart-subtitle">National, International und Regional/Training im Verlauf</div>
+        <div class="chart-title" data-i18n="ev.chart2.title">Veranstaltungen nach Stufe</div>
+        <div class="chart-subtitle" data-i18n="ev.chart2.sub">National, International und Regional/Training im Verlauf</div>
         <div class="chart-wrap"><canvas id="chartEventLevel"></canvas></div>
       </div>
     </div>
     <div class="chart-grid" style="margin-top:1.25rem">
       <div class="chart-card">
-        <div class="chart-title">Alle Disziplinen im Verlauf</div>
-        <div class="chart-subtitle">Gestapelte Ansicht aller Disziplinen</div>
+        <div class="chart-title" data-i18n="ev.chart3.title">Alle Disziplinen im Verlauf</div>
+        <div class="chart-subtitle" data-i18n="ev.chart3.sub">Gestapelte Ansicht aller Disziplinen</div>
         <div class="chart-wrap tall"><canvas id="chartEventStacked"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Disziplinen-Anteil im Verlauf</div>
-        <div class="chart-subtitle">Prozentualer Anteil jeder Disziplin am Jahrestotal</div>
+        <div class="chart-title" data-i18n="ev.chart4.title">Disziplinen-Anteil im Verlauf</div>
+        <div class="chart-subtitle" data-i18n="ev.chart4.sub">Prozentualer Anteil jeder Disziplin am Jahrestotal</div>
         <div class="chart-wrap"><canvas id="chartDisziplin"></canvas></div>
       </div>
     </div>
@@ -703,8 +713,8 @@
     <div class="section-header">
       <div class="section-icon blue">👥</div>
       <div>
-        <h2>Personal Swiss Cycling</h2>
-        <p>Geschäftsstelle, Nationaltrainer und Vorstand</p>
+        <h2 data-i18n="per.h2">Personal Swiss Cycling</h2>
+        <p data-i18n="per.sub">Geschäftsstelle, Nationaltrainer und Vorstand</p>
       </div>
       <span class="section-meta" id="personalMeta">Stand: –</span>
     </div>
@@ -716,13 +726,13 @@
     <!-- Yearly headcount chart -->
     <div class="chart-grid" style="margin-top:1.25rem">
       <div class="chart-card">
-        <div class="chart-title">Personalentwicklung</div>
-        <div class="chart-subtitle">Anzahl Personen Geschäftsstelle, Trainer, Vorstand pro Jahr</div>
+        <div class="chart-title" data-i18n="per.chart1.title">Personalentwicklung</div>
+        <div class="chart-subtitle" data-i18n="per.chart1.sub">Anzahl Personen Geschäftsstelle, Trainer, Vorstand pro Jahr</div>
         <div class="chart-wrap"><canvas id="chartPersonalHistory"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Zusammensetzung (aktuell)</div>
-        <div class="chart-subtitle">Anteil der Bereiche am Total</div>
+        <div class="chart-title" data-i18n="per.chart2.title">Zusammensetzung (aktuell)</div>
+        <div class="chart-subtitle" data-i18n="per.chart2.sub">Anteil der Bereiche am Total</div>
         <div class="chart-wrap"><canvas id="chartPersonalPie"></canvas></div>
       </div>
     </div>
@@ -730,8 +740,8 @@
     <!-- Vorstand -->
     <div style="margin-top:1.25rem">
       <div class="chart-card">
-        <div class="chart-title">Vorstand</div>
-        <div class="chart-subtitle">Gewählte Vorstandsmitglieder</div>
+        <div class="chart-title" data-i18n="per.vorstand.title">Vorstand</div>
+        <div class="chart-subtitle" data-i18n="per.vorstand.sub">Gewählte Vorstandsmitglieder</div>
         <div id="vorstandGrid" style="margin-top:1rem"></div>
       </div>
     </div>
@@ -739,8 +749,8 @@
     <!-- Nationaltrainer -->
     <div style="margin-top:1.25rem">
       <div class="chart-card">
-        <div class="chart-title">Nationaltrainerinnen &amp; Nationaltrainer</div>
-        <div class="chart-subtitle">Technische Leitung nach Disziplin</div>
+        <div class="chart-title" data-i18n="per.trainer.title">Nationaltrainerinnen &amp; Nationaltrainer</div>
+        <div class="chart-subtitle" data-i18n="per.trainer.sub">Technische Leitung nach Disziplin</div>
         <div id="trainerGrid" style="margin-top:1rem"></div>
       </div>
     </div>
@@ -748,8 +758,8 @@
     <!-- Geschäftsstelle -->
     <div style="margin-top:1.25rem">
       <div class="chart-card">
-        <div class="chart-title">Geschäftsstelle</div>
-        <div class="chart-subtitle">Mitarbeitende nach Abteilung</div>
+        <div class="chart-title" data-i18n="per.gs.title">Geschäftsstelle</div>
+        <div class="chart-subtitle" data-i18n="per.gs.sub">Mitarbeitende nach Abteilung</div>
         <div id="gsGrid" style="margin-top:1rem"></div>
       </div>
     </div>
@@ -761,17 +771,17 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-col">
-      <p class="footer-title">Open source &amp; open data</p>
-      <p>Der Code und die Daten sind auf <a href="https://github.com/Flo3561/swisscycling_statistics" target="_blank" rel="noopener">GitHub</a> verfügbar.</p>
-      <p>Fehler entdeckt? <a href="https://github.com/Flo3561/swisscycling_statistics/issues" target="_blank" rel="noopener">Issue erstellen</a>.</p>
-      <p style="margin-top:.25rem; font-size:.72rem">
+      <p class="footer-title" data-i18n="foot.oss">Open source &amp; open data</p>
+      <p data-i18n-html="foot.github">Der Code und die Daten sind auf <a href="https://github.com/Flo3561/swisscycling_statistics" target="_blank" rel="noopener">GitHub</a> verfügbar.</p>
+      <p data-i18n-html="foot.issue">Fehler entdeckt? <a href="https://github.com/Flo3561/swisscycling_statistics/issues" target="_blank" rel="noopener">Issue erstellen</a>.</p>
+      <p style="margin-top:.25rem; font-size:.72rem" data-i18n="foot.disclaimer">
         Unabhängiges Community-Projekt &nbsp;·&nbsp; Keine offizielle Verbindung mit Swiss Cycling.
       </p>
     </div>
     <div class="footer-col" style="align-items:flex-end">
       <div class="footer-links">
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
+        <a href="impressum.html" data-i18n="foot.impressum">Impressum</a>
+        <a href="datenschutz.html" data-i18n="foot.datenschutz">Datenschutz</a>
       </div>
       <div class="footer-build">
         <!-- BUILD_INFO_PLACEHOLDER -->Updated 14.04.2026, 22:37 &nbsp;·&nbsp;
@@ -811,6 +821,363 @@ cbToggle.addEventListener('click', () => {
   cbToggle.classList.toggle('active', next);
   localStorage.setItem('sc-cb', next);
   reinitAllCharts();
+});
+
+/* ── LANGUAGE ───────────────────────────────────────────────── */
+const TRANSLATIONS = {
+  de: {
+    'logo.sub':'Verbandsstatistiken',
+    'nav.lizenzen':'Lizenzen','nav.finanzen':'Finanzen','nav.events':'Events','nav.personal':'Personal',
+    'cb.label':'Farbenblind',
+    'hero.title':'Verband in<br/><em>Zahlen &amp; Fakten</em>',
+    'hero.sub':'Jährliche Statistikübersicht des Schweizer Radfahrerverbands – Lizenzen, Personal, Finanzen und Veranstaltungen auf einen Blick.',
+    'hero.period':'Datenzeitraum',
+    'lic.h2':'Lizenzen','lic.sub':'Anzahl ausgestellter Lizenzen nach Disziplin, Kategorie und Jahr (2015–2025)','lic.meta':'Letztes Update: ',
+    'lic.chart1.title':'Gesamtlizenzen Entwicklung','lic.chart1.sub':'Total ausgestellte Lizenzen pro Jahr',
+    'lic.chart2.title':'Lizenzen nach Disziplin (letztes Jahr)','lic.chart2.sub':'Wettkampflizenzen M+F nach Disziplin',
+    'lic.chart3.title':'Disziplinen im Verlauf','lic.chart3.sub':'Gestapelte Ansicht der Wettkampflizenzen nach Disziplin über die Jahre',
+    'lic.chart4.title':'Kategorien nach Disziplin','lic.chart4.sub':'Lizenzkategorien 2015–2025 – Disziplin und Geschlecht wählen',
+    'lic.members.title':'Verbandsmitglieder','lic.members.sub':'Aktive Mitglieder (mit Lizenz) und passive Clubmitglieder',
+    'lic.members2.title':'Mitgliederentwicklung','lic.members2.sub':'Aktive vs. passive Mitglieder im Verlauf',
+    'gender.m':'Männer','gender.f':'Frauen','gender.mf':'Total',
+    'kpi.lic.total':'Lizenzen Total','kpi.lic.men':'Männer (Wettkampf)','kpi.lic.women':'Frauen (Wettkampf)','kpi.lic.wpct':'Frauenanteil','kpi.lic.officials':'Funktionäre',
+    'kpi.mem.total':'Mitglieder Total','kpi.mem.active':'Aktive Mitglieder','kpi.mem.passive':'Passive Mitglieder',
+    'ds.total.lic':'Total Lizenzen','ds.men':'Männer','ds.women':'Frauen','ds.officials':'Funktionäre','ds.active':'Aktive Mitglieder','ds.passive':'Passive Mitglieder',
+    'disc.road':'Strasse','disc.mtbxc':'MTB XC','disc.mtbdh':'MTB DH/4X','disc.bmx':'BMX','disc.cx':'Radquer','disc.track':'Bahn','disc.trial':'Trial','disc.ar':'Kunstrad','disc.cycleball':'Radball','disc.para':'Para-Cycling',
+    'disc.road.ev':'Strasse','disc.mtb.ev':'MTB','disc.track.ev':'Bahn','disc.other.ev':'Sonstige',
+    'fin.h2':'Erfolgsrechnung','fin.sub':'Ertrag, Aufwand und Jahresergebnis','fin.meta':'Letztes Update: ',
+    'fin.chart1.title':'Ertrag & Aufwand','fin.chart1.sub':'Vergleich Gesamtertrag und Gesamtaufwand in CHF',
+    'fin.chart2.title':'Jahresergebnis','fin.chart2.sub':'Überschuss oder Defizit pro Jahr in CHF',
+    'fin.chart3.title':'Ertragsquellen','fin.chart3.sub':'Aufschlüsselung der Ertragsarten',
+    'fin.chart4.title':'Aufwandstruktur','fin.chart4.sub':'Aufschlüsselung der Aufwandarten',
+    'kpi.fin.revenue':'Gesamtertrag','kpi.fin.expense':'Gesamtaufwand','kpi.fin.result':'Jahresergebnis','kpi.fin.sponsor':'Werbung/Sponsoring','kpi.fin.public':'Öffentl. Beiträge',
+    'ds.revenue':'Ertrag','ds.expense':'Aufwand','ds.result':'Ergebnis',
+    'ds.lic.income':'Lizenzen','ds.event.income':'Veranstaltungen','ds.sponsor':'Sponsoring','ds.public':'Öffentl. Beiträge','ds.other':'Übrige',
+    'ds.staff.cost':'Personal','ds.event.cost':'Veranstaltungen','ds.operations':'Betrieb','ds.misc':'Sonstiges',
+    'ev.h2':'Veranstaltungen & Sportliches','ev.sub':'Rennen, Teilnehmende, internationale Erfolge',
+    'ev.chart1.title':'Rennen nach Disziplin','ev.chart1.sub':'Anzahl Rennen pro Disziplin und Jahr',
+    'ev.chart2.title':'Veranstaltungen nach Stufe','ev.chart2.sub':'National, International und Regional/Training im Verlauf',
+    'ev.chart3.title':'Alle Disziplinen im Verlauf','ev.chart3.sub':'Gestapelte Ansicht aller Disziplinen',
+    'ev.chart4.title':'Disziplinen-Anteil im Verlauf','ev.chart4.sub':'Prozentualer Anteil jeder Disziplin am Jahrestotal',
+    'kpi.ev.total':'Events Total','kpi.ev.road':'Strasse','kpi.ev.mtb':'MTB','kpi.ev.track':'Bahn','kpi.ev.intl':'International',
+    'ds.national':'National','ds.regional':'Regional/Training','ds.intl':'International',
+    'per.h2':'Personal Swiss Cycling','per.sub':'Geschäftsstelle, Nationaltrainer und Vorstand','per.meta':'Stand: ',
+    'per.chart1.title':'Personalentwicklung','per.chart1.sub':'Anzahl Personen Geschäftsstelle, Trainer, Vorstand pro Jahr',
+    'per.chart2.title':'Zusammensetzung (aktuell)','per.chart2.sub':'Anteil der Bereiche am Total',
+    'per.vorstand.title':'Vorstand','per.vorstand.sub':'Gewählte Vorstandsmitglieder',
+    'per.trainer.title':'Nationaltrainerinnen & Nationaltrainer','per.trainer.sub':'Technische Leitung nach Disziplin',
+    'per.gs.title':'Geschäftsstelle','per.gs.sub':'Mitarbeitende nach Abteilung',
+    'kpi.per.gs':'Geschäftsstelle','kpi.per.trainer':'Nationaltrainer','kpi.per.board':'Vorstand','kpi.per.total':'Total',
+    'ds.per.gs':'Geschäftsstelle','ds.per.trainer':'Nationaltrainer','ds.per.board':'Vorstand',
+    'tbl.year':'Jahr','tbl.officials':'Funkt.','tbl.total':'Total',
+    'foot.oss':'Open source & open data',
+    'foot.github':'Der Code und die Daten sind auf <a href="https://github.com/Flo3561/swisscycling_statistics" target="_blank" rel="noopener">GitHub</a> verfügbar.',
+    'foot.issue':'Fehler entdeckt? <a href="https://github.com/Flo3561/swisscycling_statistics/issues" target="_blank" rel="noopener">Issue erstellen</a>.',
+    'foot.disclaimer':'Unabhängiges Community-Projekt · Keine offizielle Verbindung mit Swiss Cycling.',
+    'foot.impressum':'Impressum','foot.datenschutz':'Datenschutz',
+  },
+  fr: {
+    'logo.sub':'Statistiques associatives',
+    'nav.lizenzen':'Licences','nav.finanzen':'Finances','nav.events':'Événements','nav.personal':'Personnel',
+    'cb.label':'Daltonisme',
+    'hero.title':'La fédération en<br/><em>chiffres &amp; faits</em>',
+    'hero.sub':'Aperçu annuel des statistiques de Swiss Cycling – Licences, personnel, finances et manifestations en un coup d\'œil.',
+    'hero.period':'Période des données',
+    'lic.h2':'Licences','lic.sub':'Nombre de licences délivrées par discipline, catégorie et année (2015–2025)','lic.meta':'Dernière mise à jour : ',
+    'lic.chart1.title':'Évolution des licences','lic.chart1.sub':'Total des licences délivrées par année',
+    'lic.chart2.title':'Licences par discipline (dernière année)','lic.chart2.sub':'Licences compétition H+F par discipline',
+    'lic.chart3.title':'Disciplines au fil du temps','lic.chart3.sub':'Vue empilée des licences compétition par discipline sur les années',
+    'lic.chart4.title':'Catégories par discipline','lic.chart4.sub':'Catégories de licences 2015–2025 – Choisir discipline et genre',
+    'lic.members.title':'Membres de la fédération','lic.members.sub':'Membres actifs (avec licence) et membres passifs de club',
+    'lic.members2.title':'Évolution des membres','lic.members2.sub':'Membres actifs vs. passifs au fil du temps',
+    'gender.m':'Hommes','gender.f':'Femmes','gender.mf':'Total',
+    'kpi.lic.total':'Total licences','kpi.lic.men':'Hommes (compétition)','kpi.lic.women':'Femmes (compétition)','kpi.lic.wpct':'Part des femmes','kpi.lic.officials':'Officiels',
+    'kpi.mem.total':'Total membres','kpi.mem.active':'Membres actifs','kpi.mem.passive':'Membres passifs',
+    'ds.total.lic':'Total licences','ds.men':'Hommes','ds.women':'Femmes','ds.officials':'Officiels','ds.active':'Membres actifs','ds.passive':'Membres passifs',
+    'disc.road':'Route','disc.mtbxc':'VTT XC','disc.mtbdh':'VTT DH/4X','disc.bmx':'BMX','disc.cx':'Cyclo-cross','disc.track':'Piste','disc.trial':'Trial','disc.ar':'Vélo artistique','disc.cycleball':'Cycle-ball','disc.para':'Para-Cycling',
+    'disc.road.ev':'Route','disc.mtb.ev':'VTT','disc.track.ev':'Piste','disc.other.ev':'Autres',
+    'fin.h2':'Compte de résultat','fin.sub':'Produits, charges et résultat annuel',
+    'fin.chart1.title':'Produits & Charges','fin.chart1.sub':'Comparaison produits totaux et charges totales en CHF',
+    'fin.chart2.title':'Résultat annuel','fin.chart2.sub':'Excédent ou déficit par année en CHF',
+    'fin.chart3.title':'Sources de produits','fin.chart3.sub':'Répartition des types de produits',
+    'fin.chart4.title':'Structure des charges','fin.chart4.sub':'Répartition des types de charges',
+    'kpi.fin.revenue':'Total produits','kpi.fin.expense':'Total charges','kpi.fin.result':'Résultat annuel','kpi.fin.sponsor':'Publicité/Sponsoring','kpi.fin.public':'Subventions publiques',
+    'ds.revenue':'Produits','ds.expense':'Charges','ds.result':'Résultat',
+    'ds.lic.income':'Licences','ds.event.income':'Manifestations','ds.sponsor':'Sponsoring','ds.public':'Subventions publiques','ds.other':'Autres',
+    'ds.staff.cost':'Personnel','ds.event.cost':'Manifestations','ds.operations':'Exploitation','ds.misc':'Divers',
+    'ev.h2':'Manifestations & sport','ev.sub':'Courses, participants, succès internationaux',
+    'ev.chart1.title':'Courses par discipline','ev.chart1.sub':'Nombre de courses par discipline et année',
+    'ev.chart2.title':'Manifestations par niveau','ev.chart2.sub':'National, international et régional/formation au fil du temps',
+    'ev.chart3.title':'Toutes disciplines au fil du temps','ev.chart3.sub':'Vue empilée de toutes les disciplines',
+    'ev.chart4.title':'Part des disciplines au fil du temps','ev.chart4.sub':'Part en % de chaque discipline dans le total annuel',
+    'kpi.ev.total':'Total manifestations','kpi.ev.road':'Route','kpi.ev.mtb':'VTT','kpi.ev.track':'Piste','kpi.ev.intl':'International',
+    'ds.national':'National','ds.regional':'Régional/Formation','ds.intl':'International',
+    'per.h2':'Personnel Swiss Cycling','per.sub':'Secrétariat, entraîneurs nationaux et comité directeur','per.meta':'Au : ',
+    'per.chart1.title':'Évolution du personnel','per.chart1.sub':'Nombre de personnes secrétariat, entraîneurs, comité par année',
+    'per.chart2.title':'Composition (actuelle)','per.chart2.sub':'Part des secteurs dans le total',
+    'per.vorstand.title':'Comité directeur','per.vorstand.sub':'Membres élus du comité',
+    'per.trainer.title':'Entraîneures & entraîneurs nationaux','per.trainer.sub':'Direction technique par discipline',
+    'per.gs.title':'Secrétariat','per.gs.sub':'Collaborateurs par département',
+    'kpi.per.gs':'Secrétariat','kpi.per.trainer':'Entraîneurs nat.','kpi.per.board':'Comité','kpi.per.total':'Total',
+    'ds.per.gs':'Secrétariat','ds.per.trainer':'Entraîneurs nat.','ds.per.board':'Comité',
+    'tbl.year':'Année','tbl.officials':'Offic.','tbl.total':'Total',
+    'foot.oss':'Open source & open data',
+    'foot.github':'Le code et les données sont disponibles sur <a href="https://github.com/Flo3561/swisscycling_statistics" target="_blank" rel="noopener">GitHub</a>.',
+    'foot.issue':'Une erreur détectée ? <a href="https://github.com/Flo3561/swisscycling_statistics/issues" target="_blank" rel="noopener">Créer une issue</a>.',
+    'foot.disclaimer':'Projet communautaire indépendant · Aucune relation officielle avec Swiss Cycling.',
+    'foot.impressum':'Mentions légales','foot.datenschutz':'Protection des données',
+  },
+  en: {
+    'logo.sub':'Association Statistics',
+    'nav.lizenzen':'Licenses','nav.finanzen':'Finances','nav.events':'Events','nav.personal':'Staff',
+    'cb.label':'Colorblind',
+    'hero.title':'Association in<br/><em>numbers &amp; facts</em>',
+    'hero.sub':'Annual statistics overview of Swiss Cycling – Licenses, staff, finances and events at a glance.',
+    'hero.period':'Data period',
+    'lic.h2':'Licenses','lic.sub':'Number of licenses issued by discipline, category and year (2015–2025)','lic.meta':'Last update: ',
+    'lic.chart1.title':'License trend','lic.chart1.sub':'Total licenses issued per year',
+    'lic.chart2.title':'Licenses by discipline (latest year)','lic.chart2.sub':'Competition licenses M+F by discipline',
+    'lic.chart3.title':'Disciplines over time','lic.chart3.sub':'Stacked view of competition licenses by discipline over the years',
+    'lic.chart4.title':'Categories by discipline','lic.chart4.sub':'License categories 2015–2025 – Choose discipline and gender',
+    'lic.members.title':'Association members','lic.members.sub':'Active members (with license) and passive club members',
+    'lic.members2.title':'Member trends','lic.members2.sub':'Active vs. passive members over time',
+    'gender.m':'Men','gender.f':'Women','gender.mf':'Total',
+    'kpi.lic.total':'Total licenses','kpi.lic.men':'Men (competition)','kpi.lic.women':'Women (competition)','kpi.lic.wpct':'Women share','kpi.lic.officials':'Officials',
+    'kpi.mem.total':'Total members','kpi.mem.active':'Active members','kpi.mem.passive':'Passive members',
+    'ds.total.lic':'Total licenses','ds.men':'Men','ds.women':'Women','ds.officials':'Officials','ds.active':'Active members','ds.passive':'Passive members',
+    'disc.road':'Road','disc.mtbxc':'MTB XC','disc.mtbdh':'MTB DH/4X','disc.bmx':'BMX','disc.cx':'Cyclo-cross','disc.track':'Track','disc.trial':'Trial','disc.ar':'Artistic cycling','disc.cycleball':'Cycle-ball','disc.para':'Para-Cycling',
+    'disc.road.ev':'Road','disc.mtb.ev':'MTB','disc.track.ev':'Track','disc.other.ev':'Other',
+    'fin.h2':'Income statement','fin.sub':'Revenue, expenses and annual result',
+    'fin.chart1.title':'Revenue & Expenses','fin.chart1.sub':'Comparison of total revenue and total expenses in CHF',
+    'fin.chart2.title':'Annual result','fin.chart2.sub':'Surplus or deficit per year in CHF',
+    'fin.chart3.title':'Revenue sources','fin.chart3.sub':'Breakdown of revenue types',
+    'fin.chart4.title':'Expense structure','fin.chart4.sub':'Breakdown of expense types',
+    'kpi.fin.revenue':'Total revenue','kpi.fin.expense':'Total expenses','kpi.fin.result':'Annual result','kpi.fin.sponsor':'Advertising/Sponsoring','kpi.fin.public':'Public funding',
+    'ds.revenue':'Revenue','ds.expense':'Expenses','ds.result':'Result',
+    'ds.lic.income':'Licenses','ds.event.income':'Events','ds.sponsor':'Sponsoring','ds.public':'Public funding','ds.other':'Other',
+    'ds.staff.cost':'Staff','ds.event.cost':'Events','ds.operations':'Operations','ds.misc':'Miscellaneous',
+    'ev.h2':'Events & sport','ev.sub':'Races, participants, international results',
+    'ev.chart1.title':'Races by discipline','ev.chart1.sub':'Number of races per discipline and year',
+    'ev.chart2.title':'Events by level','ev.chart2.sub':'National, international and regional/training over time',
+    'ev.chart3.title':'All disciplines over time','ev.chart3.sub':'Stacked view of all disciplines',
+    'ev.chart4.title':'Discipline share over time','ev.chart4.sub':'Percentage share of each discipline in annual total',
+    'kpi.ev.total':'Total events','kpi.ev.road':'Road','kpi.ev.mtb':'MTB','kpi.ev.track':'Track','kpi.ev.intl':'International',
+    'ds.national':'National','ds.regional':'Regional/Training','ds.intl':'International',
+    'per.h2':'Swiss Cycling staff','per.sub':'Office, national coaches and board','per.meta':'As of: ',
+    'per.chart1.title':'Staff development','per.chart1.sub':'Number of office, coach and board members per year',
+    'per.chart2.title':'Current composition','per.chart2.sub':'Share of each area in total',
+    'per.vorstand.title':'Board of directors','per.vorstand.sub':'Elected board members',
+    'per.trainer.title':'National coaches','per.trainer.sub':'Technical management by discipline',
+    'per.gs.title':'Office','per.gs.sub':'Staff by department',
+    'kpi.per.gs':'Office','kpi.per.trainer':'Nat. coaches','kpi.per.board':'Board','kpi.per.total':'Total',
+    'ds.per.gs':'Office','ds.per.trainer':'Nat. coaches','ds.per.board':'Board',
+    'tbl.year':'Year','tbl.officials':'Officials','tbl.total':'Total',
+    'foot.oss':'Open source & open data',
+    'foot.github':'The code and data are available on <a href="https://github.com/Flo3561/swisscycling_statistics" target="_blank" rel="noopener">GitHub</a>.',
+    'foot.issue':'Noticed an error? <a href="https://github.com/Flo3561/swisscycling_statistics/issues" target="_blank" rel="noopener">Create an issue</a>.',
+    'foot.disclaimer':'Independent community project · No official affiliation with Swiss Cycling.',
+    'foot.impressum':'Legal notice','foot.datenschutz':'Privacy policy',
+  },
+};
+
+/* ── ROLE / DEPARTMENT / FUNCTION TRANSLATIONS ──────────────── */
+const ROLE_MAP = {
+  fr: {
+    // Vorstand functions
+    'Präsidentin':          'Présidente',
+    'Vize-Präsident':       'Vice-président',
+    'Finanzchef':           'Responsable finances',
+    'Vorstandsmitglied':    'Membre du comité',
+    // Trainer disciplines (section headers)
+    'Strasse':              'Route',
+    'Bahn':                 'Piste',
+    'MTB':                  'VTT',
+    'BMX':                  'BMX',
+    'Radquer':              'Cyclo-cross',
+    'Gravity':              'Gravity',
+    'Trial':                'Trial',
+    // Trainer roles
+    'Nationaltrainer':                        'Entraîneur national',
+    'Nationaltrainerin':                      'Entraîneuse nationale',
+    'Nationaltrainer Elite Männer':           'Entraîneur national Elite Hommes',
+    'Nationaltrainer Elite & U23 Frauen':     'Entraîneur national Elite & U23 Femmes',
+    'Nationaltrainer U23 Männer':             'Entraîneur national U23 Hommes',
+    'Nationaltrainerin U19 Frauen':           'Entraîneuse nationale U19 Femmes',
+    'Nationaltrainer U19 Männer':             'Entraîneur national U19 Hommes',
+    'Nationaltrainer & Sprint':               'Entraîneur national & Sprint',
+    'Nationaltrainerin Frauen':               'Entraîneuse nationale Femmes',
+    'Assistenztrainerin Frauen':              'Entraîneuse assistante Femmes',
+    'Nationaltrainer U23 & U19 Männer':       'Entraîneur national U23 & U19 Hommes',
+    'Nationaltrainer Elite & U23':            'Entraîneur national Elite & U23',
+    'Nationaltrainer U19 & U17':              'Entraîneur national U19 & U17',
+    'Nationaltrainer Elite & Junioren':       'Entraîneur national Elite & Juniors',
+    // Departments (Abteilung)
+    'Geschäftsleitung':     'Direction',
+    'Administration':       'Administration',
+    'Leistungssport':       'Sport de performance',
+    'Service Course':       'Service Course',
+    'Ausbildung':           'Formation',
+    'Nachwuchs':            'Relève',
+    'Politik & Mobilität':  'Politique & Mobilité',
+    'Breitensport':         'Sport populaire',
+    'Marketing':            'Marketing',
+    'Kommunikation':        'Communication',
+    // Office roles
+    'Geschäftsführer':                                  'Directeur',
+    'Leiterin Dienste':                                 'Responsable des services',
+    'Ausbildungsverantwortliche J+S':                   'Responsable formation J+S',
+    'Chef Leistungssport':                              'Chef du sport de performance',
+    'Assistentin Geschäftsleitung':                     'Assistante de direction',
+    'Rechnungswesen & Personal':                        'Comptabilité & RH',
+    'Lizenzen & Mitglieder':                            'Licences & Membres',
+    'Rechnungswesen und Administration':                'Comptabilité et administration',
+    'Cheftrainer MTB':                                  'Entraîneur chef VTT',
+    'Cheftrainer Strasse':                              'Entraîneur chef Route',
+    'Cheftrainer BMX':                                  'Entraîneur chef BMX',
+    'Disziplinenverantwortliche MTB & BMX':             'Responsable discipline MTB & BMX',
+    'Disziplinenverantwortlicher Bahn':                 'Responsable discipline Piste',
+    'Disziplinenverantwortlicher Strasse':              'Responsable discipline Route',
+    'Backoffice Leistungssport':                        'Backoffice sport de performance',
+    'Leiter Medical Team':                              'Responsable équipe médicale',
+    'Leiter Service Course':                            'Responsable service course',
+    'Mechaniker':                                       'Mécanicien',
+    'Logistiker':                                       'Logisticien',
+    'Mitarbeiterin J+S':                                'Collaboratrice J+S',
+    'Mitarbeiterin Ausbildung':                         'Collaboratrice formation',
+    'Projektleiter Lernmedien':                         'Chef de projet médias d\'apprentissage',
+    'J+S-Ausbildungsverantwortlicher BMX':              'Responsable formation J+S BMX',
+    'J+S-Ausbildungsverantwortliche Spezialdizip.':     'Responsable formation J+S disciplines spéciales',
+    'Ausbildungsverantwortliche Swiss Cycling Guide':   'Responsable formation Swiss Cycling Guide',
+    'Mitarbeiterin Swiss Cycling Guide':                'Collaboratrice Swiss Cycling Guide',
+    'Nachwuchsverantwortlicher':                        'Responsable de la relève',
+    'Mitarbeiter Sportwissenschaft':                    'Collaborateur sciences du sport',
+    'Projektverantwortlicher Cycle On Zürich':          'Responsable projet Cycle On Zürich',
+    'Co-Leiterin Politik und Mobilität':                'Co-responsable Politique et Mobilité',
+    'Projektleiterin Breitensport':                     'Cheffe de projet sport populaire',
+    'Leiter Kommunikation':                             'Responsable communication',
+    'Mitarbeiterin Kommunikation':                      'Collaboratrice communication',
+    'Mitarbeiter Kommunikation':                        'Collaborateur communication',
+    'Kommunikation & Multimedia':                       'Communication & Multimédia',
+  },
+  en: {
+    // Vorstand functions
+    'Präsidentin':          'President',
+    'Vize-Präsident':       'Vice-President',
+    'Finanzchef':           'CFO',
+    'Vorstandsmitglied':    'Board member',
+    // Trainer disciplines
+    'Strasse':              'Road',
+    'Bahn':                 'Track',
+    'MTB':                  'MTB',
+    'BMX':                  'BMX',
+    'Radquer':              'Cyclo-cross',
+    'Gravity':              'Gravity',
+    'Trial':                'Trial',
+    // Trainer roles
+    'Nationaltrainer':                        'National Coach',
+    'Nationaltrainerin':                      'National Coach',
+    'Nationaltrainer Elite Männer':           'National Coach Elite Men',
+    'Nationaltrainer Elite & U23 Frauen':     'National Coach Elite & U23 Women',
+    'Nationaltrainer U23 Männer':             'National Coach U23 Men',
+    'Nationaltrainerin U19 Frauen':           'National Coach U19 Women',
+    'Nationaltrainer U19 Männer':             'National Coach U19 Men',
+    'Nationaltrainer & Sprint':               'National Coach & Sprint',
+    'Nationaltrainerin Frauen':               'National Coach Women',
+    'Assistenztrainerin Frauen':              'Assistant Coach Women',
+    'Nationaltrainer U23 & U19 Männer':       'National Coach U23 & U19 Men',
+    'Nationaltrainer Elite & U23':            'National Coach Elite & U23',
+    'Nationaltrainer U19 & U17':              'National Coach U19 & U17',
+    'Nationaltrainer Elite & Junioren':       'National Coach Elite & Juniors',
+    // Departments
+    'Geschäftsleitung':     'Management',
+    'Administration':       'Administration',
+    'Leistungssport':       'Elite Sport',
+    'Service Course':       'Service Course',
+    'Ausbildung':           'Education',
+    'Nachwuchs':            'Youth Development',
+    'Politik & Mobilität':  'Policy & Mobility',
+    'Breitensport':         'Recreational Sport',
+    'Marketing':            'Marketing',
+    'Kommunikation':        'Communications',
+    // Office roles
+    'Geschäftsführer':                                  'CEO',
+    'Leiterin Dienste':                                 'Head of Services',
+    'Ausbildungsverantwortliche J+S':                   'J+S Education Manager',
+    'Chef Leistungssport':                              'Head of Elite Sport',
+    'Assistentin Geschäftsleitung':                     'Management Assistant',
+    'Rechnungswesen & Personal':                        'Accounting & HR',
+    'Lizenzen & Mitglieder':                            'Licenses & Members',
+    'Rechnungswesen und Administration':                'Accounting & Administration',
+    'Cheftrainer MTB':                                  'Head Coach MTB',
+    'Cheftrainer Strasse':                              'Head Coach Road',
+    'Cheftrainer BMX':                                  'Head Coach BMX',
+    'Disziplinenverantwortliche MTB & BMX':             'Discipline Manager MTB & BMX',
+    'Disziplinenverantwortlicher Bahn':                 'Discipline Manager Track',
+    'Disziplinenverantwortlicher Strasse':              'Discipline Manager Road',
+    'Backoffice Leistungssport':                        'Elite Sport Backoffice',
+    'Leiter Medical Team':                              'Head of Medical Team',
+    'Leiter Service Course':                            'Head of Service Course',
+    'Mechaniker':                                       'Mechanic',
+    'Logistiker':                                       'Logistics',
+    'Mitarbeiterin J+S':                                'J+S Staff',
+    'Mitarbeiterin Ausbildung':                         'Education Staff',
+    'Projektleiter Lernmedien':                         'Project Manager Learning Media',
+    'J+S-Ausbildungsverantwortlicher BMX':              'J+S Education Manager BMX',
+    'J+S-Ausbildungsverantwortliche Spezialdizip.':     'J+S Education Manager Special Disciplines',
+    'Ausbildungsverantwortliche Swiss Cycling Guide':   'Education Manager Swiss Cycling Guide',
+    'Mitarbeiterin Swiss Cycling Guide':                'Swiss Cycling Guide Staff',
+    'Nachwuchsverantwortlicher':                        'Youth Development Manager',
+    'Mitarbeiter Sportwissenschaft':                    'Sports Science Staff',
+    'Projektverantwortlicher Cycle On Zürich':          'Project Manager Cycle On Zürich',
+    'Co-Leiterin Politik und Mobilität':                'Co-Head Policy & Mobility',
+    'Projektleiterin Breitensport':                     'Project Manager Recreational Sport',
+    'Leiter Kommunikation':                             'Head of Communications',
+    'Mitarbeiterin Kommunikation':                      'Communications Staff',
+    'Mitarbeiter Kommunikation':                        'Communications Staff',
+    'Kommunikation & Multimedia':                       'Communications & Multimedia',
+  },
+};
+function trRole(text) {
+  if (currentLang === 'de' || !text) return text;
+  const map = ROLE_MAP[currentLang];
+  return (map && map[text]) || text;
+}
+
+let currentLang = localStorage.getItem('sc-lang') || 'de';
+
+function tr(key) {
+  return (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key])
+      || TRANSLATIONS.de[key] || key;
+}
+
+function applyTranslations() {
+  // Update lang buttons
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === currentLang);
+  });
+  // data-i18n: textContent
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = tr(el.getAttribute('data-i18n'));
+    if (v) el.textContent = v;
+  });
+  // data-i18n-html: innerHTML
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const v = tr(el.getAttribute('data-i18n-html'));
+    if (v) el.innerHTML = v;
+  });
+  // Logo subtitle (no data-i18n, use selector)
+  const logoSub = document.querySelector('.logo-text span');
+  if (logoSub) logoSub.textContent = tr('logo.sub');
+}
+
+// Lang toggle
+document.getElementById('langSelect').querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentLang = btn.dataset.lang;
+    localStorage.setItem('sc-lang', currentLang);
+    applyTranslations();
+    reinitAllCharts();
+  });
 });
 
 /* ── COLOR PALETTES ─────────────────────────────────────────── */
@@ -895,6 +1262,7 @@ async function reinitAllCharts() {
   applyDefaults();
   await Promise.all([initLizenzen(), initFinanzen(), initVeranstaltungen()]);
   initPersonal();
+  applyTranslations();
 }
 
 /* ── HELPERS ────────────────────────────────────────────────── */
@@ -1315,7 +1683,7 @@ async function initLizenzen() {
 
   document.getElementById('latestYear').textContent = last.Jahr;
   document.getElementById('yearRange').textContent = `${years[0]}–${years[years.length-1]}`;
-  document.getElementById('lizenzMeta').textContent = `Letztes Update: ${last.Jahr}`;
+  document.getElementById('lizenzMeta').textContent = tr('lic.meta') + last.Jahr;
   const cyEl = document.getElementById('currentYear');
   if (cyEl) cyEl.textContent = new Date().getFullYear();
 
@@ -1327,11 +1695,11 @@ async function initLizenzen() {
   const frauenPct = (lastF / (lastM + lastF) * 100).toFixed(1);
 
   document.getElementById('lizenzKpis').innerHTML = [
-    kpiCard('Lizenzen Total', fmt(last.Total), delta(last.Total, prev.Total)),
-    kpiCard('Männer (Wettkampf)', fmt(lastM), delta(lastM, prevM), getTheme().blue),
-    kpiCard('Frauen (Wettkampf)', fmt(lastF), delta(lastF, prevF), getTheme().green),
-    kpiCard('Frauenanteil', frauenPct + '%', null, getTheme().gold),
-    kpiCard('Funktionäre', fmt((last.Funk_M||0)+(last.Funk_F||0)), delta((last.Funk_M||0)+(last.Funk_F||0),(prev.Funk_M||0)+(prev.Funk_F||0)), '#7c3aed'),
+    kpiCard(tr('kpi.lic.total'), fmt(last.Total), delta(last.Total, prev.Total)),
+    kpiCard(tr('kpi.lic.men'), fmt(lastM), delta(lastM, prevM), getTheme().blue),
+    kpiCard(tr('kpi.lic.women'), fmt(lastF), delta(lastF, prevF), getTheme().green),
+    kpiCard(tr('kpi.lic.wpct'), frauenPct + '%', null, getTheme().gold),
+    kpiCard(tr('kpi.lic.officials'), fmt((last.Funk_M||0)+(last.Funk_F||0)), delta((last.Funk_M||0)+(last.Funk_F||0),(prev.Funk_M||0)+(prev.Funk_F||0)), '#7c3aed'),
   ].join('');
 
   const t = getTheme();
@@ -1342,7 +1710,7 @@ async function initLizenzen() {
     data: {
       labels: years,
       datasets: [{
-        label: 'Total Lizenzen',
+        label: tr('ds.total.lic'),
         data: raw.map(r => r.Total),
         borderColor: t.accent, backgroundColor: alpha(t.accent, .12),
         fill: true, tension: .4, pointRadius: 5, pointHoverRadius: 8,
@@ -1354,16 +1722,16 @@ async function initLizenzen() {
 
   // Discipline definitions for charts – use full palette so all 10 are distinct
   const DISC_DEFS = [
-    { key: 'Strasse',   label: 'Strasse',      color: t.chart[0] },
-    { key: 'MTB_XC',   label: 'MTB XC',        color: t.chart[1] },
-    { key: 'MTB_DH',   label: 'MTB DH/4X',     color: t.chart[2] },
-    { key: 'BMX',      label: 'BMX',            color: t.chart[3] },
-    { key: 'Radquer',  label: 'Radquer',        color: t.chart[4] },
-    { key: 'Bahn',     label: 'Bahn',           color: t.chart[5] },
-    { key: 'Trial',    label: 'Trial',          color: t.chart[6] },
-    { key: 'Kunstrad', label: 'Kunstrad',       color: t.chart[7] },
-    { key: 'Radball',  label: 'Radball',        color: t.chart[8] },
-    { key: 'Para',     label: 'Para-Cycling',   color: t.chart[9] },
+    { key: 'Strasse',   label: tr('disc.road'),      color: t.chart[0] },
+    { key: 'MTB_XC',   label: tr('disc.mtbxc'),      color: t.chart[1] },
+    { key: 'MTB_DH',   label: tr('disc.mtbdh'),      color: t.chart[2] },
+    { key: 'BMX',      label: tr('disc.bmx'),         color: t.chart[3] },
+    { key: 'Radquer',  label: tr('disc.cx'),          color: t.chart[4] },
+    { key: 'Bahn',     label: tr('disc.track'),       color: t.chart[5] },
+    { key: 'Trial',    label: tr('disc.trial'),       color: t.chart[6] },
+    { key: 'Kunstrad', label: tr('disc.ar'),          color: t.chart[7] },
+    { key: 'Radball',  label: tr('disc.cycleball'),   color: t.chart[8] },
+    { key: 'Para',     label: tr('disc.para'),        color: t.chart[9] },
   ];
 
   // Disziplin-Balken (letztes Jahr, M vs F je Disziplin)
@@ -1372,8 +1740,8 @@ async function initLizenzen() {
     data: {
       labels: DISC_DEFS.map(d => d.label),
       datasets: [
-        { label: 'Männer', data: DISC_DEFS.map(d => last[d.key+'_M'] || 0), backgroundColor: alpha(t.blue, .8), borderRadius: 4 },
-        { label: 'Frauen', data: DISC_DEFS.map(d => last[d.key+'_F'] || 0), backgroundColor: alpha(t.green, .8), borderRadius: 4 },
+        { label: tr('ds.men'), data: DISC_DEFS.map(d => last[d.key+'_M'] || 0), backgroundColor: alpha(t.blue, .8), borderRadius: 4 },
+        { label: tr('ds.women'), data: DISC_DEFS.map(d => last[d.key+'_F'] || 0), backgroundColor: alpha(t.green, .8), borderRadius: 4 },
       ]
     },
     options: gridOpts()
@@ -1392,7 +1760,7 @@ async function initLizenzen() {
           borderRadius: 0,
         })),
         {
-          label: 'Funktionäre',
+          label: tr('ds.officials'),
           data: raw.map(r => (r.Funk_M || 0) + (r.Funk_F || 0)),
           backgroundColor: t.chart[4],
           borderRadius: 6,
@@ -1405,10 +1773,10 @@ async function initLizenzen() {
   // Übersichtstabelle (alle Disziplinen M+F zusammen)
   const tbl = document.getElementById('lizenzTable');
   const tableCols = [
-    { key: 'Jahr',     label: 'Jahr',        isYear: true },
+    { key: 'Jahr',     label: tr('tbl.year'),      isYear: true },
     ...DISC_DEFS.map(d => ({ key: d.key, label: d.label })),
-    { key: 'Funk',     label: 'Funkt.' },
-    { key: 'Total',    label: 'Total',       isTotal: true },
+    { key: 'Funk',     label: tr('tbl.officials') },
+    { key: 'Total',    label: tr('tbl.total'),     isTotal: true },
   ];
   tbl.querySelector('thead tr').innerHTML = tableCols.map(c => `<th>${c.label}</th>`).join('');
   const maxT = Math.max(...raw.map(x => x.Total));
@@ -1459,17 +1827,17 @@ async function initLizenzen() {
     const mlast = mraw[mraw.length - 1];
     const mprev = mraw[mraw.length - 2];
     document.getElementById('mitgliedKpis').innerHTML = [
-      kpiCard('Mitglieder Total', fmt(mlast.Total), delta(mlast.Total, mprev.Total)),
-      kpiCard('Aktive Mitglieder', fmt(mlast.Aktive), delta(mlast.Aktive, mprev.Aktive), t.blue),
-      kpiCard('Passive Mitglieder', fmt(mlast.Passiv), delta(mlast.Passiv, mprev.Passiv), t.chart[4]),
+      kpiCard(tr('kpi.mem.total'), fmt(mlast.Total), delta(mlast.Total, mprev.Total)),
+      kpiCard(tr('kpi.mem.active'), fmt(mlast.Aktive), delta(mlast.Aktive, mprev.Aktive), t.blue),
+      kpiCard(tr('kpi.mem.passive'), fmt(mlast.Passiv), delta(mlast.Passiv, mprev.Passiv), t.chart[4]),
     ].join('');
     makeChart('chartMitglieder', {
       type: 'bar',
       data: {
         labels: mraw.map(r => r.Jahr),
         datasets: [
-          { label: 'Aktive Mitglieder', data: mraw.map(r => r.Aktive), backgroundColor: alpha(t.blue, .8), borderRadius: 4 },
-          { label: 'Passive Mitglieder', data: mraw.map(r => r.Passiv), backgroundColor: alpha(t.chart[4], .6), borderRadius: 4 },
+          { label: tr('ds.active'), data: mraw.map(r => r.Aktive), backgroundColor: alpha(t.blue, .8), borderRadius: 4 },
+          { label: tr('ds.passive'), data: mraw.map(r => r.Passiv), backgroundColor: alpha(t.chart[4], .6), borderRadius: 4 },
         ]
       },
       options: gridOpts(true)
@@ -1492,11 +1860,11 @@ async function initFinanzen() {
   const t = getTheme();
 
   document.getElementById('finanzKpis').innerHTML = [
-    kpiCard('Gesamtertrag', fmtCHF(last.Ertrag_Total), delta(last.Ertrag_Total, prev.Ertrag_Total), t.gold),
-    kpiCard('Gesamtaufwand', fmtCHF(last.Aufwand_Total), delta(last.Aufwand_Total, prev.Aufwand_Total), t.accent),
-    kpiCard('Jahresergebnis', fmtCHF(last.Ergebnis), null, t.green),
-    kpiCard('Werbung/Sponsoring', fmtCHF(last.Ertrag_Sponsoring), delta(last.Ertrag_Sponsoring, prev.Ertrag_Sponsoring), t.blue),
-    kpiCard('Öffentl. Beiträge', fmtCHF(last.Ertrag_Subventionen), delta(last.Ertrag_Subventionen, prev.Ertrag_Subventionen), '#7c3aed'),
+    kpiCard(tr('kpi.fin.revenue'), fmtCHF(last.Ertrag_Total), delta(last.Ertrag_Total, prev.Ertrag_Total), t.gold),
+    kpiCard(tr('kpi.fin.expense'), fmtCHF(last.Aufwand_Total), delta(last.Aufwand_Total, prev.Aufwand_Total), t.accent),
+    kpiCard(tr('kpi.fin.result'), fmtCHF(last.Ergebnis), null, t.green),
+    kpiCard(tr('kpi.fin.sponsor'), fmtCHF(last.Ertrag_Sponsoring), delta(last.Ertrag_Sponsoring, prev.Ertrag_Sponsoring), t.blue),
+    kpiCard(tr('kpi.fin.public'), fmtCHF(last.Ertrag_Subventionen), delta(last.Ertrag_Subventionen, prev.Ertrag_Subventionen), '#7c3aed'),
   ].join('');
 
   makeChart('chartErtragAufwand', {
@@ -1504,8 +1872,8 @@ async function initFinanzen() {
     data: {
       labels: years,
       datasets: [
-        { label: 'Ertrag', data: raw.map(r => r.Ertrag_Total), backgroundColor: alpha(t.green,.7), borderRadius: 4 },
-        { label: 'Aufwand', data: raw.map(r => r.Aufwand_Total), backgroundColor: alpha(t.accent,.7), borderRadius: 4 },
+        { label: tr('ds.revenue'), data: raw.map(r => r.Ertrag_Total), backgroundColor: alpha(t.green,.7), borderRadius: 4 },
+        { label: tr('ds.expense'), data: raw.map(r => r.Aufwand_Total), backgroundColor: alpha(t.accent,.7), borderRadius: 4 },
       ]
     },
     options: {
@@ -1520,7 +1888,7 @@ async function initFinanzen() {
     data: {
       labels: years,
       datasets: [{
-        label: 'Ergebnis',
+        label: tr('ds.result'),
         data: raw.map(r => r.Ergebnis),
         backgroundColor: raw.map(r => r.Ergebnis >= 0 ? alpha(t.green,.8) : alpha(t.accent,.8)),
         borderRadius: 6,
@@ -1560,7 +1928,7 @@ async function initFinanzen() {
   });
 
   const ertragKeys = ['Ertrag_Lizenzen','Ertrag_Veranstaltungen','Ertrag_Sponsoring','Ertrag_Subventionen','Ertrag_Sonstiges'];
-  const ertragLabels = ['Lizenzen','Veranstaltungen','Sponsoring','Öffentl. Beiträge','Übrige'];
+  const ertragLabels = [tr('ds.lic.income'),tr('ds.event.income'),tr('ds.sponsor'),tr('ds.public'),tr('ds.other')];
   makeChart('chartErtragPie', {
     type: 'doughnut',
     data: {
@@ -1571,7 +1939,7 @@ async function initFinanzen() {
   });
 
   const aufwandKeys = ['Aufwand_Personal','Aufwand_Veranstaltungen','Aufwand_Betrieb','Aufwand_Sonstiges'];
-  const aufwandLabels = ['Personal','Veranstaltungen','Betrieb','Sonstiges'];
+  const aufwandLabels = [tr('ds.staff.cost'),tr('ds.event.cost'),tr('ds.operations'),tr('ds.misc')];
   makeChart('chartAufwandPie', {
     type: 'doughnut',
     data: {
@@ -1593,11 +1961,11 @@ async function initVeranstaltungen() {
   const t = getTheme();
 
   document.getElementById('eventKpis').innerHTML = [
-    kpiCard('Events Total',   fmt(last.Total),        delta(last.Total,         prev.Total),         t.green),
-    kpiCard('Strasse',        fmt(last.Strasse),       delta(last.Strasse,       prev.Strasse),       t.chart[0]),
-    kpiCard('MTB',            fmt(last.MTB),           delta(last.MTB,           prev.MTB),           t.chart[1]),
-    kpiCard('Bahn',           fmt(last.Bahn),          delta(last.Bahn,          prev.Bahn),          t.chart[2]),
-    kpiCard('International',  fmt(last.International), delta(last.International, prev.International), t.gold),
+    kpiCard(tr('kpi.ev.total'),  fmt(last.Total),        delta(last.Total,         prev.Total),         t.green),
+    kpiCard(tr('kpi.ev.road'),   fmt(last.Strasse),       delta(last.Strasse,       prev.Strasse),       t.chart[0]),
+    kpiCard(tr('kpi.ev.mtb'),    fmt(last.MTB),           delta(last.MTB,           prev.MTB),           t.chart[1]),
+    kpiCard(tr('kpi.ev.track'),  fmt(last.Bahn),          delta(last.Bahn,          prev.Bahn),          t.chart[2]),
+    kpiCard(tr('kpi.ev.intl'),   fmt(last.International), delta(last.International, prev.International), t.gold),
   ].join('');
 
   // Total + all disciplines grouped bar
@@ -1606,14 +1974,14 @@ async function initVeranstaltungen() {
     data: {
       labels: years,
       datasets: [
-        { label: 'Strasse',  data: raw.map(r => r.Strasse),  backgroundColor: alpha(t.chart[0], .8), borderRadius: 3 },
-        { label: 'MTB',      data: raw.map(r => r.MTB),      backgroundColor: alpha(t.chart[1], .8), borderRadius: 3 },
-        { label: 'Bahn',     data: raw.map(r => r.Bahn),     backgroundColor: alpha(t.chart[2], .8), borderRadius: 3 },
-        { label: 'BMX',      data: raw.map(r => r.BMX),      backgroundColor: alpha(t.chart[3], .8), borderRadius: 3 },
-        { label: 'Radquer',  data: raw.map(r => r.Radquer),  backgroundColor: alpha(t.chart[4], .8), borderRadius: 3 },
-        { label: 'Trial',    data: raw.map(r => r.Trial),    backgroundColor: alpha(t.chart[5], .8), borderRadius: 3 },
-        { label: 'Para',     data: raw.map(r => r.Para),     backgroundColor: alpha(t.chart[6], .8), borderRadius: 3 },
-        { label: 'Sonstige', data: raw.map(r => r.Sonstige), backgroundColor: alpha(t.chart[7], .8), borderRadius: 3 },
+        { label: tr('disc.road.ev'),  data: raw.map(r => r.Strasse),  backgroundColor: alpha(t.chart[0], .8), borderRadius: 3 },
+        { label: tr('disc.mtb.ev'),   data: raw.map(r => r.MTB),      backgroundColor: alpha(t.chart[1], .8), borderRadius: 3 },
+        { label: tr('disc.track.ev'), data: raw.map(r => r.Bahn),     backgroundColor: alpha(t.chart[2], .8), borderRadius: 3 },
+        { label: tr('disc.bmx'),      data: raw.map(r => r.BMX),      backgroundColor: alpha(t.chart[3], .8), borderRadius: 3 },
+        { label: tr('disc.cx'),       data: raw.map(r => r.Radquer),  backgroundColor: alpha(t.chart[4], .8), borderRadius: 3 },
+        { label: tr('disc.trial'),    data: raw.map(r => r.Trial),    backgroundColor: alpha(t.chart[5], .8), borderRadius: 3 },
+        { label: tr('disc.para'),     data: raw.map(r => r.Para),     backgroundColor: alpha(t.chart[6], .8), borderRadius: 3 },
+        { label: tr('disc.other.ev'), data: raw.map(r => r.Sonstige), backgroundColor: alpha(t.chart[7], .8), borderRadius: 3 },
       ]
     },
     options: gridOpts()
@@ -1625,9 +1993,9 @@ async function initVeranstaltungen() {
     data: {
       labels: years,
       datasets: [
-        { label: 'National',          data: raw.map(r => r.National),          borderColor: t.green,    backgroundColor: alpha(t.green,.08),  fill: true, tension: .4, pointRadius: 5, borderWidth: 2.5 },
-        { label: 'Regional/Training', data: raw.map(r => r.Regional_Training), borderColor: t.blue,     backgroundColor: alpha(t.blue,.06),   fill: true, tension: .4, pointRadius: 5, borderWidth: 2.5 },
-        { label: 'International',     data: raw.map(r => r.International),     borderColor: t.gold,     backgroundColor: alpha(t.gold,.1),    fill: true, tension: .4, pointRadius: 5, borderWidth: 2.5 },
+        { label: tr('ds.national'), data: raw.map(r => r.National),          borderColor: t.green,    backgroundColor: alpha(t.green,.08),  fill: true, tension: .4, pointRadius: 5, borderWidth: 2.5 },
+        { label: tr('ds.regional'), data: raw.map(r => r.Regional_Training), borderColor: t.blue,     backgroundColor: alpha(t.blue,.06),   fill: true, tension: .4, pointRadius: 5, borderWidth: 2.5 },
+        { label: tr('ds.intl'),     data: raw.map(r => r.International),     borderColor: t.gold,     backgroundColor: alpha(t.gold,.1),    fill: true, tension: .4, pointRadius: 5, borderWidth: 2.5 },
       ]
     },
     options: gridOpts()
@@ -1635,21 +2003,21 @@ async function initVeranstaltungen() {
 
   // Stacked by discipline
   const diszipline = [
-    { key: 'Strasse',  color: t.chart[0] },
-    { key: 'MTB',      color: t.chart[1] },
-    { key: 'Bahn',     color: t.chart[2] },
-    { key: 'BMX',      color: t.chart[3] },
-    { key: 'Radquer',  color: t.chart[4] },
-    { key: 'Trial',    color: t.chart[5] },
-    { key: 'Para',     color: t.chart[6] },
-    { key: 'Sonstige', color: t.chart[7] },
+    { key: 'Strasse',  label: tr('disc.road.ev'),  color: t.chart[0] },
+    { key: 'MTB',      label: tr('disc.mtb.ev'),   color: t.chart[1] },
+    { key: 'Bahn',     label: tr('disc.track.ev'), color: t.chart[2] },
+    { key: 'BMX',      label: tr('disc.bmx'),      color: t.chart[3] },
+    { key: 'Radquer',  label: tr('disc.cx'),       color: t.chart[4] },
+    { key: 'Trial',    label: tr('disc.trial'),    color: t.chart[5] },
+    { key: 'Para',     label: tr('disc.para'),     color: t.chart[6] },
+    { key: 'Sonstige', label: tr('disc.other.ev'), color: t.chart[7] },
   ];
   makeChart('chartEventStacked', {
     type: 'bar',
     data: {
       labels: years,
       datasets: diszipline.map((d, i) => ({
-        label: d.key,
+        label: d.label,
         data: raw.map(r => r[d.key]),
         backgroundColor: d.color,
         borderRadius: i === diszipline.length - 1 ? 6 : 0,
@@ -1665,14 +2033,14 @@ async function initVeranstaltungen() {
     data: {
       labels: years,
       datasets: [
-        { label: 'Strasse',  data: diszPct('Strasse'),  borderColor: t.chart[0], backgroundColor: alpha(t.chart[0],.08), fill: true, tension: .4, pointRadius: 4, borderWidth: 2 },
-        { label: 'MTB',      data: diszPct('MTB'),      borderColor: t.chart[1], backgroundColor: alpha(t.chart[1],.08), fill: true, tension: .4, pointRadius: 4, borderWidth: 2 },
-        { label: 'Bahn',     data: diszPct('Bahn'),     borderColor: t.chart[2], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
-        { label: 'BMX',      data: diszPct('BMX'),      borderColor: t.chart[3], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
-        { label: 'Radquer',  data: diszPct('Radquer'),  borderColor: t.chart[4], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
-        { label: 'Trial',    data: diszPct('Trial'),    borderColor: t.chart[5], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
-        { label: 'Para',     data: diszPct('Para'),     borderColor: t.chart[6], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
-        { label: 'Sonstige', data: diszPct('Sonstige'), borderColor: t.chart[7], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.road.ev'),  data: diszPct('Strasse'),  borderColor: t.chart[0], backgroundColor: alpha(t.chart[0],.08), fill: true,  tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.mtb.ev'),   data: diszPct('MTB'),      borderColor: t.chart[1], backgroundColor: alpha(t.chart[1],.08), fill: true,  tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.track.ev'), data: diszPct('Bahn'),     borderColor: t.chart[2], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.bmx'),      data: diszPct('BMX'),      borderColor: t.chart[3], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.cx'),       data: diszPct('Radquer'),  borderColor: t.chart[4], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.trial'),    data: diszPct('Trial'),    borderColor: t.chart[5], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.para'),     data: diszPct('Para'),     borderColor: t.chart[6], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.other.ev'), data: diszPct('Sonstige'), borderColor: t.chart[7], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
       ]
     },
     options: {
@@ -1786,21 +2154,21 @@ const PERSONAL_DATA = {
 ══════════════════════════════════════════════════════════════ */
 function initPersonal() {
   const d = PERSONAL_DATA;
-  document.getElementById('personalMeta').textContent = `Stand: ${d.fetched_at}`;
+  document.getElementById('personalMeta').textContent = tr('per.meta') + d.fetched_at;
 
   const t = getTheme();
   const gs = d.geschaeftsstelle.length;
-  const tr = d.trainer.length;
+  const trainerCount = d.trainer.length;
   const vs = d.vorstand.length;
   const lastStat = d.yearly_stats[d.yearly_stats.length - 1];
   const prevStat = d.yearly_stats[d.yearly_stats.length - 2] || null;
 
   // KPIs
   document.getElementById('personalKpis').innerHTML = [
-    kpiCard('Geschäftsstelle', fmt(gs), prevStat ? delta(gs, prevStat.geschaeftsstelle) : null, t.blue),
-    kpiCard('Nationaltrainer', fmt(tr), prevStat ? delta(tr, prevStat.trainer) : null, t.green),
-    kpiCard('Vorstand', fmt(vs), prevStat ? delta(vs, prevStat.vorstand) : null, t.gold),
-    kpiCard('Total', fmt(gs + tr + vs), null),
+    kpiCard(tr('kpi.per.gs'),      fmt(gs),          prevStat ? delta(gs, prevStat.geschaeftsstelle) : null, t.blue),
+    kpiCard(tr('kpi.per.trainer'), fmt(trainerCount), prevStat ? delta(trainerCount, prevStat.trainer) : null, t.green),
+    kpiCard(tr('kpi.per.board'),   fmt(vs),          prevStat ? delta(vs, prevStat.vorstand) : null, t.gold),
+    kpiCard(tr('kpi.per.total'),   fmt(gs + trainerCount + vs), null),
   ].join('');
 
   // Yearly headcount stacked bar
@@ -1810,9 +2178,9 @@ function initPersonal() {
     data: {
       labels: stats.map(s => s.jahr),
       datasets: [
-        { label: 'Geschäftsstelle', data: stats.map(s => s.geschaeftsstelle), backgroundColor: alpha(t.blue, .85), borderRadius: 4 },
-        { label: 'Nationaltrainer',  data: stats.map(s => s.trainer),          backgroundColor: alpha(t.green, .85), borderRadius: 4 },
-        { label: 'Vorstand',         data: stats.map(s => s.vorstand),          backgroundColor: alpha(t.gold, .85), borderRadius: 4 },
+        { label: tr('ds.per.gs'),      data: stats.map(s => s.geschaeftsstelle), backgroundColor: alpha(t.blue, .85), borderRadius: 4 },
+        { label: tr('ds.per.trainer'), data: stats.map(s => s.trainer),          backgroundColor: alpha(t.green, .85), borderRadius: 4 },
+        { label: tr('ds.per.board'),   data: stats.map(s => s.vorstand),          backgroundColor: alpha(t.gold, .85), borderRadius: 4 },
       ]
     },
     options: gridOpts(true)
@@ -1822,8 +2190,8 @@ function initPersonal() {
   makeChart('chartPersonalPie', {
     type: 'doughnut',
     data: {
-      labels: ['Geschäftsstelle', 'Nationaltrainer', 'Vorstand'],
-      datasets: [{ data: [gs, tr, vs], backgroundColor: [t.blue, t.green, t.gold], borderWidth: 2, borderColor: t.surface }]
+      labels: [tr('ds.per.gs'), tr('ds.per.trainer'), tr('ds.per.board')],
+      datasets: [{ data: [gs, trainerCount, vs], backgroundColor: [t.blue, t.green, t.gold], borderWidth: 2, borderColor: t.surface }]
     },
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
   });
@@ -1835,9 +2203,9 @@ function initPersonal() {
     d.vorstand.map(p => `
       <div class="team-card">
         <div class="team-card-name">${p.name}</div>
-        <div class="team-card-role">${p.funktion}</div>
+        <div class="team-card-role">${trRole(p.funktion)}</div>
         ${['Präsidentin','Vize-Präsident','Finanzchef'].includes(p.funktion)
-          ? `<span class="team-card-badge" style="background:${officerColors[p.funktion] || t.accent}">${p.funktion}</span>`
+          ? `<span class="team-card-badge" style="background:${officerColors[p.funktion] || t.accent}">${trRole(p.funktion)}</span>`
           : ''}
       </div>`).join('') +
     '</div>';
@@ -1849,12 +2217,12 @@ function initPersonal() {
   });
   document.getElementById('trainerGrid').innerHTML =
     Object.entries(trainerByDisz).map(([disz, people]) =>
-      `<div class="team-dept-label">${disz}</div>
+      `<div class="team-dept-label">${trRole(disz)}</div>
        <div class="team-grid">` +
       people.map(p => `
         <div class="team-card">
           <div class="team-card-name">${p.name}</div>
-          <div class="team-card-role">${p.rolle}</div>
+          <div class="team-card-role">${trRole(p.rolle)}</div>
         </div>`).join('') +
       '</div>'
     ).join('');
@@ -1866,12 +2234,12 @@ function initPersonal() {
   });
   document.getElementById('gsGrid').innerHTML =
     Object.entries(gsByAbt).map(([abt, people]) =>
-      `<div class="team-dept-label">${abt}</div>
+      `<div class="team-dept-label">${trRole(abt)}</div>
        <div class="team-grid">` +
       people.map(p => `
         <div class="team-card">
           <div class="team-card-name">${p.name}</div>
-          <div class="team-card-role">${p.rolle}</div>
+          <div class="team-card-role">${trRole(p.rolle)}</div>
         </div>`).join('') +
       '</div>'
     ).join('');
@@ -1879,6 +2247,7 @@ function initPersonal() {
 
 /* ── INIT ALL ───────────────────────────────────────────────── */
 (async () => {
+  applyTranslations();
   await Promise.all([initLizenzen(), initFinanzen(), initVeranstaltungen()]);
   initPersonal();
   // nav active state on scroll

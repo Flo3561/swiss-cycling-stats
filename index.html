@@ -17,21 +17,21 @@
       --c-text:      #1a1a18;
       --c-text2:     #6b6860;
       --c-accent:    #c8102e;   /* Swiss Cycling red */
-      --c-accent2:   #0057a8;   /* blue accent */
-      --c-gold:      #e8a020;
-      --c-green:     #2d8a4e;
-      --c-chart1:    #c8102e;
-      --c-chart2:    #0057a8;
-      --c-chart3:    #e8a020;
-      --c-chart4:    #2d8a4e;
-      --c-chart5:    #7c3aed;
-      --c-chart6:    #db6b1a;
-      --c-chart7:    #0891b2;
-      --c-chart8:    #65a30d;
-      --c-chart9:    #9f1239;
-      --c-chart10:   #0e7490;
-      --c-chart11:   #92400e;
-      --c-chart12:   #be185d;
+      --c-accent2:   #0072B2;
+      --c-gold:      #E69F00;
+      --c-green:     #009E73;
+      --c-chart1:    #E69F00;
+      --c-chart2:    #56B4E9;
+      --c-chart3:    #009E73;
+      --c-chart4:    #0072B2;
+      --c-chart5:    #D55E00;
+      --c-chart6:    #CC79A7;
+      --c-chart7:    #F0E442;
+      --c-chart8:    #999999;
+      --c-chart9:    #332288;
+      --c-chart10:   #44AA99;
+      --c-chart11:   #DDCC77;
+      --c-chart12:   #AA4499;
       --radius:      12px;
       --radius-lg:   20px;
       --shadow:      0 2px 12px rgba(0,0,0,.07);
@@ -46,36 +46,11 @@
       --c-text:      #f0ede8;
       --c-text2:     #888880;
       --c-accent:    #e8253f;
-      --c-accent2:   #4a90d9;
-      --c-gold:      #f0b830;
-      --c-green:     #3dba68;
-      --c-chart7:    #06b6d4;
-      --c-chart8:    #84cc16;
+      --c-accent2:   #56B4E9;
+      --c-gold:      #E69F00;
+      --c-green:     #44AA99;
       --shadow:      0 2px 12px rgba(0,0,0,.3);
       --shadow-lg:   0 8px 40px rgba(0,0,0,.5);
-    }
-    /* ─── COLORBLIND MODE (Okabe-Ito + Paul Tol) ───────────────── */
-    [data-cb="true"] {
-      --c-accent2:   #0072B2;
-      --c-green:     #009E73;
-      --c-gold:      #E69F00;
-      --c-chart1:    #E69F00;
-      --c-chart2:    #56B4E9;
-      --c-chart3:    #009E73;
-      --c-chart4:    #0072B2;
-      --c-chart5:    #D55E00;
-      --c-chart6:    #CC79A7;
-      --c-chart7:    #F0E442;
-      --c-chart8:    #999999;
-      --c-chart9:    #332288;
-      --c-chart10:   #44AA99;
-      --c-chart11:   #DDCC77;
-      --c-chart12:   #AA4499;
-    }
-    [data-cb="true"][data-theme="dark"] {
-      --c-accent2:   #56B4E9;
-      --c-green:     #44AA99;
-      --c-gold:      #E69F00;
     }
 
     /* ─── RESET & BASE ──────────────────────────────────────────── */
@@ -157,31 +132,11 @@
       transition: all .2s;
     }
     .theme-toggle:hover { background: var(--c-surface); box-shadow: var(--shadow); }
-    .cb-toggle {
-      height: 32px; padding: 0 .75rem; border-radius: 10px;
-      border: 1px solid var(--c-border);
-      background: var(--c-surface2);
-      cursor: pointer; display: flex; align-items: center; gap: .4rem;
-      font-family: 'DM Sans', sans-serif; font-size: .75rem; font-weight: 600;
-      color: var(--c-text2);
-      transition: all .2s;
-      white-space: nowrap;
-    }
-    .cb-toggle:hover { background: var(--c-surface); box-shadow: var(--shadow); color: var(--c-text); }
-    .cb-toggle.active { background: #0072B2; border-color: #0072B2; color: #fff; }
-    .cb-toggle .cb-icon { font-size: .9rem; }
     .lang-select { display: flex; border: 1px solid var(--c-border); border-radius: 8px; overflow: hidden; flex-shrink: 0; }
     .lang-btn { padding: .25rem .55rem; border: none; background: none; cursor: pointer; font-size: .78rem; font-weight: 700; color: var(--c-text2); font-family: 'Syne', sans-serif; letter-spacing: .04em; transition: all .15s; }
     .lang-btn + .lang-btn { border-left: 1px solid var(--c-border); }
     .lang-btn:hover { background: var(--c-surface); color: var(--c-text); }
     .lang-btn.active { background: var(--c-accent); color: #fff; }
-    .year-badge {
-      padding: .25rem .75rem; border-radius: 20px;
-      background: var(--c-accent); color: white;
-      font-family: 'Syne', sans-serif; font-size: .8rem; font-weight: 700;
-      letter-spacing: .05em;
-    }
-
     /* ─── HERO ──────────────────────────────────────────────────── */
     .hero {
       max-width: 1400px; margin: 0 auto; padding: 3rem 2rem 1.5rem;
@@ -321,6 +276,20 @@
     }
     .gt-btn.active { background: var(--c-accent2); color: white; border-color: var(--c-accent2); }
 
+    /* ─── MEMKAT DROPDOWN ───────────────────────────────────────── */
+    .memkat-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      flex-wrap: wrap; gap: .75rem; margin-bottom: .75rem;
+    }
+    .memkat-select {
+      padding: .3rem .55rem; border-radius: 8px;
+      border: 1px solid var(--c-border);
+      background: var(--c-surface); color: var(--c-text);
+      font-size: .8rem; cursor: pointer; flex-shrink: 0;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .memkat-select:focus { outline: 2px solid var(--c-accent2); outline-offset: 2px; }
+
     /* ─── TABLE ─────────────────────────────────────────────────── */
     .table-wrap {
       background: var(--c-surface);
@@ -345,14 +314,6 @@
     tr:hover td { background: var(--c-surface2); }
     td.num { font-family: 'Syne', sans-serif; font-weight: 600; text-align: right; }
     td.year { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--c-accent); }
-    .trend-bar {
-      display: flex; align-items: center; gap: .5rem;
-    }
-    .trend-fill {
-      height: 6px; border-radius: 3px;
-      background: var(--c-accent); min-width: 4px;
-      transition: width .4s;
-    }
 
     /* ─── FOOTER ────────────────────────────────────────────────── */
     footer {
@@ -463,7 +424,6 @@
     @media (max-width: 768px) {
       .header-inner { padding: 0 1rem; }
       nav { display: none; }
-      .cb-toggle .cb-label { display: none; }
       .hero { grid-template-columns: 1fr; padding: 2rem 1rem 1rem; }
       .hero-year-range { display: none; }
       main { padding: 0 1rem 3rem; }
@@ -521,6 +481,7 @@
     </a>
     <nav>
       <a class="nav-btn active" href="#lizenzen" data-i18n="nav.lizenzen">Lizenzen</a>
+      <a class="nav-btn" href="#mitglieder" data-i18n="nav.mitglieder">Mitglieder</a>
       <a class="nav-btn" href="#finanzen" data-i18n="nav.finanzen">Finanzen</a>
       <a class="nav-btn" href="#veranstaltungen" data-i18n="nav.events">Events</a>
       <a class="nav-btn" href="#personal" data-i18n="nav.personal">Personal</a>
@@ -530,10 +491,6 @@
       <button class="lang-btn" data-lang="fr">FR</button>
       <button class="lang-btn" data-lang="en">EN</button>
     </div>
-    <span class="year-badge" id="latestYear">2024</span>
-    <button class="cb-toggle" id="cbToggle" title="Farbenblind-Modus ein/aus">
-      <span class="cb-icon">◑</span><span class="cb-label" data-i18n="cb.label">Farbenblind</span>
-    </button>
     <button class="theme-toggle" id="themeToggle" title="Theme wechseln">🌙</button>
   </div>
 </header>
@@ -570,7 +527,7 @@
 
     <div class="chart-grid">
       <div class="chart-card">
-        <div class="chart-title" data-i18n="lic.chart1.title">Gesamtlizenzen Entwicklung</div>
+        <div class="chart-title" data-i18n="lic.chart1.title">Lizenzen Entwicklung</div>
         <div class="chart-subtitle" data-i18n="lic.chart1.sub">Total ausgestellte Lizenzen pro Jahr</div>
         <div class="chart-wrap"><canvas id="chartLizenzTotal"></canvas></div>
       </div>
@@ -605,12 +562,22 @@
         <div class="kat-controls">
           <div class="disc-tabs" id="discTabs"></div>
           <div class="gender-toggle" id="genderToggle">
-            <button class="gt-btn active" data-gender="M" data-i18n="gender.m">Männer</button>
+            <button class="gt-btn" data-gender="M" data-i18n="gender.m">Männer</button>
             <button class="gt-btn" data-gender="F" data-i18n="gender.f">Frauen</button>
-            <button class="gt-btn" data-gender="MF" data-i18n="gender.mf">Total</button>
+            <button class="gt-btn active" data-gender="MF" data-i18n="gender.mf">Total</button>
           </div>
         </div>
         <div class="chart-wrap tall"><canvas id="chartKatDetail"></canvas></div>
+      </div>
+    </div>
+
+    <div id="mitglieder" style="margin-top:2rem">
+      <div class="section-header">
+        <div class="section-icon blue">👤</div>
+        <div>
+          <h2 data-i18n="mem.h2">Mitglieder</h2>
+          <p data-i18n="mem.sub">Verbandsmitglieder nach Typ und Kategorie (2021–2025)</p>
+        </div>
       </div>
     </div>
 
@@ -624,6 +591,22 @@
         <div class="chart-title" data-i18n="lic.members2.title">Mitgliederentwicklung</div>
         <div class="chart-subtitle" data-i18n="lic.members2.sub">Aktive vs. passive Mitglieder im Verlauf</div>
         <div class="chart-wrap"><canvas id="chartMitglieder"></canvas></div>
+      </div>
+    </div>
+
+    <div class="chart-grid" style="margin-top:1.25rem">
+      <div class="chart-card" style="grid-column:1/-1">
+        <div class="memkat-header">
+          <div>
+            <div class="chart-title" data-i18n="lic.memkat.trend.title">Mitgliederkategorien im Verlauf</div>
+            <div class="chart-subtitle" data-i18n="lic.memkat.trend.sub">Entwicklung der Kategorien 2021–2025 (2022 kein PDF verfügbar)</div>
+          </div>
+          <select id="memkatSelect" class="memkat-select">
+            <option value="all"    data-i18n="memkat.view.all">Alle Gruppen (Übersicht)</option>
+            <option value="detail" data-i18n="memkat.view.detail">Alle Kategorien (detailliert)</option>
+          </select>
+        </div>
+        <div id="memkatWrap" class="chart-wrap tall"><canvas id="chartMitgliedKatTrend"></canvas></div>
       </div>
     </div>
   </section>
@@ -763,6 +746,25 @@
         <div id="gsGrid" style="margin-top:1rem"></div>
       </div>
     </div>
+
+    <!-- Weitere Organe -->
+    <div style="margin-top:1.25rem">
+      <div class="chart-card">
+        <div class="chart-title" data-i18n="per.weitere.title">Weitere Organe</div>
+        <div class="chart-subtitle" data-i18n="per.weitere.sub">Einzelrichter, Kommissionen, Veteranen</div>
+        <div id="weitereGrid" style="margin-top:1rem"></div>
+      </div>
+    </div>
+
+    <!-- Fachkommissionen -->
+    <div style="margin-top:1.25rem">
+      <div class="chart-card">
+        <div class="chart-title" data-i18n="per.fachk.title">Fachkommissionen</div>
+        <div class="chart-subtitle" data-i18n="per.fachk.sub">Technisch-sportliche Kommissionen nach Disziplin</div>
+        <div id="fachkGrid" style="margin-top:1rem"></div>
+        <p style="margin-top:.75rem;font-size:.72rem;color:var(--c-text2)" data-i18n="per.fachk.note">* Ohne Stimmrecht (Swiss Cycling Vertretung)</p>
+      </div>
+    </div>
   </section>
 
 </main>
@@ -800,7 +802,6 @@
 /* ── THEME ──────────────────────────────────────────────────── */
 const html = document.documentElement;
 const toggle = document.getElementById('themeToggle');
-const cbToggle = document.getElementById('cbToggle');
 const saved = localStorage.getItem('sc-theme') || 'light';
 html.setAttribute('data-theme', saved);
 toggle.textContent = saved === 'dark' ? '☀️' : '🌙';
@@ -812,39 +813,41 @@ toggle.addEventListener('click', () => {
   updateChartThemes();
 });
 
-/* ── COLORBLIND MODE ────────────────────────────────────────── */
-const savedCB = localStorage.getItem('sc-cb') === 'true';
-if (savedCB) { html.setAttribute('data-cb', 'true'); cbToggle.classList.add('active'); }
-cbToggle.addEventListener('click', () => {
-  const next = html.getAttribute('data-cb') !== 'true';
-  html.setAttribute('data-cb', next ? 'true' : 'false');
-  cbToggle.classList.toggle('active', next);
-  localStorage.setItem('sc-cb', next);
-  reinitAllCharts();
-});
-
 /* ── LANGUAGE ───────────────────────────────────────────────── */
 const TRANSLATIONS = {
   de: {
     'logo.sub':'Verbandsstatistiken',
-    'nav.lizenzen':'Lizenzen','nav.finanzen':'Finanzen','nav.events':'Events','nav.personal':'Personal',
+    'nav.lizenzen':'Lizenzen','nav.mitglieder':'Mitglieder','nav.finanzen':'Finanzen','nav.events':'Events','nav.personal':'Personal',
     'cb.label':'Farbenblind',
     'hero.title':'Verband in<br/><em>Zahlen &amp; Fakten</em>',
     'hero.sub':'Jährliche Statistikübersicht des Schweizer Radfahrerverbands – Lizenzen, Personal, Finanzen und Veranstaltungen auf einen Blick.',
     'hero.period':'Datenzeitraum',
     'lic.h2':'Lizenzen','lic.sub':'Anzahl ausgestellter Lizenzen nach Disziplin, Kategorie und Jahr (2015–2025)','lic.meta':'Letztes Update: ',
+    'mem.h2':'Mitglieder','mem.sub':'Verbandsmitglieder nach Typ und Kategorie (2021–2025)',
     'lic.chart1.title':'Gesamtlizenzen Entwicklung','lic.chart1.sub':'Total ausgestellte Lizenzen pro Jahr',
     'lic.chart2.title':'Lizenzen nach Disziplin (letztes Jahr)','lic.chart2.sub':'Wettkampflizenzen M+F nach Disziplin',
     'lic.chart3.title':'Disziplinen im Verlauf','lic.chart3.sub':'Gestapelte Ansicht der Wettkampflizenzen nach Disziplin über die Jahre',
     'lic.chart4.title':'Kategorien nach Disziplin','lic.chart4.sub':'Lizenzkategorien 2015–2025 – Disziplin und Geschlecht wählen',
-    'lic.members.title':'Verbandsmitglieder','lic.members.sub':'Aktive Mitglieder (mit Lizenz) und passive Clubmitglieder',
-    'lic.members2.title':'Mitgliederentwicklung','lic.members2.sub':'Aktive vs. passive Mitglieder im Verlauf',
+    'lic.members.title':'Verbandsmitglieder','lic.members.sub':'Aktive Mitglieder und Clubmitglieder',
+    'lic.members2.title':'Mitgliederentwicklung','lic.members2.sub':'Aktive Mitglieder und Clubmitglieder im Verlauf',
+    'lic.memkat.trend.title':'Mitgliederkategorien im Verlauf','lic.memkat.trend.sub':'Entwicklung der Kategorien 2021–2025 (2022 kein PDF verfügbar)',
+    'lic.memkat.title':'Mitgliederkategorien 2025','lic.memkat.sub':'Anzahl Mitglieder nach Kategorie (Quelle: Jahresbericht 2025, S. 68)',
+    'memkat.paying':'Zahlende Mitglieder','memkat.nonpaying':'Nicht zahlende Mitglieder',
+    'memkat.view.all':'Alle Gruppen (Übersicht)','memkat.view.detail':'Alle Kategorien (detailliert)',
+    'memkat.view.single':'Einzelne Gruppe:',
+    'memkat.mitClub':'Member mit Clubmitgliedschaft','memkat.ohneClub':'Member ohne Clubmitgliedschaft',
+    'memkat.family':'Family Member','memkat.junior':'Junior Member','memkat.guide':'Swiss Cycling Guide',
+    'memkat.siuc':'SIUC / ATB Member','memkat.siucClub':'SIUC Club Member','memkat.siucClubs':'SIUC-Clubs',
+    'memkat.orgs':'Clubs & Verbände','memkat.clubs':'Clubs','memkat.regional':'Regional- & Fachverbände','memkat.biz':'Business Member',
+    'memkat.frei':'Freimitglieder & Ehrenmitglieder',
+    'memkat.freiVip':'Frei- und VIP-Mitglieder','memkat.freiEhren':'Freimitglieder ehrenhalber','memkat.ehren':'Ehrenmitglieder',
+    'memkat.passiv':'Passivmitglieder','memkat.fans':'Fans','memkat.sonstige':'Sonstige','memkat.other':'Sonstige',
     'gender.m':'Männer','gender.f':'Frauen','gender.mf':'Total',
     'kpi.lic.total':'Lizenzen Total','kpi.lic.men':'Männer (Wettkampf)','kpi.lic.women':'Frauen (Wettkampf)','kpi.lic.wpct':'Frauenanteil','kpi.lic.officials':'Funktionäre',
-    'kpi.mem.total':'Mitglieder Total','kpi.mem.active':'Aktive Mitglieder','kpi.mem.passive':'Passive Mitglieder',
-    'ds.total.lic':'Total Lizenzen','ds.men':'Männer','ds.women':'Frauen','ds.officials':'Funktionäre','ds.active':'Aktive Mitglieder','ds.passive':'Passive Mitglieder',
+    'kpi.mem.total':'Mitglieder Total','kpi.mem.active':'Aktive Mitglieder','kpi.mem.passive':'Clubmitglieder',
+    'ds.total.lic':'Total Lizenzen','ds.men':'Männer','ds.women':'Frauen','ds.officials':'Funktionäre','ds.active':'Aktive Mitglieder','ds.passive':'Clubmitglieder',
     'disc.road':'Strasse','disc.mtbxc':'MTB XC','disc.mtbdh':'MTB DH/4X','disc.bmx':'BMX','disc.cx':'Radquer','disc.track':'Bahn','disc.trial':'Trial','disc.ar':'Kunstrad','disc.cycleball':'Radball','disc.para':'Para-Cycling',
-    'disc.road.ev':'Strasse','disc.mtb.ev':'MTB','disc.track.ev':'Bahn','disc.other.ev':'Sonstige',
+    'disc.road.ev':'Strasse','disc.mtb.ev':'MTB XC','disc.mtb_gravity.ev':'MTB Gravity','disc.track.ev':'Bahn','disc.other.ev':'Sonstige',
     'fin.h2':'Erfolgsrechnung','fin.sub':'Ertrag, Aufwand und Jahresergebnis','fin.meta':'Letztes Update: ',
     'fin.chart1.title':'Ertrag & Aufwand','fin.chart1.sub':'Vergleich Gesamtertrag und Gesamtaufwand in CHF',
     'fin.chart2.title':'Jahresergebnis','fin.chart2.sub':'Überschuss oder Defizit pro Jahr in CHF',
@@ -859,7 +862,7 @@ const TRANSLATIONS = {
     'ev.chart2.title':'Veranstaltungen nach Stufe','ev.chart2.sub':'National, International und Regional/Training im Verlauf',
     'ev.chart3.title':'Alle Disziplinen im Verlauf','ev.chart3.sub':'Gestapelte Ansicht aller Disziplinen',
     'ev.chart4.title':'Disziplinen-Anteil im Verlauf','ev.chart4.sub':'Prozentualer Anteil jeder Disziplin am Jahrestotal',
-    'kpi.ev.total':'Events Total','kpi.ev.road':'Strasse','kpi.ev.mtb':'MTB','kpi.ev.track':'Bahn','kpi.ev.intl':'International',
+    'kpi.ev.total':'Events Total','kpi.ev.road':'Strasse','kpi.ev.mtb':'MTB XC','kpi.ev.track':'Bahn','kpi.ev.intl':'International',
     'ds.national':'National','ds.regional':'Regional/Training','ds.intl':'International',
     'per.h2':'Personal Swiss Cycling','per.sub':'Geschäftsstelle, Nationaltrainer und Vorstand','per.meta':'Stand: ',
     'per.chart1.title':'Personalentwicklung','per.chart1.sub':'Anzahl Personen Geschäftsstelle, Trainer, Vorstand pro Jahr',
@@ -867,9 +870,12 @@ const TRANSLATIONS = {
     'per.vorstand.title':'Vorstand','per.vorstand.sub':'Gewählte Vorstandsmitglieder',
     'per.trainer.title':'Nationaltrainerinnen & Nationaltrainer','per.trainer.sub':'Technische Leitung nach Disziplin',
     'per.gs.title':'Geschäftsstelle','per.gs.sub':'Mitarbeitende nach Abteilung',
+    'per.weitere.title':'Weitere Organe','per.weitere.sub':'Einzelrichter, Kommissionen, Veteranen',
+    'per.fachk.title':'Fachkommissionen','per.fachk.sub':'Technisch-sportliche Kommissionen nach Disziplin','per.fachk.note':'* Ohne Stimmrecht (Swiss Cycling Vertretung)',
     'kpi.per.gs':'Geschäftsstelle','kpi.per.trainer':'Nationaltrainer','kpi.per.board':'Vorstand','kpi.per.total':'Total',
     'ds.per.gs':'Geschäftsstelle','ds.per.trainer':'Nationaltrainer','ds.per.board':'Vorstand',
     'tbl.year':'Jahr','tbl.officials':'Funkt.','tbl.total':'Total',
+    'tooltip.vsPrev':'ggü. Vorjahr',
     'foot.oss':'Open source & open data',
     'foot.github':'Der Code und die Daten sind auf <a href="https://github.com/Flo3561/swisscycling_statistics" target="_blank" rel="noopener">GitHub</a> verfügbar.',
     'foot.issue':'Fehler entdeckt? <a href="https://github.com/Flo3561/swisscycling_statistics/issues" target="_blank" rel="noopener">Issue erstellen</a>.',
@@ -878,24 +884,37 @@ const TRANSLATIONS = {
   },
   fr: {
     'logo.sub':'Statistiques associatives',
-    'nav.lizenzen':'Licences','nav.finanzen':'Finances','nav.events':'Événements','nav.personal':'Personnel',
+    'nav.lizenzen':'Licences','nav.mitglieder':'Membres','nav.finanzen':'Finances','nav.events':'Événements','nav.personal':'Personnel',
     'cb.label':'Daltonisme',
     'hero.title':'La fédération en<br/><em>chiffres &amp; faits</em>',
     'hero.sub':'Aperçu annuel des statistiques de Swiss Cycling – Licences, personnel, finances et manifestations en un coup d\'œil.',
     'hero.period':'Période des données',
     'lic.h2':'Licences','lic.sub':'Nombre de licences délivrées par discipline, catégorie et année (2015–2025)','lic.meta':'Dernière mise à jour : ',
+    'mem.h2':'Membres','mem.sub':'Membres de la fédération par type et catégorie (2021–2025)',
     'lic.chart1.title':'Évolution des licences','lic.chart1.sub':'Total des licences délivrées par année',
     'lic.chart2.title':'Licences par discipline (dernière année)','lic.chart2.sub':'Licences compétition H+F par discipline',
     'lic.chart3.title':'Disciplines au fil du temps','lic.chart3.sub':'Vue empilée des licences compétition par discipline sur les années',
     'lic.chart4.title':'Catégories par discipline','lic.chart4.sub':'Catégories de licences 2015–2025 – Choisir discipline et genre',
-    'lic.members.title':'Membres de la fédération','lic.members.sub':'Membres actifs (avec licence) et membres passifs de club',
-    'lic.members2.title':'Évolution des membres','lic.members2.sub':'Membres actifs vs. passifs au fil du temps',
+    'lic.members.title':'Membres de la fédération','lic.members.sub':'Membres actifs et membres de club',
+    'lic.members2.title':'Évolution des membres','lic.members2.sub':'Membres actifs et membres de club au fil du temps',
+    'lic.memkat.trend.title':'Catégories de membres dans le temps','lic.memkat.trend.sub':'Évolution des catégories 2021–2025 (rapport 2022 non disponible)',
+    'lic.memkat.title':'Catégories de membres 2025','lic.memkat.sub':'Nombre de membres par catégorie (source : rapport annuel 2025, p. 68)',
+    'memkat.paying':'Membres payants','memkat.nonpaying':'Membres non payants',
+    'memkat.view.all':'Tous les groupes (aperçu)','memkat.view.detail':'Toutes les catégories (détaillé)',
+    'memkat.view.single':'Groupe individuel :',
+    'memkat.mitClub':'Membre avec club','memkat.ohneClub':'Membre sans club',
+    'memkat.family':'Membre famille','memkat.junior':'Membre junior','memkat.guide':'Guide Swiss Cycling',
+    'memkat.siuc':'Membre SIUC / ATB','memkat.siucClub':'Membre de club SIUC','memkat.siucClubs':'Clubs SIUC',
+    'memkat.orgs':'Clubs & Associations','memkat.clubs':'Clubs','memkat.regional':'Associations régionales & spécialisées','memkat.biz':'Membre Business',
+    'memkat.frei':'Membres libres & honoraires',
+    'memkat.freiVip':'Membres libres & VIP','memkat.freiEhren':'Membres libres honoraires','memkat.ehren':'Membres honoraires',
+    'memkat.passiv':'Membres passifs','memkat.fans':'Fans','memkat.sonstige':'Autres (non payants)','memkat.other':'Autres',
     'gender.m':'Hommes','gender.f':'Femmes','gender.mf':'Total',
     'kpi.lic.total':'Total licences','kpi.lic.men':'Hommes (compétition)','kpi.lic.women':'Femmes (compétition)','kpi.lic.wpct':'Part des femmes','kpi.lic.officials':'Officiels',
-    'kpi.mem.total':'Total membres','kpi.mem.active':'Membres actifs','kpi.mem.passive':'Membres passifs',
-    'ds.total.lic':'Total licences','ds.men':'Hommes','ds.women':'Femmes','ds.officials':'Officiels','ds.active':'Membres actifs','ds.passive':'Membres passifs',
+    'kpi.mem.total':'Total membres','kpi.mem.active':'Membres actifs','kpi.mem.passive':'Membres de club',
+    'ds.total.lic':'Total licences','ds.men':'Hommes','ds.women':'Femmes','ds.officials':'Officiels','ds.active':'Membres actifs','ds.passive':'Membres de club',
     'disc.road':'Route','disc.mtbxc':'VTT XC','disc.mtbdh':'VTT DH/4X','disc.bmx':'BMX','disc.cx':'Cyclo-cross','disc.track':'Piste','disc.trial':'Trial','disc.ar':'Vélo artistique','disc.cycleball':'Cycle-ball','disc.para':'Para-Cycling',
-    'disc.road.ev':'Route','disc.mtb.ev':'VTT','disc.track.ev':'Piste','disc.other.ev':'Autres',
+    'disc.road.ev':'Route','disc.mtb.ev':'VTT XC','disc.mtb_gravity.ev':'VTT Gravity','disc.track.ev':'Piste','disc.other.ev':'Autres',
     'fin.h2':'Compte de résultat','fin.sub':'Produits, charges et résultat annuel',
     'fin.chart1.title':'Produits & Charges','fin.chart1.sub':'Comparaison produits totaux et charges totales en CHF',
     'fin.chart2.title':'Résultat annuel','fin.chart2.sub':'Excédent ou déficit par année en CHF',
@@ -910,7 +929,7 @@ const TRANSLATIONS = {
     'ev.chart2.title':'Manifestations par niveau','ev.chart2.sub':'National, international et régional/formation au fil du temps',
     'ev.chart3.title':'Toutes disciplines au fil du temps','ev.chart3.sub':'Vue empilée de toutes les disciplines',
     'ev.chart4.title':'Part des disciplines au fil du temps','ev.chart4.sub':'Part en % de chaque discipline dans le total annuel',
-    'kpi.ev.total':'Total manifestations','kpi.ev.road':'Route','kpi.ev.mtb':'VTT','kpi.ev.track':'Piste','kpi.ev.intl':'International',
+    'kpi.ev.total':'Total manifestations','kpi.ev.road':'Route','kpi.ev.mtb':'VTT XC','kpi.ev.track':'Piste','kpi.ev.intl':'International',
     'ds.national':'National','ds.regional':'Régional/Formation','ds.intl':'International',
     'per.h2':'Personnel Swiss Cycling','per.sub':'Secrétariat, entraîneurs nationaux et comité directeur','per.meta':'Au : ',
     'per.chart1.title':'Évolution du personnel','per.chart1.sub':'Nombre de personnes secrétariat, entraîneurs, comité par année',
@@ -918,9 +937,12 @@ const TRANSLATIONS = {
     'per.vorstand.title':'Comité directeur','per.vorstand.sub':'Membres élus du comité',
     'per.trainer.title':'Entraîneures & entraîneurs nationaux','per.trainer.sub':'Direction technique par discipline',
     'per.gs.title':'Secrétariat','per.gs.sub':'Collaborateurs par département',
+    'per.weitere.title':'Autres organes','per.weitere.sub':'Juges uniques, commissions, vétérans',
+    'per.fachk.title':'Commissions techniques','per.fachk.sub':'Commissions techniques par discipline','per.fachk.note':'* Sans droit de vote (représentation Swiss Cycling)',
     'kpi.per.gs':'Secrétariat','kpi.per.trainer':'Entraîneurs nat.','kpi.per.board':'Comité','kpi.per.total':'Total',
     'ds.per.gs':'Secrétariat','ds.per.trainer':'Entraîneurs nat.','ds.per.board':'Comité',
     'tbl.year':'Année','tbl.officials':'Offic.','tbl.total':'Total',
+    'tooltip.vsPrev':'vs. année préc.',
     'foot.oss':'Open source & open data',
     'foot.github':'Le code et les données sont disponibles sur <a href="https://github.com/Flo3561/swisscycling_statistics" target="_blank" rel="noopener">GitHub</a>.',
     'foot.issue':'Une erreur détectée ? <a href="https://github.com/Flo3561/swisscycling_statistics/issues" target="_blank" rel="noopener">Créer une issue</a>.',
@@ -929,24 +951,37 @@ const TRANSLATIONS = {
   },
   en: {
     'logo.sub':'Association Statistics',
-    'nav.lizenzen':'Licenses','nav.finanzen':'Finances','nav.events':'Events','nav.personal':'Staff',
+    'nav.lizenzen':'Licenses','nav.mitglieder':'Members','nav.finanzen':'Finances','nav.events':'Events','nav.personal':'Staff',
     'cb.label':'Colorblind',
     'hero.title':'Association in<br/><em>numbers &amp; facts</em>',
     'hero.sub':'Annual statistics overview of Swiss Cycling – Licenses, staff, finances and events at a glance.',
     'hero.period':'Data period',
     'lic.h2':'Licenses','lic.sub':'Number of licenses issued by discipline, category and year (2015–2025)','lic.meta':'Last update: ',
+    'mem.h2':'Members','mem.sub':'Association members by type and category (2021–2025)',
     'lic.chart1.title':'License trend','lic.chart1.sub':'Total licenses issued per year',
     'lic.chart2.title':'Licenses by discipline (latest year)','lic.chart2.sub':'Competition licenses M+F by discipline',
     'lic.chart3.title':'Disciplines over time','lic.chart3.sub':'Stacked view of competition licenses by discipline over the years',
     'lic.chart4.title':'Categories by discipline','lic.chart4.sub':'License categories 2015–2025 – Choose discipline and gender',
-    'lic.members.title':'Association members','lic.members.sub':'Active members (with license) and passive club members',
-    'lic.members2.title':'Member trends','lic.members2.sub':'Active vs. passive members over time',
+    'lic.members.title':'Association members','lic.members.sub':'Active members and club members',
+    'lic.members2.title':'Member trends','lic.members2.sub':'Active members and club members over time',
+    'lic.memkat.trend.title':'Membership categories over time','lic.memkat.trend.sub':'Category trends 2021–2025 (2022 report not available)',
+    'lic.memkat.title':'Membership categories 2025','lic.memkat.sub':'Number of members by category (source: annual report 2025, p. 68)',
+    'memkat.paying':'Paying members','memkat.nonpaying':'Non-paying members',
+    'memkat.view.all':'All groups (overview)','memkat.view.detail':'All categories (detailed)',
+    'memkat.view.single':'Single group:',
+    'memkat.mitClub':'Member with club','memkat.ohneClub':'Member without club',
+    'memkat.family':'Family member','memkat.junior':'Junior member','memkat.guide':'Swiss Cycling Guide',
+    'memkat.siuc':'SIUC / ATB member','memkat.siucClub':'SIUC club member','memkat.siucClubs':'SIUC clubs',
+    'memkat.orgs':'Clubs & Associations','memkat.clubs':'Clubs','memkat.regional':'Regional & specialist associations','memkat.biz':'Business member',
+    'memkat.frei':'Free & honorary members',
+    'memkat.freiVip':'Free & VIP members','memkat.freiEhren':'Free honorary members','memkat.ehren':'Honorary members',
+    'memkat.passiv':'Passive members','memkat.fans':'Fans','memkat.sonstige':'Other (non-paying)','memkat.other':'Other',
     'gender.m':'Men','gender.f':'Women','gender.mf':'Total',
     'kpi.lic.total':'Total licenses','kpi.lic.men':'Men (competition)','kpi.lic.women':'Women (competition)','kpi.lic.wpct':'Women share','kpi.lic.officials':'Officials',
-    'kpi.mem.total':'Total members','kpi.mem.active':'Active members','kpi.mem.passive':'Passive members',
-    'ds.total.lic':'Total licenses','ds.men':'Men','ds.women':'Women','ds.officials':'Officials','ds.active':'Active members','ds.passive':'Passive members',
+    'kpi.mem.total':'Total members','kpi.mem.active':'Active members','kpi.mem.passive':'Club members',
+    'ds.total.lic':'Total licenses','ds.men':'Men','ds.women':'Women','ds.officials':'Officials','ds.active':'Active members','ds.passive':'Club members',
     'disc.road':'Road','disc.mtbxc':'MTB XC','disc.mtbdh':'MTB DH/4X','disc.bmx':'BMX','disc.cx':'Cyclo-cross','disc.track':'Track','disc.trial':'Trial','disc.ar':'Artistic cycling','disc.cycleball':'Cycle-ball','disc.para':'Para-Cycling',
-    'disc.road.ev':'Road','disc.mtb.ev':'MTB','disc.track.ev':'Track','disc.other.ev':'Other',
+    'disc.road.ev':'Road','disc.mtb.ev':'MTB XC','disc.mtb_gravity.ev':'MTB Gravity','disc.track.ev':'Track','disc.other.ev':'Other',
     'fin.h2':'Income statement','fin.sub':'Revenue, expenses and annual result',
     'fin.chart1.title':'Revenue & Expenses','fin.chart1.sub':'Comparison of total revenue and total expenses in CHF',
     'fin.chart2.title':'Annual result','fin.chart2.sub':'Surplus or deficit per year in CHF',
@@ -961,7 +996,7 @@ const TRANSLATIONS = {
     'ev.chart2.title':'Events by level','ev.chart2.sub':'National, international and regional/training over time',
     'ev.chart3.title':'All disciplines over time','ev.chart3.sub':'Stacked view of all disciplines',
     'ev.chart4.title':'Discipline share over time','ev.chart4.sub':'Percentage share of each discipline in annual total',
-    'kpi.ev.total':'Total events','kpi.ev.road':'Road','kpi.ev.mtb':'MTB','kpi.ev.track':'Track','kpi.ev.intl':'International',
+    'kpi.ev.total':'Total events','kpi.ev.road':'Road','kpi.ev.mtb':'MTB XC','kpi.ev.track':'Track','kpi.ev.intl':'International',
     'ds.national':'National','ds.regional':'Regional/Training','ds.intl':'International',
     'per.h2':'Swiss Cycling staff','per.sub':'Office, national coaches and board','per.meta':'As of: ',
     'per.chart1.title':'Staff development','per.chart1.sub':'Number of office, coach and board members per year',
@@ -969,9 +1004,12 @@ const TRANSLATIONS = {
     'per.vorstand.title':'Board of directors','per.vorstand.sub':'Elected board members',
     'per.trainer.title':'National coaches','per.trainer.sub':'Technical management by discipline',
     'per.gs.title':'Office','per.gs.sub':'Staff by department',
+    'per.weitere.title':'Other bodies','per.weitere.sub':'Single judges, commissions, veterans',
+    'per.fachk.title':'Technical committees','per.fachk.sub':'Sport-technical committees by discipline','per.fachk.note':'* No voting rights (Swiss Cycling representation)',
     'kpi.per.gs':'Office','kpi.per.trainer':'Nat. coaches','kpi.per.board':'Board','kpi.per.total':'Total',
     'ds.per.gs':'Office','ds.per.trainer':'Nat. coaches','ds.per.board':'Board',
     'tbl.year':'Year','tbl.officials':'Officials','tbl.total':'Total',
+    'tooltip.vsPrev':'vs. prev. year',
     'foot.oss':'Open source & open data',
     'foot.github':'The code and data are available on <a href="https://github.com/Flo3561/swisscycling_statistics" target="_blank" rel="noopener">GitHub</a>.',
     'foot.issue':'Noticed an error? <a href="https://github.com/Flo3561/swisscycling_statistics/issues" target="_blank" rel="noopener">Create an issue</a>.',
@@ -1058,6 +1096,37 @@ const ROLE_MAP = {
     'Mitarbeiterin Kommunikation':                      'Collaboratrice communication',
     'Mitarbeiter Kommunikation':                        'Collaborateur communication',
     'Kommunikation & Multimedia':                       'Communication & Multimédia',
+    // Weitere Organe – roles
+    'Mitglied':                   'Membre',
+    'Einzelrichter':              'Juge unique',
+    'Häuptling':                  'Chef',
+    'Säckelmeister':              'Trésorier',
+    'Schreiberin':                'Secrétaire',
+    'Beisitzer/Fähnrich':         'Assesseur/Porte-drapeau',
+    'Beisitzer/Archivar':         'Assesseur/Archiviste',
+    'Präsident':                  'Président',
+    'Swiss Cycling Vertreter*':   'Représentant SC*',
+    'Swiss Cycling Vertreterin*': 'Représentante SC*',
+    'Ausbildungsverantwortliche Swiss Cycling': 'Responsable formation Swiss Cycling',
+    // Fachkommission Kommissäre – compound roles
+    'Präsidentin / Strasse / Vertreterin Tessin':       'Présidente / Route / Représentante Tessin',
+    'Vize-Präsident / Radquer / Vertreter Romandie':    'Vice-président / Cyclo-cross / Représentant Romandie',
+    'Swiss Cycling BMX':                                'Swiss Cycling BMX',
+    // Weitere Organe – group names
+    'Rekursgericht':                        "Tribunal d'appel",
+    'Rechtskommission':                     'Commission juridique',
+    'Geschäftsprüfungskommission':          'Commission de gestion',
+    'Vorstand Veteranen':                   'Comité vétérans',
+    // Fachkommissionen – group names
+    'Fachkommission Strasse':               'Commission technique Route',
+    'Fachkommission MTB':                   'Commission technique VTT',
+    'Fachkommission Bahn':                  'Commission technique Piste',
+    'Fachkommission BMX':                   'Commission technique BMX',
+    'Fachkommission Radquer':               'Commission technique Cyclo-cross',
+    'Fachkommission Trial':                 'Commission technique Trial',
+    'Fachkommission Gravity (DH/4X/Enduro)': 'Commission technique Gravity (DH/4X/Enduro)',
+    'Fachkommission Swiss Cycling Guide':   'Commission Swiss Cycling Guide',
+    'Fachkommission Kommissäre':            'Commission commissaires',
   },
   en: {
     // Vorstand functions
@@ -1135,6 +1204,37 @@ const ROLE_MAP = {
     'Mitarbeiterin Kommunikation':                      'Communications Staff',
     'Mitarbeiter Kommunikation':                        'Communications Staff',
     'Kommunikation & Multimedia':                       'Communications & Multimedia',
+    // Weitere Organe – roles
+    'Mitglied':                   'Member',
+    'Einzelrichter':              'Single judge',
+    'Häuptling':                  'Chief',
+    'Säckelmeister':              'Treasurer',
+    'Schreiberin':                'Secretary',
+    'Beisitzer/Fähnrich':         'Member/Flag Bearer',
+    'Beisitzer/Archivar':         'Member/Archivist',
+    'Präsident':                  'President',
+    'Swiss Cycling Vertreter*':   'SC Representative*',
+    'Swiss Cycling Vertreterin*': 'SC Representative*',
+    'Ausbildungsverantwortliche Swiss Cycling': 'Education Manager Swiss Cycling',
+    // Fachkommission Kommissäre – compound roles
+    'Präsidentin / Strasse / Vertreterin Tessin':       'President / Road / Representative Tessin',
+    'Vize-Präsident / Radquer / Vertreter Romandie':    'Vice-President / Cyclo-cross / Representative Romandie',
+    'Swiss Cycling BMX':                                'Swiss Cycling BMX',
+    // Weitere Organe – group names
+    'Rekursgericht':                        'Appeals Court',
+    'Rechtskommission':                     'Legal Commission',
+    'Geschäftsprüfungskommission':          'Audit Commission',
+    'Vorstand Veteranen':                   'Veterans Board',
+    // Fachkommissionen – group names
+    'Fachkommission Strasse':               'Road Committee',
+    'Fachkommission MTB':                   'MTB Committee',
+    'Fachkommission Bahn':                  'Track Committee',
+    'Fachkommission BMX':                   'BMX Committee',
+    'Fachkommission Radquer':               'Cyclo-cross Committee',
+    'Fachkommission Trial':                 'Trial Committee',
+    'Fachkommission Gravity (DH/4X/Enduro)': 'Gravity Committee (DH/4X/Enduro)',
+    'Fachkommission Swiss Cycling Guide':   'Swiss Cycling Guide Committee',
+    'Fachkommission Kommissäre':            'Commissaires Commission',
   },
 };
 function trRole(text) {
@@ -1180,20 +1280,14 @@ document.getElementById('langSelect').querySelectorAll('.lang-btn').forEach(btn 
   });
 });
 
-/* ── COLOR PALETTES ─────────────────────────────────────────── */
-const PALETTE_NORMAL = [
-  '#c8102e','#0057a8','#e8a020','#2d8a4e','#7c3aed',
-  '#db6b1a','#0891b2','#65a30d','#9f1239','#0e7490',
-  '#92400e','#be185d',
-];
-// Okabe-Ito + Paul Tol – proven for deuteranopia, protanopia, tritanopia
+/* ── COLOR PALETTE (Okabe-Ito + Paul Tol) ───────────────────── */
 const PALETTE_CB = [
   '#E69F00','#56B4E9','#009E73','#0072B2','#D55E00',
   '#CC79A7','#F0E442','#999999','#332288','#44AA99',
   '#DDCC77','#AA4499',
 ];
 function getPalette() {
-  return html.getAttribute('data-cb') === 'true' ? PALETTE_CB : PALETTE_NORMAL;
+  return PALETTE_CB;
 }
 
 /* ── DESIGN TOKENS (for Chart.js) ───────────────────────────── */
@@ -1259,6 +1353,7 @@ async function reinitAllCharts() {
   registeredCharts.forEach(c => c && c.destroy());
   registeredCharts.length = 0;
   if (_katChart) { _katChart.destroy(); _katChart = null; }
+  if (_memkatTrendChart) { _memkatTrendChart.destroy(); _memkatTrendChart = null; }
   applyDefaults();
   await Promise.all([initLizenzen(), initFinanzen(), initVeranstaltungen()]);
   initPersonal();
@@ -1329,13 +1424,81 @@ const EMBEDDED_DATA = {
     {Jahr:2025,Ertrag_Lizenzen:423921,  Ertrag_Veranstaltungen:928083,  Ertrag_Sponsoring:2880194, Ertrag_Subventionen:7100437,  Ertrag_Sonstiges:2198502,  Ertrag_Total:13531137, Aufwand_Personal:5005284, Aufwand_Veranstaltungen:7257838,  Aufwand_Betrieb:917243,  Aufwand_Sonstiges:152229, Aufwand_Total:13332594, Ergebnis:198543},
   ],
   veranstaltungen: [
-    {Jahr:2021, Total:315, Strasse:137, MTB:80, Bahn:37, BMX:7, Radquer:33, Trial:7, Para:10, Sonstige:4, National:132, International:31, Regional_Training:149},
-    {Jahr:2022, Total:406, Strasse:189, MTB:101, Bahn:50, BMX:16, Radquer:36, Trial:7, Para:2, Sonstige:5, National:164, International:38, Regional_Training:200},
-    {Jahr:2023, Total:408, Strasse:195, MTB:100, Bahn:47, BMX:16, Radquer:36, Trial:11, Para:1, Sonstige:2, National:146, International:48, Regional_Training:212},
-    {Jahr:2024, Total:402, Strasse:191, MTB:99, Bahn:49, BMX:14, Radquer:34, Trial:6, Para:2, Sonstige:7, National:131, International:55, Regional_Training:214},
-    {Jahr:2025, Total:394, Strasse:182, MTB:96, Bahn:42, BMX:21, Radquer:33, Trial:8, Para:1, Sonstige:11, National:121, International:43, Regional_Training:228},
+    {Jahr:2021, Total:315, Strasse:137, MTB:64, MTB_Gravity:16, Bahn:37, BMX:7, Radquer:33, Trial:7, Para:10, Sonstige:4, National:132, International:31, Regional_Training:149},
+    {Jahr:2022, Total:406, Strasse:189, MTB:88, MTB_Gravity:13, Bahn:50, BMX:16, Radquer:36, Trial:7, Para:2, Sonstige:5, National:164, International:38, Regional_Training:200},
+    {Jahr:2023, Total:408, Strasse:195, MTB:85, MTB_Gravity:15, Bahn:47, BMX:16, Radquer:36, Trial:11, Para:1, Sonstige:2, National:146, International:48, Regional_Training:212},
+    {Jahr:2024, Total:402, Strasse:191, MTB:85, MTB_Gravity:14, Bahn:49, BMX:14, Radquer:34, Trial:6, Para:2, Sonstige:7, National:131, International:55, Regional_Training:214},
+    {Jahr:2025, Total:394, Strasse:182, MTB:88, MTB_Gravity:8, Bahn:42, BMX:21, Radquer:33, Trial:8, Para:1, Sonstige:11, National:121, International:43, Regional_Training:228},
   ],
 };
+
+/* Mitgliederkategorien im Verlauf (Quellen: Jahresberichte 2021 S.35 / 2023 S.53 / 2024 S.53 / 2025 S.68)
+   Kategorienamen wurden 2023 umgestellt (2021: Aktivmitglieder→Member mit Club, Einzelmitglieder→Member ohne Club, etc.)
+   SIUC-Programm ab 2023. Werte 2021 für SIUC/ATB = ATB Lizenzierte.
+   Clubs & Verbände = Clubs + Regional-/Fachverbände + SIUC-Clubs + Business Member.
+   Freimitglieder = Frei-/VIP-Mitglieder + Freimitglieder ehrenhalber + Ehrenmitglieder. */
+const MITGLIED_KAT_TREND = {
+  jahre: [2021, 2023, 2024, 2025],
+  gruppen: [
+    { key:'memkat.mitClub',  data:[4321, 3847, 3877, 3848] },
+    { key:'memkat.ohneClub', data:[2631, 2571, 2561, 2481] },
+    { key:'memkat.family',   data:[1530, 1762, 1834, 1973] },
+    { key:'memkat.junior',   data:[ 971, 1045, 1017, 1111] },
+    { key:'memkat.guide',    data:[ 490,  622,  670,  696] },
+    { key:'memkat.siuc',     data:[ 348, 2053, 2165, 2024] },  // 2021=ATB only; 2023–2024=SIUC+ATB+SIUCClub; 2025=SIUCMember+SIUCClubMember
+    { key:'memkat.orgs',     data:[ 448,  443,  438,  441] },  // Clubs+Regional/Fachverb.+SIUC-Clubs+Business
+    { key:'memkat.frei',     data:[1232, 1282, 1203, 1190] },  // Frei-VIP+Ehrenmitgl.+Freimitgl.ehrenhalber
+    { key:'memkat.passiv',   data:[10439, 9569, 9640,10170] }, // Passivmitglieder/Club Member (nicht zahlend)
+    { key:'memkat.other',    data:[   0,   32,   32,   90] },  // Sonstige+Fans
+  ],
+};
+
+/* Mitgliederkategorien detailliert – alle Rohdaten ohne Zusammenfassungen
+   Sortiert nach 2025-Wert absteigend. Werte 2021 aus Jahresbericht S.35. */
+const MITGLIED_KAT_DETAIL = {
+  jahre: [2021, 2023, 2024, 2025],
+  kategorien: [
+    { key:'memkat.passiv',    data:[10439, 9569, 9640,10170] }, // Passivmitglieder / Club Member (nicht zahlend)
+    { key:'memkat.mitClub',   data:[ 4321, 3847, 3877, 3848] }, // Aktivmitglieder / Member mit Clubmitgliedschaft
+    { key:'memkat.ohneClub',  data:[ 2631, 2571, 2561, 2481] }, // Einzelmitglieder / Member ohne Clubmitgliedschaft
+    { key:'memkat.family',    data:[ 1530, 1762, 1834, 1973] }, // Familien / Family Member
+    { key:'memkat.siuc',      data:[  348, 1742, 1776, 1647] }, // ATB (2021) / SIUC+ATB Member
+    { key:'memkat.freiVip',   data:[ 1156, 1234, 1157, 1149] }, // Freimitglieder / Frei- und VIP-Mitglieder
+    { key:'memkat.junior',    data:[  971, 1045, 1017, 1111] }, // Jeunesse / Junior Member
+    { key:'memkat.siucClub',  data:[    0,  311,  389,  377] }, // SIUC Club Member
+    { key:'memkat.clubs',     data:[  413,  340,  336,  340] }, // Clubs
+    { key:'memkat.guide',     data:[  490,  622,  670,  696] }, // Swiss Cycling Guide
+    { key:'memkat.siucClubs', data:[    0,   60,   58,   55] }, // SIUC-Clubs
+    { key:'memkat.fans',      data:[    0,    0,    0,   60] }, // Fans (ab 2025)
+    { key:'memkat.ehren',     data:[   56,   34,   33,   30] }, // Ehrenmitglieder
+    { key:'memkat.regional',  data:[   24,   28,   29,   30] }, // Regional- & Fachverbände
+    { key:'memkat.sonstige',  data:[    0,   32,   32,   30] }, // Sonstige (nicht zahlend)
+    { key:'memkat.biz',       data:[   11,   15,   15,   16] }, // Business Member
+    { key:'memkat.freiEhren', data:[   20,   14,   13,   11] }, // Freimitglieder ehrenhalber
+  ],
+};
+
+/* Mitgliederkategorien 2025 (Quelle: Jahresbericht Swiss Cycling 2025, S. 68)
+   paying = zahlende Mitglieder, nonpaying = nicht zahlende Swiss Cycling Mitglieder */
+const MITGLIED_KAT_2025 = [
+  {kat:'Club Member (nicht zahlend)', n:10170, paying:false},
+  {kat:'Member mit Clubmitgliedschaft', n:3848, paying:true},
+  {kat:'Member ohne Clubmitgliedschaft', n:2481, paying:true},
+  {kat:'Family Member', n:1973, paying:true},
+  {kat:'SIUC Member', n:1647, paying:true},
+  {kat:'Frei- und VIP-Mitglieder', n:1149, paying:true},
+  {kat:'Junior Member', n:1111, paying:true},
+  {kat:'Swiss Cycling Guide', n:696, paying:true},
+  {kat:'SIUC Club Member', n:377, paying:true},
+  {kat:'Clubs', n:340, paying:true},
+  {kat:'SIUC-Clubs', n:55, paying:true},
+  {kat:'Fans', n:60, paying:false},
+  {kat:'Ehrenmitglieder', n:30, paying:true},
+  {kat:'Regional- & Fachverbände', n:30, paying:true},
+  {kat:'Sonstige (nicht zahlend)', n:30, paying:false},
+  {kat:'Business Member', n:16, paying:true},
+  {kat:'Freimitglieder ehrenhalber', n:11, paying:true},
+];
 
 function loadCSV(key) {
   // key is e.g. 'data/lizenzen.csv' → extract dataset name
@@ -1349,10 +1512,59 @@ function loadCSV(key) {
   return Promise.resolve(EMBEDDED_DATA[map[name]] || []);
 }
 
+// Doppelklick auf Legende → Solo-Modus; einfacher Klick → normales Ein-/Ausblenden.
+// Unterstützt sowohl Balken-/Liniendiagramme (Dataset-Visibility) als auch
+// Kuchen-/Donut-Diagramme (Data-Point-Visibility via toggleDataVisibility).
+function applyLegendDblClick(config) {
+  if (config.options?.plugins?.legend?.display === false) return config;
+  config.options = config.options ?? {};
+  config.options.plugins = config.options.plugins ?? {};
+  config.options.plugins.legend = config.options.plugins.legend ?? {};
+  const isPie = config.type === 'pie' || config.type === 'doughnut';
+  let _lastClick = { time: 0, idx: -1 };
+  config.options.plugins.legend.onClick = function(e, item, legend) {
+    const now = Date.now();
+    const chart = legend.chart;
+    if (isPie) {
+      // Pie/Doughnut: item.index ist der Datenpunkt-Index
+      const idx = item.index ?? 0;
+      const count = chart.data.labels?.length ?? 0;
+      if (now - _lastClick.time < 350 && _lastClick.idx === idx) {
+        // Doppelklick: Solo oder alle wiederherstellen
+        _lastClick = { time: 0, idx: -1 };
+        const isSolo = Array.from({length: count}, (_, i) => i)
+          .every(i => i === idx || !chart.getDataVisibility(i));
+        for (let i = 0; i < count; i++) {
+          if (chart.getDataVisibility(i) === (isSolo ? false : i !== idx))
+            chart.toggleDataVisibility(i);
+        }
+      } else {
+        // Einfacher Klick: normales Toggle
+        _lastClick = { time: now, idx };
+        chart.toggleDataVisibility(idx);
+      }
+    } else {
+      // Bar/Line: item.datasetIndex ist der Datensatz-Index
+      const idx = item.datasetIndex ?? item.index ?? 0;
+      const ds = chart.data.datasets;
+      if (now - _lastClick.time < 350 && _lastClick.idx === idx) {
+        _lastClick = { time: 0, idx: -1 };
+        const isSolo = ds.every((_, i) => i === idx || chart.getDatasetMeta(i).hidden);
+        ds.forEach((_, i) => { chart.getDatasetMeta(i).hidden = isSolo ? false : i !== idx; });
+      } else {
+        _lastClick = { time: now, idx };
+        chart.getDatasetMeta(idx).hidden = !chart.getDatasetMeta(idx).hidden;
+      }
+    }
+    chart.update();
+  };
+  return config;
+}
+
 function makeChart(id, config) {
   const ctx = document.getElementById(id);
   if (!ctx) return null;
-  const chart = new Chart(ctx, config);
+  const chart = new Chart(ctx, applyLegendDblClick(config));
   registeredCharts.push(chart);
   return chart;
 }
@@ -1618,11 +1830,16 @@ const LIZENZ_KAT = {
       'B':  [0,0,0,0,0,1,0,0,0,0,0],
     },
   },
+  Funk: {
+    M: { 'Männer': [270,305,315,296,293,251,268,279,287,285,271] },
+    F: { 'Frauen': [ 61, 63, 69, 66, 78, 67, 70, 71, 70, 65, 72] },
+  },
 };
 
 let _katChart = null;
 let _katDisc   = 'Strasse';
-let _katGender = 'M';
+let _katGender = 'MF';
+let _memkatTrendChart = null;
 
 function updateKatChart() {
   if (_katChart) { _katChart.destroy(); _katChart = null; }
@@ -1660,7 +1877,7 @@ function updateKatChart() {
   }
   const ctx = document.getElementById('chartKatDetail');
   if (!ctx) return;
-  _katChart = new Chart(ctx, {
+  _katChart = new Chart(ctx, applyLegendDblClick({
     type: 'bar',
     data: { labels: jahre, datasets },
     options: {
@@ -1669,7 +1886,7 @@ function updateKatChart() {
         legend: { display: true, position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
       },
     },
-  });
+  }));
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -1681,7 +1898,6 @@ async function initLizenzen() {
   const last = raw[raw.length - 1];
   const prev = raw[raw.length - 2];
 
-  document.getElementById('latestYear').textContent = last.Jahr;
   document.getElementById('yearRange').textContent = `${years[0]}–${years[years.length-1]}`;
   document.getElementById('lizenzMeta').textContent = tr('lic.meta') + last.Jahr;
   const cyEl = document.getElementById('currentYear');
@@ -1762,7 +1978,7 @@ async function initLizenzen() {
         {
           label: tr('ds.officials'),
           data: raw.map(r => (r.Funk_M || 0) + (r.Funk_F || 0)),
-          backgroundColor: t.chart[4],
+          backgroundColor: t.chart[10],
           borderRadius: 6,
         },
       ]
@@ -1779,11 +1995,10 @@ async function initLizenzen() {
     { key: 'Total',    label: tr('tbl.total'),     isTotal: true },
   ];
   tbl.querySelector('thead tr').innerHTML = tableCols.map(c => `<th>${c.label}</th>`).join('');
-  const maxT = Math.max(...raw.map(x => x.Total));
   tbl.querySelector('tbody').innerHTML = [...raw].reverse().map(r =>
     `<tr>${tableCols.map(c => {
       if (c.isYear)  return `<td class="year">${r.Jahr}</td>`;
-      if (c.isTotal) return `<td class="num"><div class="trend-bar"><div class="trend-fill" style="width:${(r.Total/maxT*120).toFixed(0)}px"></div>${fmt(r.Total)}</div></td>`;
+      if (c.isTotal) return `<td class="num">${fmt(r.Total)}</td>`;
       if (c.key === 'Funk') return `<td class="num">${fmt((r.Funk_M||0)+(r.Funk_F||0))}</td>`;
       return `<td class="num">${fmt((r[c.key+'_M']||0)+(r[c.key+'_F']||0))}</td>`;
     }).join('')}</tr>`
@@ -1792,7 +2007,8 @@ async function initLizenzen() {
   // Disziplin-Tabs für Kategoriendetail
   const discTabs = document.getElementById('discTabs');
   if (discTabs) {
-    discTabs.innerHTML = DISC_DEFS.map((d, i) =>
+    const TAB_DEFS = [...DISC_DEFS, { key: 'Funk', label: tr('kpi.lic.officials') }];
+    discTabs.innerHTML = TAB_DEFS.map((d, i) =>
       `<button class="disc-tab${i === 0 ? ' active' : ''}" data-disc="${d.key}">${d.label}</button>`
     ).join('');
     discTabs.querySelectorAll('.disc-tab').forEach(btn => {
@@ -1843,6 +2059,135 @@ async function initLizenzen() {
       options: gridOpts(true)
     });
   }
+
+  // Mitgliederkategorien Verlauf – rendert je nach Dropdown-Auswahl
+  function renderMemkatTrend(val) {
+    if (_memkatTrendChart) { _memkatTrendChart.destroy(); _memkatTrendChart = null; }
+    const canvas = document.getElementById('chartMitgliedKatTrend');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const t2 = getTheme();
+    const p = getPalette();
+    const wrap = document.getElementById('memkatWrap');
+
+    if (val === 'all' || val === 'detail') {
+      // Stacked multi-category view
+      const src = val === 'all' ? MITGLIED_KAT_TREND.gruppen : MITGLIED_KAT_DETAIL.kategorien;
+      const jahre = val === 'all' ? MITGLIED_KAT_TREND.jahre : MITGLIED_KAT_DETAIL.jahre;
+      if (wrap) wrap.style.height = val === 'detail' ? '420px' : '360px';
+      const legendRows = Math.ceil(src.length / 3);
+      const legendH = legendRows * 22;
+      _memkatTrendChart = new Chart(ctx, applyLegendDblClick({
+        type: 'bar',
+        data: {
+          labels: jahre,
+          datasets: src.map((g, i) => ({
+            label: tr(g.key),
+            data: g.data,
+            backgroundColor: alpha(p[i % p.length], .8),
+            borderRadius: 2,
+          })),
+        },
+        options: {
+          ...gridOpts(true),
+          plugins: {
+            legend: {
+              display: true, position: 'bottom',
+              labels: { color: t2.text2, boxWidth: 12, font: { size: 11 }, padding: 10 }
+            },
+            tooltip: {
+              mode: 'index',
+              callbacks: {
+                footer: items => `Total: ${fmt(items.reduce((s, it) => s + (it.raw || 0), 0))}`,
+              }
+            }
+          }
+        }
+      }));
+    } else {
+      // Single-category focused view (d_X from MITGLIED_KAT_DETAIL)
+      const idx = parseInt(val.replace('d_', ''), 10);
+      const g = MITGLIED_KAT_DETAIL.kategorien[idx];
+      if (!g) return;
+      if (wrap) wrap.style.height = '260px';
+      const color = p[idx % p.length];
+      _memkatTrendChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: MITGLIED_KAT_DETAIL.jahre,
+          datasets: [{
+            label: tr(g.key),
+            data: g.data,
+            backgroundColor: g.data.map((_, i) =>
+              alpha(color, i === g.data.length - 1 ? 1 : .65)
+            ),
+            borderRadius: 6,
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx2 => ` ${fmt(ctx2.raw)}`,
+                afterLabel: ctx2 => {
+                  const prev = g.data[ctx2.dataIndex - 1];
+                  if (prev == null || prev === 0) return '';
+                  const pct = ((ctx2.raw - prev) / prev * 100).toFixed(1);
+                  return `${pct > 0 ? '+' : ''}${pct} % ${tr('tooltip.vsPrev')}`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: t2.text2 } },
+            y: {
+              grid: { color: t2.border },
+              ticks: { color: t2.text2, callback: v => fmt(v) },
+              suggestedMin: Math.max(0, Math.min(...g.data) * 0.85),
+            }
+          }
+        }
+      });
+    }
+  }
+
+  // Dropdown befüllen und initialisieren
+  {
+    const sel = document.getElementById('memkatSelect');
+    if (sel) {
+      // Sprachtexte für die festen Optionen aktualisieren
+      sel.querySelectorAll('option[value="all"]').forEach(o => o.textContent = tr('memkat.view.all'));
+      sel.querySelectorAll('option[value="detail"]').forEach(o => o.textContent = tr('memkat.view.detail'));
+
+      // Optgroup nur einmal befüllen (bei Reinit bereits vorhanden)
+      if (!sel.querySelector('optgroup[data-memkat]')) {
+        const grp = document.createElement('optgroup');
+        grp.setAttribute('data-memkat', '1');
+        grp.label = tr('memkat.view.single');
+        MITGLIED_KAT_DETAIL.kategorien.forEach((g, i) => {
+          const o = document.createElement('option');
+          o.value = `d_${i}`;
+          o.textContent = tr(g.key);
+          grp.appendChild(o);
+        });
+        sel.appendChild(grp);
+        sel.value = 'd_1';   // Standard: Member mit Clubmitgliedschaft
+        sel.addEventListener('change', () => renderMemkatTrend(sel.value));
+      } else {
+        // Texte der Kategorienoptionen bei Sprachwechsel aktualisieren
+        sel.querySelectorAll('[data-memkat] option').forEach((o, i) => {
+          if (i < MITGLIED_KAT_DETAIL.kategorien.length)
+            o.textContent = tr(MITGLIED_KAT_DETAIL.kategorien[i].key);
+        });
+        sel.querySelector('optgroup[data-memkat]').label = tr('memkat.view.single');
+      }
+
+      renderMemkatTrend(sel.value);
+    }
+  }
+
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -1896,7 +2241,20 @@ async function initFinanzen() {
     },
     options: {
       ...gridOpts(),
-      plugins: { legend: { display: false } },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${fmtCHF(ctx.raw)}`,
+            afterLabel: ctx => {
+              const prev = raw[ctx.dataIndex - 1]?.Ergebnis;
+              if (prev == null || prev === 0) return '';
+              const pct = ((ctx.raw - prev) / Math.abs(prev) * 100).toFixed(1);
+              return `${pct > 0 ? '+' : ''}${pct} % ${tr('tooltip.vsPrev')}`;
+            }
+          }
+        }
+      },
       scales: { ...gridOpts().scales, y: { ...gridOpts().scales.y, ticks: { callback: v => (v/1000).toFixed(0) + ' K', color: getTheme().text2 } } }
     }
   });
@@ -1974,14 +2332,15 @@ async function initVeranstaltungen() {
     data: {
       labels: years,
       datasets: [
-        { label: tr('disc.road.ev'),  data: raw.map(r => r.Strasse),  backgroundColor: alpha(t.chart[0], .8), borderRadius: 3 },
-        { label: tr('disc.mtb.ev'),   data: raw.map(r => r.MTB),      backgroundColor: alpha(t.chart[1], .8), borderRadius: 3 },
-        { label: tr('disc.track.ev'), data: raw.map(r => r.Bahn),     backgroundColor: alpha(t.chart[2], .8), borderRadius: 3 },
-        { label: tr('disc.bmx'),      data: raw.map(r => r.BMX),      backgroundColor: alpha(t.chart[3], .8), borderRadius: 3 },
-        { label: tr('disc.cx'),       data: raw.map(r => r.Radquer),  backgroundColor: alpha(t.chart[4], .8), borderRadius: 3 },
-        { label: tr('disc.trial'),    data: raw.map(r => r.Trial),    backgroundColor: alpha(t.chart[5], .8), borderRadius: 3 },
-        { label: tr('disc.para'),     data: raw.map(r => r.Para),     backgroundColor: alpha(t.chart[6], .8), borderRadius: 3 },
-        { label: tr('disc.other.ev'), data: raw.map(r => r.Sonstige), backgroundColor: alpha(t.chart[7], .8), borderRadius: 3 },
+        { label: tr('disc.road.ev'),        data: raw.map(r => r.Strasse),      backgroundColor: alpha(t.chart[0], .8), borderRadius: 3 },
+        { label: tr('disc.mtb.ev'),         data: raw.map(r => r.MTB),          backgroundColor: alpha(t.chart[1], .8), borderRadius: 3 },
+        { label: tr('disc.mtb_gravity.ev'), data: raw.map(r => r.MTB_Gravity),  backgroundColor: alpha(t.chart[9], .8), borderRadius: 3 },
+        { label: tr('disc.track.ev'),       data: raw.map(r => r.Bahn),         backgroundColor: alpha(t.chart[2], .8), borderRadius: 3 },
+        { label: tr('disc.bmx'),            data: raw.map(r => r.BMX),          backgroundColor: alpha(t.chart[3], .8), borderRadius: 3 },
+        { label: tr('disc.cx'),             data: raw.map(r => r.Radquer),      backgroundColor: alpha(t.chart[4], .8), borderRadius: 3 },
+        { label: tr('disc.trial'),          data: raw.map(r => r.Trial),        backgroundColor: alpha(t.chart[5], .8), borderRadius: 3 },
+        { label: tr('disc.para'),           data: raw.map(r => r.Para),         backgroundColor: alpha(t.chart[6], .8), borderRadius: 3 },
+        { label: tr('disc.other.ev'),       data: raw.map(r => r.Sonstige),     backgroundColor: alpha(t.chart[7], .8), borderRadius: 3 },
       ]
     },
     options: gridOpts()
@@ -2003,14 +2362,15 @@ async function initVeranstaltungen() {
 
   // Stacked by discipline
   const diszipline = [
-    { key: 'Strasse',  label: tr('disc.road.ev'),  color: t.chart[0] },
-    { key: 'MTB',      label: tr('disc.mtb.ev'),   color: t.chart[1] },
-    { key: 'Bahn',     label: tr('disc.track.ev'), color: t.chart[2] },
-    { key: 'BMX',      label: tr('disc.bmx'),      color: t.chart[3] },
-    { key: 'Radquer',  label: tr('disc.cx'),       color: t.chart[4] },
-    { key: 'Trial',    label: tr('disc.trial'),    color: t.chart[5] },
-    { key: 'Para',     label: tr('disc.para'),     color: t.chart[6] },
-    { key: 'Sonstige', label: tr('disc.other.ev'), color: t.chart[7] },
+    { key: 'Strasse',     label: tr('disc.road.ev'),        color: t.chart[0] },
+    { key: 'MTB',         label: tr('disc.mtb.ev'),         color: t.chart[1] },
+    { key: 'MTB_Gravity', label: tr('disc.mtb_gravity.ev'), color: t.chart[9] },
+    { key: 'Bahn',        label: tr('disc.track.ev'),       color: t.chart[2] },
+    { key: 'BMX',         label: tr('disc.bmx'),            color: t.chart[3] },
+    { key: 'Radquer',     label: tr('disc.cx'),             color: t.chart[4] },
+    { key: 'Trial',       label: tr('disc.trial'),          color: t.chart[5] },
+    { key: 'Para',        label: tr('disc.para'),           color: t.chart[6] },
+    { key: 'Sonstige',    label: tr('disc.other.ev'),       color: t.chart[7] },
   ];
   makeChart('chartEventStacked', {
     type: 'bar',
@@ -2033,14 +2393,15 @@ async function initVeranstaltungen() {
     data: {
       labels: years,
       datasets: [
-        { label: tr('disc.road.ev'),  data: diszPct('Strasse'),  borderColor: t.chart[0], backgroundColor: alpha(t.chart[0],.08), fill: true,  tension: .4, pointRadius: 4, borderWidth: 2 },
-        { label: tr('disc.mtb.ev'),   data: diszPct('MTB'),      borderColor: t.chart[1], backgroundColor: alpha(t.chart[1],.08), fill: true,  tension: .4, pointRadius: 4, borderWidth: 2 },
-        { label: tr('disc.track.ev'), data: diszPct('Bahn'),     borderColor: t.chart[2], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
-        { label: tr('disc.bmx'),      data: diszPct('BMX'),      borderColor: t.chart[3], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
-        { label: tr('disc.cx'),       data: diszPct('Radquer'),  borderColor: t.chart[4], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
-        { label: tr('disc.trial'),    data: diszPct('Trial'),    borderColor: t.chart[5], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
-        { label: tr('disc.para'),     data: diszPct('Para'),     borderColor: t.chart[6], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
-        { label: tr('disc.other.ev'), data: diszPct('Sonstige'), borderColor: t.chart[7], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.road.ev'),        data: diszPct('Strasse'),      borderColor: t.chart[0], backgroundColor: alpha(t.chart[0],.08), fill: true,  tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.mtb.ev'),         data: diszPct('MTB'),          borderColor: t.chart[1], backgroundColor: alpha(t.chart[1],.08), fill: true,  tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.mtb_gravity.ev'), data: diszPct('MTB_Gravity'),  borderColor: t.chart[9], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.track.ev'),       data: diszPct('Bahn'),         borderColor: t.chart[2], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.bmx'),            data: diszPct('BMX'),          borderColor: t.chart[3], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.cx'),             data: diszPct('Radquer'),      borderColor: t.chart[4], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.trial'),          data: diszPct('Trial'),        borderColor: t.chart[5], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.para'),           data: diszPct('Para'),         borderColor: t.chart[6], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
+        { label: tr('disc.other.ev'),       data: diszPct('Sonstige'),     borderColor: t.chart[7], backgroundColor: 'transparent',         fill: false, tension: .4, pointRadius: 4, borderWidth: 2 },
       ]
     },
     options: {
@@ -2149,6 +2510,125 @@ const PERSONAL_DATA = {
   ]
 };
 
+const WEITERE_ORGANE_DATA = [
+  { gruppe:'Einzelrichter', mitglieder:[
+    {name:'Stefan Pfister',      rolle:'Einzelrichter'},
+    {name:'Bernhard Welten',     rolle:'Einzelrichter'},
+  ]},
+  { gruppe:'Rekursgericht', mitglieder:[
+    {name:'Benjamin Humm',       rolle:'Mitglied'},
+    {name:'Roger Meier',         rolle:'Mitglied'},
+    {name:'Antonio Rigozzi',     rolle:'Mitglied'},
+    {name:'Alexander Rufibach',  rolle:'Mitglied'},
+    {name:'Alexander Schütz',    rolle:'Mitglied'},
+  ]},
+  { gruppe:'Rechtskommission', mitglieder:[
+    {name:'Thomas Brüngger',     rolle:'Mitglied'},
+    {name:'Gregory Bovay',       rolle:'Mitglied'},
+    {name:'Alexander Born',      rolle:'Mitglied'},
+    {name:'Alain Friedrich',     rolle:'Mitglied'},
+    {name:'Marcel Fürer',        rolle:'Mitglied'},
+  ]},
+  { gruppe:'Geschäftsprüfungskommission', mitglieder:[
+    {name:'Thomas Hugentobler',  rolle:'Mitglied'},
+    {name:'Yvan Morf',           rolle:'Mitglied'},
+  ]},
+  { gruppe:'Vorstand Veteranen', mitglieder:[
+    {name:'Hans Ulrich Zeller',  rolle:'Häuptling'},
+    {name:'Marcel Mamié',        rolle:'Säckelmeister'},
+    {name:'Anita Hausammann',    rolle:'Schreiberin'},
+    {name:'Viktor Erdin',        rolle:'Beisitzer/Fähnrich'},
+    {name:'Markus Lüthi',        rolle:'Beisitzer/Archivar'},
+  ]},
+];
+
+const FACHKOMMISSIONEN_DATA = [
+  { gruppe:'Fachkommission Strasse', mitglieder:[
+    {name:'Ariane Previtali',    rolle:'Präsidentin'},
+    {name:'Michael Schär',       rolle:'Nationaltrainer'},
+    {name:'Tino Eicher',         rolle:'Swiss Cycling Vertreter*'},
+    {name:'Caroline Baur',       rolle:'Mitglied'},
+    {name:'Rubens Bertogliati',  rolle:'Mitglied'},
+    {name:'René Graf',           rolle:'Mitglied'},
+    {name:'Thibault Hofer',      rolle:'Mitglied'},
+    {name:'Andreas Wild',        rolle:'Mitglied'},
+  ]},
+  { gruppe:'Fachkommission MTB', mitglieder:[
+    {name:'Matthias Weber',      rolle:'Präsident'},
+    {name:'Martin Gujan',        rolle:'Nationaltrainer'},
+    {name:'Annina Strub-Bühler', rolle:'Swiss Cycling Vertreterin*'},
+    {name:'Fabian Hofstetter',   rolle:'Mitglied'},
+    {name:'Dimitri Isler',       rolle:'Mitglied'},
+    {name:'Alessandra Keller',   rolle:'Mitglied'},
+    {name:'Urs Werthmüller',     rolle:'Mitglied'},
+  ]},
+  { gruppe:'Fachkommission Bahn', mitglieder:[
+    {name:'Loïc Hugentobler',    rolle:'Präsident'},
+    {name:'Tristan Marquet',     rolle:'Nationaltrainer'},
+    {name:'Nik Iseli',           rolle:'Swiss Cycling Vertreter*'},
+    {name:'Luca Bühlmann',       rolle:'Mitglied'},
+    {name:'Juan Espasandin',     rolle:'Mitglied'},
+    {name:'Alois Iten',          rolle:'Mitglied'},
+    {name:'Xavier Suter',        rolle:'Mitglied'},
+    {name:'Doris Turin',         rolle:'Mitglied'},
+    {name:'Ramona Witzig',       rolle:'Mitglied'},
+  ]},
+  { gruppe:'Fachkommission BMX', mitglieder:[
+    {name:'David Graf',          rolle:'Nationaltrainer'},
+    {name:'Joachim Dovat',       rolle:'Nationaltrainer'},
+    {name:'Annina Strub-Bühler', rolle:'Swiss Cycling Vertreterin*'},
+    {name:'Supatra Lyrenmann',   rolle:'Mitglied'},
+    {name:'Joris Noëth',         rolle:'Mitglied'},
+    {name:'Roger Rickly',        rolle:'Mitglied'},
+    {name:'Stefan Sieber',       rolle:'Mitglied'},
+  ]},
+  { gruppe:'Fachkommission Radquer', mitglieder:[
+    {name:'Thomas Scheurer',     rolle:'Präsident'},
+    {name:'Andreas Kugler',      rolle:'Nationaltrainer'},
+    {name:'Lea Trüssel',         rolle:'Swiss Cycling Vertreterin*'},
+    {name:'Pierre Curchod',      rolle:'Mitglied'},
+    {name:'Thomas Frei',         rolle:'Mitglied'},
+    {name:'Lara Krähemann',      rolle:'Mitglied'},
+    {name:'Gilles Mottiez',      rolle:'Mitglied'},
+  ]},
+  { gruppe:'Fachkommission Trial', mitglieder:[
+    {name:'Walter Meyerhans',    rolle:'Präsident'},
+    {name:'Markus Fankhauser',   rolle:'Vize-Präsident'},
+    {name:'Pascal Benaglia',     rolle:'Nationaltrainer'},
+    {name:'Jürg Blaser',         rolle:'Mitglied'},
+    {name:'Christian Fisch',     rolle:'Mitglied'},
+    {name:'Vito Gonzalez',       rolle:'Mitglied'},
+    {name:'René Mayer',          rolle:'Mitglied'},
+  ]},
+  { gruppe:'Fachkommission Gravity (DH/4X/Enduro)', mitglieder:[
+    {name:'Carina Black',        rolle:'Nationaltrainerin'},
+    {name:'Annina Strub-Bühler', rolle:'Swiss Cycling Vertreterin*'},
+    {name:'Paul Kunz',           rolle:'Mitglied'},
+    {name:'Thomas Reusser',      rolle:'Mitglied'},
+    {name:'Emilie Siegenthaler', rolle:'Mitglied'},
+    {name:'Nicolas Walser',      rolle:'Mitglied'},
+    {name:'Nicolas Wicki',       rolle:'Mitglied'},
+  ]},
+  { gruppe:'Fachkommission Swiss Cycling Guide', mitglieder:[
+    {name:'Myriam Hofstetter',   rolle:'Ausbildungsverantwortliche Swiss Cycling Guide'},
+    {name:'Tabea Ulmer',         rolle:'Ausbildungsverantwortliche Swiss Cycling'},
+    {name:'Dominik Hug',         rolle:'Mitglied'},
+    {name:'Lukas Keller',        rolle:'Mitglied'},
+    {name:'Kurt Ladner',         rolle:'Mitglied'},
+    {name:'Myriam Saugy',        rolle:'Mitglied'},
+    {name:'Jonas Spöring',       rolle:'Mitglied'},
+    {name:'Michael Wild',        rolle:'Mitglied'},
+  ]},
+  { gruppe:'Fachkommission Kommissäre', mitglieder:[
+    {name:'Ariane Previtali',    rolle:'Präsidentin / Strasse / Vertreterin Tessin'},
+    {name:'Pierre Curchod',      rolle:'Vize-Präsident / Radquer / Vertreter Romandie'},
+    {name:'Hans Harnisch',       rolle:'Swiss Cycling BMX'},
+    {name:'Supatra Lyrenmann',   rolle:'BMX'},
+    {name:'Alex Suter',          rolle:'MTB'},
+    {name:'Ramona Witzig',       rolle:'Bahn'},
+  ]},
+];
+
 /* ══════════════════════════════════════════════════════════════
    TEAM
 ══════════════════════════════════════════════════════════════ */
@@ -2243,6 +2723,32 @@ function initPersonal() {
         </div>`).join('') +
       '</div>'
     ).join('');
+
+  // Weitere Organe grid
+  document.getElementById('weitereGrid').innerHTML =
+    WEITERE_ORGANE_DATA.map(g =>
+      `<div class="team-dept-label">${trRole(g.gruppe)}</div>
+       <div class="team-grid">` +
+      g.mitglieder.map(p => `
+        <div class="team-card">
+          <div class="team-card-name">${p.name}</div>
+          <div class="team-card-role">${trRole(p.rolle)}</div>
+        </div>`).join('') +
+      '</div>'
+    ).join('');
+
+  // Fachkommissionen grid
+  document.getElementById('fachkGrid').innerHTML =
+    FACHKOMMISSIONEN_DATA.map(g =>
+      `<div class="team-dept-label">${trRole(g.gruppe)}</div>
+       <div class="team-grid">` +
+      g.mitglieder.map(p => `
+        <div class="team-card">
+          <div class="team-card-name">${p.name}</div>
+          <div class="team-card-role">${trRole(p.rolle)}</div>
+        </div>`).join('') +
+      '</div>'
+    ).join('');
 }
 
 /* ── INIT ALL ───────────────────────────────────────────────── */
@@ -2250,13 +2756,16 @@ function initPersonal() {
   applyTranslations();
   await Promise.all([initLizenzen(), initFinanzen(), initVeranstaltungen()]);
   initPersonal();
-  // nav active state on scroll
-  const sections = document.querySelectorAll('section');
-  const navBtns  = document.querySelectorAll('.nav-btn');
+  // nav active state on scroll – includes sub-anchors like #mitglieder
+  const scrollTargets = [
+    ...document.querySelectorAll('section'),
+    document.getElementById('mitglieder'),
+  ].filter(Boolean).sort((a, b) => a.offsetTop - b.offsetTop);
+  const navBtns = document.querySelectorAll('.nav-btn');
   window.addEventListener('scroll', () => {
     let current = '';
-    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
-    navBtns.forEach(b => { b.classList.toggle('active', b.getAttribute('href') === '#'+current); });
+    scrollTargets.forEach(el => { if (window.scrollY >= el.offsetTop - 100) current = el.id; });
+    navBtns.forEach(b => { b.classList.toggle('active', b.getAttribute('href') === '#' + current); });
   }, { passive: true });
 })();
 </script>

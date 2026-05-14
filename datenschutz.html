@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Datenschutz – Swiss Cycling Statistiken</title>
+  <script src="posthog.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
   <style>
@@ -129,10 +130,12 @@
     .badge {
       display: inline-flex; align-items: center; gap: .35rem;
       padding: .25rem .7rem; border-radius: 20px;
-      background: #dcfce7; color: #166534;
       font-size: .75rem; font-weight: 600;
     }
-    [data-theme="dark"] .badge { background: #14532d; color: #86efac; }
+    .badge-green { background: #dcfce7; color: #166534; }
+    .badge-blue  { background: #dbeafe; color: #1e40af; }
+    [data-theme="dark"] .badge-green { background: #14532d; color: #86efac; }
+    [data-theme="dark"] .badge-blue  { background: #1e3a5f; color: #93c5fd; }
 
     /* ─── FOOTER ── */
     footer {
@@ -171,16 +174,44 @@
   <div class="content-block">
     <h2>Grundsätze</h2>
     <p>
-      Der Schutz Ihrer persönlichen Daten ist uns wichtig. Diese Website
-      <strong>erhebt keine personenbezogenen Daten</strong>, verfolgt Besucher
-      nicht und setzt keine Tracking- oder Analyse-Technologien ein.
+      Diese Website verwendet ein <strong>cookieloses, anonymes Analyse-Tool</strong>
+      (PostHog), um Seitenaufrufe zu zählen. Es werden dabei <strong>keine
+      personenbezogenen Daten</strong> erhoben, keine Nutzerprofile erstellt und
+      keine Cookies gesetzt. Ein Cookie-Banner ist deshalb nicht erforderlich.
     </p>
     <div class="badge-row">
-      <span class="badge">✓ Kein Tracking</span>
-      <span class="badge">✓ Keine Cookies</span>
-      <span class="badge">✓ Keine Werbung</span>
-      <span class="badge">✓ Open Source</span>
+      <span class="badge badge-green">✓ Keine Cookies</span>
+      <span class="badge badge-green">✓ Kein Profiling</span>
+      <span class="badge badge-green">✓ Keine Werbung</span>
+      <span class="badge badge-green">✓ Open Source</span>
+      <span class="badge badge-blue">↗ Anonymes Analytics</span>
     </div>
+  </div>
+
+  <div class="content-block">
+    <h2>Nutzungsanalyse – PostHog</h2>
+    <p>
+      Zur anonymen Messung von Seitenaufrufen wird
+      <strong>PostHog</strong> (PostHog Inc., 2261 Market Street #4008,
+      San Francisco, CA 94114, USA) eingesetzt.
+    </p>
+    <p>
+      Die Verarbeitung findet ausschliesslich auf EU-Servern statt
+      (PostHog Cloud EU, Frankfurt am Main). Es gelten die
+      <a href="https://posthog.com/privacy" target="_blank" rel="noopener">Datenschutzbestimmungen von PostHog</a>.
+    </p>
+    <p><strong>Technische Konfiguration:</strong></p>
+    <ul>
+      <li><strong>Keine Cookies</strong> – der Datenspeicher ist auf den Arbeitsspeicher der Browser-Sitzung beschränkt (<code>persistence: 'memory'</code>).</li>
+      <li><strong>Keine Nutzerprofile</strong> – die Option <code>person_profiles: 'never'</code> verhindert die Erstellung persistenter Nutzer-IDs.</li>
+      <li><strong>Kein Session-Recording</strong> – Bildschirm- oder Mausaufzeichnungen sind deaktiviert.</li>
+      <li><strong>Kein Autocapture</strong> – Klicks, Formulareingaben und DOM-Events werden nicht erfasst.</li>
+      <li><strong>IP-Anonymisierung</strong> – die IP-Adresse wird auf PostHog-Serverseite nicht gespeichert (Projekteinstellung «Discard client IP data»).</li>
+    </ul>
+    <p>
+      Es werden ausschliesslich anonyme Seitenaufrufzähler (Page Views)
+      übertragen – ohne Rückschluss auf einzelne Personen.
+    </p>
   </div>
 
   <div class="content-block">
@@ -201,14 +232,14 @@
     <h2>Lokaler Speicher (localStorage)</h2>
     <p>
       Diese Website speichert ausschliesslich die von Ihnen gewählte
-      Farbgebung (Hell- oder Dunkelmodus) im lokalen Speicher (<code>localStorage</code>)
-      Ihres Browsers. Diese Information:
+      Farbgebung (Hell- oder Dunkelmodus) sowie die Spracheinstellung im lokalen Speicher
+      (<code>localStorage</code>) Ihres Browsers. Diese Einstellungen:
     </p>
     <ul>
-      <li>verlässt Ihr Gerät nicht</li>
-      <li>wird nicht an Server übertragen</li>
-      <li>enthält keine personenbezogenen Daten</li>
-      <li>kann jederzeit durch Löschen der Browser-Daten entfernt werden</li>
+      <li>verlassen Ihr Gerät nicht</li>
+      <li>werden nicht an Server übertragen</li>
+      <li>enthalten keine personenbezogenen Daten</li>
+      <li>können jederzeit durch Löschen der Browser-Daten entfernt werden</li>
     </ul>
   </div>
 
@@ -229,12 +260,12 @@
         Chart.js Visualisierungsbibliothek.
         <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Datenschutz Cloudflare</a>
       </li>
+      <li>
+        <strong>PostHog</strong> (eu.i.posthog.com) –
+        Anonyme Nutzungsanalyse (siehe oben).
+        <a href="https://posthog.com/privacy" target="_blank" rel="noopener">Datenschutz PostHog</a>
+      </li>
     </ul>
-    <p>
-      Diese Drittanbieter haben eigene Datenschutzrichtlinien. Falls Sie diese
-      Übertragungen vermeiden möchten, können Sie die Seite mit deaktiviertem
-      JavaScript aufrufen – die Daten werden dann im eingebetteten Modus angezeigt.
-    </p>
   </div>
 
   <div class="content-block">
@@ -262,7 +293,7 @@
   <div class="content-block">
     <h2>Impressum</h2>
     <p>Weitere rechtliche Angaben finden Sie im <a href="impressum.html">Impressum</a>.</p>
-    <p style="margin-top:.75rem; font-size:.8rem;">Stand: April 2026</p>
+    <p style="margin-top:.75rem; font-size:.8rem;">Stand: Mai 2026</p>
   </div>
 </main>
 

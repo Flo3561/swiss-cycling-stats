@@ -38,7 +38,7 @@ const files = {
   mitglieder:      'mitglieder.csv',
   personal:        'personal.csv',
   erfolgsrechnung: 'erfolgsrechnung.csv',
-  veranstaltungen: 'veranstaltungen.csv',
+  // veranstaltungen is managed by scripts/fetch_events.py → do not overwrite here
 };
 
 for (const [key, filename] of Object.entries(files)) {
@@ -63,6 +63,21 @@ function toJS(key, data) {
   return `  ${key}: [\n${rows},\n  ]`;
 }
 
+// ── In index.html einsetzen ──────────────────────────────────
+const htmlPath = path.join(__dirname, 'index.html');
+let html = fs.readFileSync(htmlPath, 'utf-8');
+
+// Preserve veranstaltungen data written by fetch_events.py (different format, not a plain CSV)
+let vzRaw = 'veranstaltungen: [],';
+const vzMatch = html.match(/veranstaltungen:\s*\[[\s\S]*?\],/);
+if (vzMatch) {
+  vzRaw = vzMatch[0].trim();
+  console.log('✓  veranstaltungen: preserved from index.html');
+} else {
+  console.warn('⚠️  veranstaltungen: block not found, using empty array');
+}
+
+// Build the replacement block now that vzRaw is known
 const newBlock = `/* ══════════════════════════════════════════════════════════════
    EINGEBETTETE DATEN
    → Zum Aktualisieren: neue Zeile am Ende jedes Arrays hinzufügen
@@ -71,6 +86,7 @@ const newBlock = `/* ═══════════════════�
 ══════════════════════════════════════════════════════════════ */
 const EMBEDDED_DATA = {
 ${Object.entries(datasets).map(([k, v]) => toJS(k, v)).join(',\n')},
+  ${vzRaw}
 };
 
 function loadCSV(key) {
@@ -85,10 +101,6 @@ function loadCSV(key) {
   };
   return Promise.resolve(EMBEDDED_DATA[map[name]] || []);
 }`;
-
-// ── In index.html einsetzen ──────────────────────────────────
-const htmlPath = path.join(__dirname, 'index.html');
-let html = fs.readFileSync(htmlPath, 'utf-8');
 
 // Marker: alles zwischen den beiden Kommentarblöcken ersetzen
 const startMarker = '/* ══════════════════════════════════════════════════════════════\n   EINGEBETTETE DATEN';

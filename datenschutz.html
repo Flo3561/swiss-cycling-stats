@@ -6,7 +6,7 @@
   <title>Datenschutz – Swiss Cycling Statistiken</title>
   <script src="posthog.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
       --c-bg:      #f4f2ed;
@@ -29,7 +29,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       background: var(--c-bg);
       color: var(--c-text);
       line-height: 1.7;
@@ -53,22 +53,20 @@
       display: flex; align-items: center; gap: .75rem;
       text-decoration: none;
     }
-    .logo-flag {
-      width: 32px; height: 32px; border-radius: 6px;
-      background: var(--c-accent);
+    .logo-wheel {
+      width: 32px; height: 32px; flex-shrink: 0;
+      border: 3px solid var(--c-accent); border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
     }
-    .logo-flag::before {
-      content: '';
-      display: block; width: 18px; height: 3.5px;
-      background: white; border-radius: 2px;
-      box-shadow: 0 -7px 0 3.5px white, 0 7px 0 3.5px white;
+    .logo-wheel::after {
+      content: ''; width: 7px; height: 7px;
+      background: var(--c-accent); border-radius: 50%;
     }
-    .logo-text strong { font-family: 'Syne', sans-serif; font-size: .9rem; font-weight: 800; color: var(--c-text); }
+    .logo-text { line-height: 1.2; white-space: nowrap; }
+    .logo-text strong { display: block; font-family: 'Manrope', system-ui, sans-serif; font-size: .9rem; font-weight: 800; color: var(--c-text); }
     .logo-text span { display: block; font-size: .65rem; color: var(--c-text2); letter-spacing: .08em; text-transform: uppercase; }
     .back-link {
-      margin-left: auto;
+      margin-left: auto; white-space: nowrap;
       font-size: .85rem; color: var(--c-text2);
       text-decoration: none;
       display: flex; align-items: center; gap: .4rem;
@@ -94,7 +92,7 @@
       margin-bottom: .5rem;
     }
     h1 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Manrope', system-ui, sans-serif;
       font-size: clamp(1.75rem, 3vw, 2.5rem);
       font-weight: 800; line-height: 1.1;
       letter-spacing: -.02em;
@@ -109,7 +107,7 @@
       box-shadow: var(--shadow);
     }
     .content-block h2 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Manrope', system-ui, sans-serif;
       font-size: 1rem; font-weight: 700;
       margin-bottom: .75rem;
       padding-bottom: .5rem;
@@ -155,6 +153,8 @@
     @media (max-width: 768px) {
       .header-inner { padding: 0 1rem; gap: 1rem; }
       .logo-text span { font-size: .68rem; }
+      .back-link { font-size: .8rem; }
+      .back-long { display: none; }
       main { padding: 2rem 1rem 3rem; }
       h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
       .content-block { padding: 1.25rem; }
@@ -168,13 +168,13 @@
 <header>
   <div class="header-inner">
     <a class="logo-mark" href="index.html">
-      <div class="logo-flag"></div>
+      <div class="logo-wheel"></div>
       <div class="logo-text">
         <strong>Swiss Cycling</strong>
         <span>Statistiken</span>
       </div>
     </a>
-    <a class="back-link" href="index.html">Zurück zum Dashboard</a>
+    <a class="back-link" href="index.html"><span class="back-long">Zurück zum </span>Dashboard</a>
     <button class="theme-toggle" id="themeBtn" title="Dark/Light Mode">🌙</button>
   </div>
 </header>
@@ -264,7 +264,7 @@
     <ul>
       <li>
         <strong>Google Fonts</strong> (fonts.googleapis.com) –
-        Schriftarten (Syne, DM Sans).
+        Schriftarten (Manrope, Inter).
         <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutz Google</a>
       </li>
       <li>

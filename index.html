@@ -7,7 +7,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <script src="posthog.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     /* ─── DESIGN TOKENS ─────────────────────────────────────────── */
     :root {
@@ -58,7 +58,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       background: var(--c-bg);
       color: var(--c-text);
       line-height: 1.6;
@@ -110,14 +110,18 @@
       background: var(--c-accent);
       border-radius: 50%;
     }
-    .logo-text { font-family: 'Syne', sans-serif; }
+    .logo-text { font-family: 'Manrope', system-ui, sans-serif; }
     .logo-text strong { display: block; font-size: .95rem; font-weight: 800; letter-spacing: .02em; color: var(--c-text); }
     .logo-text span { display: block; font-size: .7rem; font-weight: 400; color: var(--c-text2); letter-spacing: .08em; text-transform: uppercase; }
-    nav { display: flex; gap: .25rem; margin-left: auto; }
+    nav { display: flex; gap: .25rem; margin-left: auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+    nav::-webkit-scrollbar { display: none; }
+    .logo-mark, .lang-select, .theme-toggle { flex-shrink: 0; }
+    .logo-text { white-space: nowrap; }
+    .nav-btn { white-space: nowrap; }
     .nav-btn {
       padding: .4rem .9rem; border-radius: 8px;
       border: none; background: none; cursor: pointer;
-      font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 500;
+      font-family: 'Inter', system-ui, sans-serif; font-size: .85rem; font-weight: 500;
       color: var(--c-text2);
       transition: all .2s;
       text-decoration: none;
@@ -134,7 +138,7 @@
     }
     .theme-toggle:hover { background: var(--c-surface); box-shadow: var(--shadow); }
     .lang-select { display: flex; border: 1px solid var(--c-border); border-radius: 8px; overflow: hidden; flex-shrink: 0; }
-    .lang-btn { padding: .25rem .55rem; border: none; background: none; cursor: pointer; font-size: .78rem; font-weight: 700; color: var(--c-text2); font-family: 'Syne', sans-serif; letter-spacing: .04em; transition: all .15s; }
+    .lang-btn { padding: .25rem .55rem; border: none; background: none; cursor: pointer; font-size: .78rem; font-weight: 700; color: var(--c-text2); font-family: 'Manrope', system-ui, sans-serif; letter-spacing: .04em; transition: all .15s; }
     .lang-btn + .lang-btn { border-left: 1px solid var(--c-border); }
     .lang-btn:hover { background: var(--c-surface); color: var(--c-text); }
     .lang-btn.active { background: var(--c-accent); color: #fff; }
@@ -144,7 +148,7 @@
       display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: end;
     }
     .hero h1 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Manrope', system-ui, sans-serif;
       font-size: clamp(2rem, 4vw, 3.2rem);
       font-weight: 800; line-height: 1.1;
       letter-spacing: -.02em;
@@ -153,7 +157,7 @@
     .hero p { color: var(--c-text2); font-size: 1rem; margin-top: .5rem; max-width: 480px; }
     .hero-year-range {
       text-align: right;
-      font-family: 'Syne', sans-serif;
+      font-family: 'Manrope', system-ui, sans-serif;
     }
     .hero-year-range .range {
       font-size: 3rem; font-weight: 800; color: var(--c-border);
@@ -179,7 +183,7 @@
     .section-icon.gold { background: var(--c-gold); }
     .section-icon.green { background: var(--c-green); }
     .section-header h2 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Manrope', system-ui, sans-serif;
       font-size: 1.25rem; font-weight: 700;
     }
     .section-header p { color: var(--c-text2); font-size: .85rem; margin-top: .1rem; }
@@ -199,6 +203,8 @@
       box-shadow: var(--shadow);
       transition: transform .2s, box-shadow .2s;
       position: relative; overflow: hidden;
+      container-type: inline-size; /* lets .kpi-value scale to the card width */
+      min-width: 0;
     }
     .kpi::before {
       content: '';
@@ -207,7 +213,12 @@
     }
     .kpi:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
     .kpi-label { font-size: .75rem; font-weight: 500; color: var(--c-text2); text-transform: uppercase; letter-spacing: .06em; }
-    .kpi-value { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; line-height: 1.1; margin: .25rem 0; }
+    .kpi-value {
+      font-family: 'Manrope', system-ui, sans-serif; font-size: 2rem;
+      font-size: clamp(1.25rem, 17cqi, 2rem);
+      font-weight: 800; line-height: 1.15; margin: .25rem 0;
+      letter-spacing: -.01em; font-variant-numeric: tabular-nums;
+    }
     .kpi-delta {
       font-size: .78rem; font-weight: 500;
       display: inline-flex; align-items: center; gap: .25rem;
@@ -235,7 +246,7 @@
     }
     .chart-card:hover { box-shadow: var(--shadow-lg); }
     .chart-title {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Manrope', system-ui, sans-serif;
       font-size: 1rem; font-weight: 700; margin-bottom: .25rem;
     }
     .chart-subtitle { font-size: .8rem; color: var(--c-text2); margin-bottom: 1.25rem; }
@@ -266,14 +277,14 @@
     .disc-tab {
       padding: .28rem .7rem; border-radius: 20px; border: 1px solid var(--c-border);
       background: transparent; color: var(--c-text2); cursor: pointer; font-size: .78rem;
-      transition: all .15s; white-space: nowrap; font-family: 'DM Sans', sans-serif;
+      transition: all .15s; white-space: nowrap; font-family: 'Inter', system-ui, sans-serif;
     }
     .disc-tab.active { background: var(--c-accent); color: white; border-color: var(--c-accent); }
     .gender-toggle { display: flex; gap: .35rem; }
     .gt-btn {
       padding: .28rem .65rem; border-radius: 20px; border: 1px solid var(--c-border);
       background: transparent; color: var(--c-text2); cursor: pointer; font-size: .78rem;
-      transition: all .15s; font-family: 'DM Sans', sans-serif;
+      transition: all .15s; font-family: 'Inter', system-ui, sans-serif;
     }
     .gt-btn.active { background: var(--c-accent2); color: white; border-color: var(--c-accent2); }
 
@@ -287,7 +298,7 @@
       border: 1px solid var(--c-border);
       background: var(--c-surface); color: var(--c-text);
       font-size: .8rem; cursor: pointer; flex-shrink: 0;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
     }
     .memkat-select:focus { outline: 2px solid var(--c-accent2); outline-offset: 2px; }
 
@@ -297,13 +308,15 @@
       border: 1px solid var(--c-border);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
-      overflow: hidden;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
-    table { width: 100%; border-collapse: collapse; }
+    table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+    th, td { white-space: nowrap; }
     thead { background: var(--c-surface2); }
     th {
       padding: .75rem 1rem; text-align: left;
-      font-family: 'Syne', sans-serif; font-size: .78rem; font-weight: 700;
+      font-family: 'Manrope', system-ui, sans-serif; font-size: .78rem; font-weight: 700;
       color: var(--c-text2); letter-spacing: .05em; text-transform: uppercase;
       border-bottom: 1px solid var(--c-border);
     }
@@ -313,8 +326,8 @@
     }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: var(--c-surface2); }
-    td.num { font-family: 'Syne', sans-serif; font-weight: 600; text-align: right; }
-    td.year { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--c-accent); }
+    td.num { font-family: 'Manrope', system-ui, sans-serif; font-weight: 600; text-align: right; }
+    td.year { font-family: 'Manrope', system-ui, sans-serif; font-weight: 700; color: var(--c-accent); }
 
     /* ─── FOOTER ────────────────────────────────────────────────── */
     footer {
@@ -329,7 +342,7 @@
     }
     .footer-col { display: flex; flex-direction: column; gap: .3rem; }
     .footer-title {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Manrope', system-ui, sans-serif;
       font-size: .85rem; font-weight: 700;
       color: var(--c-text); margin-bottom: .1rem;
     }
@@ -423,8 +436,9 @@
 
     /* ─── RESPONSIVE ─────────────────────────────────────────────── */
     @media (max-width: 768px) {
-      .header-inner { padding: 0 1rem; }
+      .header-inner { padding: 0 1rem; gap: .75rem; }
       nav { display: none; }
+      .lang-select { margin-left: auto; }
       .hero { grid-template-columns: 1fr; padding: 2rem 1rem 1rem; }
       .hero-year-range { display: none; }
       main { padding: 0 1rem 3rem; }
@@ -444,7 +458,7 @@
       .section-meta { font-size: .75rem; }
       .kpi { padding: 1rem; }
       .kpi-label { font-size: .7rem; letter-spacing: .04em; }
-      .kpi-value { font-size: 1.4rem; overflow-wrap: anywhere; }
+      .kpi-value { overflow-wrap: anywhere; }
       .kpi-delta { font-size: .72rem; }
       .chart-card { padding: 1.1rem; }
       .chart-title { font-size: .95rem; }
@@ -457,6 +471,9 @@
       .team-dept-label, .team-card-badge, .team-disc-tag { font-size: .7rem; }
       .footer-build, .footer-build .commit-hash { font-size: .75rem; }
     }
+    @media (max-width: 420px) {
+      .logo-text span { display: none; }
+    }
 
     /* ─── SECTION TABS ──────────────────────────────────────────── */
     .tabs {
@@ -468,7 +485,7 @@
     .tab {
       padding: .45rem 1.1rem; border-radius: 8px;
       border: none; background: none; cursor: pointer;
-      font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 500;
+      font-family: 'Inter', system-ui, sans-serif; font-size: .85rem; font-weight: 500;
       color: var(--c-text2); transition: all .2s;
     }
     .tab.active {
@@ -1339,7 +1356,7 @@ function applyDefaults() {
   const t = getTheme();
   Chart.defaults.color = t.text2;
   Chart.defaults.borderColor = t.border;
-  Chart.defaults.font.family = "'DM Sans', sans-serif";
+  Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
   Chart.defaults.font.size = window.matchMedia('(max-width: 768px)').matches ? 11 : 12;
   Chart.defaults.plugins.legend.labels.boxRadius = 4;
   Chart.defaults.plugins.legend.labels.padding = 16;
@@ -1458,6 +1475,19 @@ const EMBEDDED_DATA = {
   ],
 };
 
+function loadCSV(key) {
+  // key is e.g. 'data/lizenzen.csv' → extract dataset name
+  const name = key.replace('data/','').replace('.csv','');
+  const map = {
+    lizenzen: 'lizenzen',
+    mitglieder: 'mitglieder',
+    erfolgsrechnung: 'erfolgsrechnung',
+    veranstaltungen: 'veranstaltungen',
+  };
+  return Promise.resolve(EMBEDDED_DATA[map[name]] || []);
+}
+/* ══ Ende EINGEBETTETE DATEN – alles darunter wird von build.js nicht überschrieben ══ */
+
 /* Mitgliederkategorien im Verlauf (Quellen: Jahresberichte 2021 S.35 / 2023 S.53 / 2024 S.53 / 2025 S.68)
    Kategorienamen wurden 2023 umgestellt (2021: Aktivmitglieder→Member mit Club, Einzelmitglieder→Member ohne Club, etc.)
    SIUC-Programm ab 2023. Werte 2021 für SIUC/ATB = ATB Lizenzierte.
@@ -1525,18 +1555,6 @@ const MITGLIED_KAT_2025 = [
   {kat:'Business Member', n:16, paying:true},
   {kat:'Freimitglieder ehrenhalber', n:11, paying:true},
 ];
-
-function loadCSV(key) {
-  // key is e.g. 'data/lizenzen.csv' → extract dataset name
-  const name = key.replace('data/','').replace('.csv','');
-  const map = {
-    lizenzen: 'lizenzen',
-    mitglieder: 'mitglieder',
-    erfolgsrechnung: 'erfolgsrechnung',
-    veranstaltungen: 'veranstaltungen',
-  };
-  return Promise.resolve(EMBEDDED_DATA[map[name]] || []);
-}
 
 // Doppelklick auf Legende → Solo-Modus; einfacher Klick → normales Ein-/Ausblenden.
 // Unterstützt sowohl Balken-/Liniendiagramme (Dataset-Visibility) als auch
@@ -2780,8 +2798,10 @@ function initPersonal() {
 /* ── INIT ALL ───────────────────────────────────────────────── */
 (async () => {
   applyTranslations();
-  await Promise.all([initLizenzen(), initFinanzen(), initVeranstaltungen()]);
-  initPersonal();
+  // Personal uses static data – render it independently so a failure elsewhere can't block it
+  try { initPersonal(); } catch (e) { console.error('initPersonal', e); }
+  const results = await Promise.allSettled([initLizenzen(), initFinanzen(), initVeranstaltungen()]);
+  results.filter(r => r.status === 'rejected').forEach(r => console.error(r.reason));
   // nav active state on scroll – includes sub-anchors like #mitglieder
   const scrollTargets = [
     ...document.querySelectorAll('section'),

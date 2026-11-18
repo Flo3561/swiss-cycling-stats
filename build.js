@@ -65,7 +65,8 @@ function toJS(key, data) {
 
 // ── In index.html einsetzen ──────────────────────────────────
 const htmlPath = path.join(__dirname, 'index.html');
-let html = fs.readFileSync(htmlPath, 'utf-8');
+// Normalize line endings so the markers below also match on Windows checkouts (CRLF)
+let html = fs.readFileSync(htmlPath, 'utf-8').replace(/\r\n/g, '\n');
 
 // Preserve veranstaltungen data written by fetch_events.py (different format, not a plain CSV)
 let vzRaw = 'veranstaltungen: [],';

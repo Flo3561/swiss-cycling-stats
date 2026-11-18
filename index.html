@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Swiss Cycling – Verbandsstatistiken</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="https://cdn.hopjs.net/npm/chart.js@4.4.1/dist/chart.umd.js" integrity="sha384-dug+JxfBvklEQdJ4AYuBBAIScUz0bVN73xpy273gcAwHjb3qI0fXmuYNaNfdyYJG" crossorigin="anonymous"></script>
   <script src="posthog.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.bunny.net" />
+  <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700|manrope:500,600,700,800&display=swap" rel="stylesheet" />
   <style>
     /* ─── DESIGN TOKENS ─────────────────────────────────────────── */
     :root {
@@ -117,7 +117,8 @@
     nav::-webkit-scrollbar { display: none; }
     .logo-mark, .lang-select, .theme-toggle { flex-shrink: 0; }
     .logo-text { white-space: nowrap; }
-    .nav-btn { white-space: nowrap; }
+    .nav-btn { white-space: nowrap; display: inline-flex; align-items: center; gap: .4rem; }
+    .nav-ico { font-size: 1rem; line-height: 1; }
     .nav-btn {
       padding: .4rem .9rem; border-radius: 8px;
       border: none; background: none; cursor: pointer;
@@ -435,9 +436,18 @@
     @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+    /* Medium widths: icon-only menu (labels stay for screen readers, tooltip via title) */
+    @media (max-width: 1100px) {
+      .nav-btn { padding: .45rem .6rem; }
+      .nav-btn .nav-ico { font-size: 1.15rem; }
+      .nav-btn [data-i18n] {
+        position: absolute; width: 1px; height: 1px; overflow: hidden;
+        clip: rect(0 0 0 0); white-space: nowrap;
+      }
+    }
     @media (max-width: 768px) {
       .header-inner { padding: 0 1rem; gap: .75rem; }
-      nav { display: none; }
+      nav { display: none !important; }
       .lang-select { margin-left: auto; }
       .hero { grid-template-columns: 1fr; padding: 2rem 1rem 1rem; }
       .hero-year-range { display: none; }
@@ -523,11 +533,11 @@
       </div>
     </a>
     <nav>
-      <a class="nav-btn active" href="#lizenzen" data-i18n="nav.lizenzen">Lizenzen</a>
-      <a class="nav-btn" href="#mitglieder" data-i18n="nav.mitglieder">Mitglieder</a>
-      <a class="nav-btn" href="#finanzen" data-i18n="nav.finanzen">Finanzen</a>
-      <a class="nav-btn" href="#veranstaltungen" data-i18n="nav.events">Events</a>
-      <a class="nav-btn" href="#personal" data-i18n="nav.personal">Personal</a>
+      <a class="nav-btn active" href="#lizenzen"><span class="nav-ico" aria-hidden="true">🚴</span><span data-i18n="nav.lizenzen">Lizenzen</span></a>
+      <a class="nav-btn" href="#mitglieder"><span class="nav-ico" aria-hidden="true">👤</span><span data-i18n="nav.mitglieder">Mitglieder</span></a>
+      <a class="nav-btn" href="#finanzen"><span class="nav-ico" aria-hidden="true">💰</span><span data-i18n="nav.finanzen">Finanzen</span></a>
+      <a class="nav-btn" href="#veranstaltungen"><span class="nav-ico" aria-hidden="true">🏆</span><span data-i18n="nav.events">Events</span></a>
+      <a class="nav-btn" href="#personal"><span class="nav-ico" aria-hidden="true">👥</span><span data-i18n="nav.personal">Personal</span></a>
     </nav>
     <div class="lang-select" id="langSelect">
       <button class="lang-btn active" data-lang="de">DE</button>
@@ -1302,6 +1312,11 @@ function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const v = tr(el.getAttribute('data-i18n'));
     if (v) el.textContent = v;
+  });
+  // nav tooltips (labels are hidden at medium widths)
+  document.querySelectorAll('.nav-btn').forEach(a => {
+    const label = a.querySelector('[data-i18n]');
+    if (label) a.title = label.textContent;
   });
   // data-i18n-html: innerHTML
   document.querySelectorAll('[data-i18n-html]').forEach(el => {
